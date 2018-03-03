@@ -1,0 +1,56 @@
+{
+  "image": "node:latest",
+  "stages": [
+    "build",
+    "test",
+    "deploy"
+  ],
+  "cache": {
+    "paths": [
+      "node_modules/"
+    ]
+  },
+  "build": {
+    "stage": "build",
+    "script": [
+      "npm install node",
+      "npm install",
+      "npm run build"
+    ],
+    "only": [
+        "master",
+        "dev"
+    ]
+  },
+  "test": {
+    "stage": "test",
+    "script": [
+      "npm install node",
+      "npm install",
+      "npm test"
+    ],
+    "except": [
+      "pages"
+    ],
+    "only": [
+        "master",
+        "dev"
+    ]
+  },
+  "pages": {
+    "stage": "deploy",
+    "environment": "pages",
+    "script": [
+      "npm install",
+      "npm run pages"
+    ],
+    "artifacts": {
+      "paths": [
+        "public"
+      ]
+    },
+    "only": [
+      "pages"
+    ]
+  }
+}
