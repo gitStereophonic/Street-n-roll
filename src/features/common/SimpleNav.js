@@ -13,34 +13,36 @@ export default class SimpleNav extends PureComponent {
   };
 
   renderLinks(items, basePath) {
-    return (
-      <ul>
-        {items.reduce((prev, item) => {
-          if (item.autoIndexRoute) return prev;
-          let path;
-          if (/^\//.test(item.path)) {
-            path = item.path;
-          } else if (basePath === '/') {
-            path = `/${item.path}`;
-          } else {
-            path = `${basePath}/${item.path}`;
-          }
-          prev.push(
-            <li key={path}>
-              <Link to={path}>{item.name || item.path}</Link>
-            </li>
-          );
+    return React.createElement(
+      'ul',
+      null,
+      items.reduce((prev, item) => {
+        if (item.autoIndexRoute) return prev;
+        let path;
+        if (/^\//.test(item.path)) {
+          path = item.path;
+        } else if (basePath === '/') {
+          path = `/${item.path}`;
+        } else {
+          path = `${basePath}/${item.path}`;
+        }
+        prev.push(
+          React.createElement('li', { key: path }, React.createElement(Link, { to: path }, item.name || item.path))
+        );
 
-          if (item.childRoutes && item.childRoutes.length) {
-            prev.push(<li key={`${path}_wrapper`}>{this.renderLinks(item.childRoutes, path)}</li>);
-          }
-          return prev;
-        }, [])}
-      </ul>
+        if (item.childRoutes && item.childRoutes.length) {
+          prev.push(React.createElement('li', { key: `${path}_wrapper` }, this.renderLinks(item.childRoutes, path)));
+        }
+        return prev;
+      }, [])
     );
   }
 
   render() {
-    return <div className="common-simple-nav">{this.renderLinks(this.props.routes[0].childRoutes, '')}</div>;
+    return React.createElement(
+      'div',
+      { className: 'common-simple-nav' },
+      this.renderLinks(this.props.routes[0].childRoutes, '')
+    );
   }
 }
