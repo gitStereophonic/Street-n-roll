@@ -18,20 +18,35 @@ export default class App extends Component {
   };
 
   render() {
-    return (
-      <div className="home-app">
-        <div className="sidebar">
-          <SimpleNav routes={routeConfig} />
-          <p className="memo">
-            Above is a simple navigation tree for you to navigate between pages,
-            it&apos;s generated from the route config so it will be auto updated
-            when you add/remove features or pages.
-          </p>
-        </div>
-        <div className="page-container">
-          {this.props.children}
-        </div>
-      </div>
+    return React.createElement(
+      'div',
+      {
+        className: 'home-app',
+      },
+      React.createElement(
+        'div',
+        {
+          className: 'sidebar',
+        },
+        React.createElement(SimpleNav, {
+          routes: routeConfig,
+        }),
+        React.createElement(
+          'p',
+          {
+            className: 'memo',
+          },
+          'Разработано на основании курсовой работы студентки 1-го курса факультета филологии НИУ-ВШЭ, Казимирской Ольги,' +
+            'для сбора и дальнейшей обработки статистических данных'
+        )
+      ),
+      React.createElement(
+        'div',
+        {
+          className: 'page-container',
+        },
+        this.props.children
+      )
     );
   }
 }
