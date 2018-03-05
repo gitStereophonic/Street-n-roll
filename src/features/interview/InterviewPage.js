@@ -12,6 +12,7 @@ export class InterviewPage extends Component {
 
   render() {
     const { interviewStages, currentIndex, pageContent } = this.props.interview;
+    const { prevPage } = this.props.actions;
 
     console.log(currentIndex);
     return React.createElement(
@@ -24,7 +25,17 @@ export class InterviewPage extends Component {
         { className: 'star-must', style: { visibility: currentIndex > 0 ? 'visible' : 'hidden' } },
         '* - Обязательные поля'
       ),
-      pageContent
+      pageContent,
+      React.createElement(
+        'button',
+        { className: 'prev-btn', style: { visibility: currentIndex > 0 ? 'visible' : 'hidden' }, onClick: prevPage },
+        'Назад'
+      ),
+      React.createElement(
+        'button',
+        { className: 'next-btn', style: { visibility: currentIndex > 0 ? 'visible' : 'hidden' } },
+        'Далее'
+      )
     );
   }
 }
