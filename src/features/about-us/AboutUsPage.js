@@ -4,21 +4,21 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import * as actions from './redux/actions';
 
-export class TestPage extends Component {
+export class AboutUsPage extends Component {
   static propTypes = {
-    home: PropTypes.object.isRequired,
+    aboutUs: PropTypes.object.isRequired,
     actions: PropTypes.object.isRequired,
   };
 
   render() {
-    return React.createElement('div', { className: 'home-test-page' }, 'Page Content: home/TestPage1');
+    return React.createElement('div', { className: 'about-us-about-us-page' }, 'Page Content: about-us/DefaultPage');
   }
 }
 
 /* istanbul ignore next */
 function mapStateToProps(state) {
   return {
-    home: state.home,
+    aboutUs: state.aboutUs,
   };
 }
 
@@ -29,4 +29,4 @@ function mapDispatchToProps(dispatch) {
   };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(TestPage);
+export default connect(mapStateToProps, mapDispatchToProps)(AboutUsPage);
