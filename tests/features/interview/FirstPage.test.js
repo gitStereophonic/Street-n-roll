@@ -1,20 +1,20 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import { expect } from 'chai';
-import { TestPage } from 'src/features/home/TestPage';
+import { FirstPage } from 'src/features/interview/FirstPage';
 
-describe('home/TestPage', () => {
+describe('interview/FirstPage', () => {
   it('renders node with correct class name', () => {
-    const pageProps = {
-      home: {},
+    const props = {
+      interview: {},
       actions: {},
     };
     const renderedComponent = shallow(
-      <TestPage {...pageProps} />
+      <FirstPage {...props} />
     );
 
     expect(
-      renderedComponent.find('.home-test-page').getElement()
+      renderedComponent.find('.interview-first-page').getElement()
     ).to.exist;
   });
 });
