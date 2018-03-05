@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { RedditList } from './';
+import { Link } from 'react-router-dom';
 import { counterPlusOne, counterMinusOne, resetCounter, fetchRedditReactjsList } from './redux/actions';
 
 export class WelcomePage extends Component {
@@ -19,7 +19,29 @@ export class WelcomePage extends Component {
       {
         className: 'home-welcome-page',
       },
-      React.createElement('p', null, 'Добро пожаловать. Опросник здесь! Опросник для каждого!')
+      React.createElement('h1', null, 'Добро пожаловать!'),
+      React.createElement('p', null, 'Этот сайт посвящен уличным музыкантам и их деятельности'),
+      React.createElement('p', null, '<Далее идет какая-нибудь аннотация (например из курсача)>'),
+      React.createElement(
+        'p',
+        null,
+        'На нашем сайте вы можете пройти ',
+        React.createElement(Link, { to: '/interview' }, 'опрос'),
+        ' для пополнения нашей статистики'
+      ),
+      React.createElement(
+        'p',
+        null,
+        'Так же вы можете пройти такой же опрос в формате ',
+        React.createElement(
+          'a',
+          {
+            href: 'https://docs.google.com/forms/d/e/1FAIpQLSfgbtU6aw8DegRCym-9qzt9sWGlN0C-wJmzX55ICs8R3yssgw/viewform',
+            target: '_blank',
+          },
+          'Google Forms'
+        )
+      )
     );
   }
 }
