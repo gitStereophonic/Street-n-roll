@@ -8,9 +8,11 @@
 
 import initialState from './initialState';
 import { reducer as startInterviewReducer } from './startInterview';
+import { reducer as prevPageReducer } from './prevPage';
 
 const reducers = [
   startInterviewReducer,
+  prevPageReducer,
 ];
 
 export default function reducer(state = initialState, action) {

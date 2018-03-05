@@ -2,9 +2,7 @@
 // putting related actions and reducers in one file. See more at:
 // https://medium.com/@nate_wang/a-new-approach-for-managing-redux-actions-91c26ce8b5da
 
-import React from 'react';
 import { INTERVIEW_START_INTERVIEW } from './constants';
-import { FirstPage } from './../';
 
 export function startInterview() {
   return {
