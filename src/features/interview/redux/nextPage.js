@@ -15,7 +15,6 @@ export function nextPage() {
 export function reducer(state, action) {
   switch (action.type) {
     case INTERVIEW_NEXT_PAGE:
-      console.log('next page');
       return {
         ...state,
       };

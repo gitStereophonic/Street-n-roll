@@ -13,7 +13,7 @@ export class FirstPage extends Component {
 
   constructor(props) {
     super(props);
-    this.state = { city: '', age: '', gender: '', eduChosen: '' };
+    this.checkRequired();
 
     this.handleCityValueChange = this.handleCityValueChange.bind(this);
     this.handleAgeOptionChange = this.handleAgeOptionChange.bind(this);
@@ -23,32 +23,35 @@ export class FirstPage extends Component {
   }
 
   handleCityValueChange(changeEvent) {
-    this.setState({ city: changeEvent.target.value });
+    this.props.interview.allFields.city = changeEvent.target.value;
     this.checkRequired();
   }
 
   handleAgeOptionChange(changeEvent) {
-    this.setState({ age: changeEvent.target.value });
+    this.props.interview.allFields.age = changeEvent.target.value;
     this.checkRequired();
   }
 
   handleGenderOptionChange(changeEvent) {
-    this.setState({ gender: changeEvent.target.value });
+    this.props.interview.allFields.gender = changeEvent.target.value;
     this.checkRequired();
   }
 
   handleEduOptionChange(changeEvent) {
-    this.setState({ eduChosen: changeEvent.target.value });
+    this.props.interview.allFields.eduChosen = changeEvent.target.value;
     this.checkRequired();
   }
 
   checkRequired() {
     const green =
-      this.state.city !== '' && this.state.age !== '' && this.state.gender !== '' && this.state.eduChosen !== '';
-    $('.next-btn')[0].disabled = !green;
-    const d = $('.next-btn');
-    console.log(d);
-    console.log(green);
+      this.props.interview.allFields.city !== '' &&
+      this.props.interview.allFields.age !== '' &&
+      this.props.interview.allFields.gender !== '' &&
+      this.props.interview.allFields.eduChosen !== '';
+    const btn = $('.next-btn').last();
+    btn.disabled = !green;
+    if (green) btn.removeClass('btn-disable');
+    else btn.addClass('btn-disable');
   }
 
   render() {
@@ -200,7 +203,7 @@ export class FirstPage extends Component {
             onChange: this.handleEduOptionChange,
           }),
           'Другое: ',
-          React.createElement('input', { id: 'edu', disabled: this.state.eduChosen !== 'other' })
+          React.createElement('input', { id: 'edu', disabled: this.props.interview.allFields.eduChosen !== 'Другое' })
         )
       )
     );
