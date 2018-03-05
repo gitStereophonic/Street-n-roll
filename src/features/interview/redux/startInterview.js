@@ -4,7 +4,7 @@
 
 import React from 'react';
 import { INTERVIEW_START_INTERVIEW } from './constants';
-import FirstPage from './../FirstPage';
+import { FirstPage } from './../';
 
 export function startInterview() {
   return {
@@ -17,7 +17,8 @@ export function reducer(state, action) {
     case INTERVIEW_START_INTERVIEW:
       return {
         ...state,
-        pageContent: React.createElement(FirstPage),
+        currentIndex: state.currentIndex + 1,
+        pageContent: state.interviewStages[state.currentIndex + 1]
       };
 
     default:

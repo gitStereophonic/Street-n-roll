@@ -7,9 +7,11 @@
 // NOTE: initialState constant is necessary so that Rekit could auto add initial state when creating async actions.
 
 import React from 'react';
-import StartPage from './../StartPage';
+import { StartPage, FirstPage } from './../';
 
 const initialState = {
+  interviewStages: [React.createElement(StartPage), React.createElement(FirstPage)],
+  currentIndex: 0,
   pageContent: React.createElement(StartPage),
 };
 

@@ -11,9 +11,21 @@ export class InterviewPage extends Component {
   };
 
   render() {
-    const { pageContent } = this.props.interview;
+    const { interviewStages, currentIndex, pageContent } = this.props.interview;
 
-    return React.createElement('div', { className: 'interview-interview-page' }, pageContent);
+    console.log(currentIndex);
+    return React.createElement(
+      'div',
+      {
+        className: 'interview-interview-page',
+      },
+      React.createElement(
+        'p',
+        { className: 'star-must', style: { visibility: currentIndex > 0 ? 'visible' : 'hidden' } },
+        '* - Обязательные поля'
+      ),
+      pageContent
+    );
   }
 }
 
