@@ -13,7 +13,7 @@ const initialState = {
   interviewStages: [React.createElement(StartPage), React.createElement(FirstPage)],
   currentIndex: 0,
   pageContent: React.createElement(StartPage),
-  allFields: { city: '', age: '', gender: '', eduChosen: '' },
+  allFields: { city: '', age: '', gender: '', eduChosen: '', job: '' },
 };
 
 export default initialState;

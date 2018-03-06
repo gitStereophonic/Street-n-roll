@@ -8,7 +8,6 @@ import * as actions from './redux/actions';
 export class FirstPage extends Component {
   static propTypes = {
     interview: PropTypes.object.isRequired,
-    actions: PropTypes.object.isRequired,
   };
 
   constructor(props) {
@@ -19,6 +18,7 @@ export class FirstPage extends Component {
     this.handleAgeOptionChange = this.handleAgeOptionChange.bind(this);
     this.handleEduOptionChange = this.handleEduOptionChange.bind(this);
     this.handleGenderOptionChange = this.handleGenderOptionChange.bind(this);
+    this.handleJobValueChange = this.handleJobValueChange.bind(this);
     this.checkRequired = this.checkRequired.bind(this);
   }
 
@@ -42,12 +42,18 @@ export class FirstPage extends Component {
     this.checkRequired();
   }
 
+  handleJobValueChange(changeEvent) {
+    this.props.interview.allFields.job = changeEvent.target.value;
+    this.checkRequired();
+  }
+
   checkRequired() {
     const green =
       this.props.interview.allFields.city !== '' &&
       this.props.interview.allFields.age !== '' &&
       this.props.interview.allFields.gender !== '' &&
-      this.props.interview.allFields.eduChosen !== '';
+      this.props.interview.allFields.eduChosen !== '' &&
+      this.props.interview.allFields.job !== '';
     const btn = $('.next-btn').last();
     btn.disabled = !green;
     if (green) btn.removeClass('btn-disable');
@@ -205,6 +211,17 @@ export class FirstPage extends Component {
           'Другое: ',
           React.createElement('input', { id: 'edu', disabled: this.props.interview.allFields.eduChosen !== 'Другое' })
         )
+      ),
+      React.createElement(
+        'div',
+        { className: 'qstn' },
+        React.createElement(
+          'span',
+          null,
+          React.createElement('h3', null, 'Ваш род занятий'),
+          React.createElement('h3', { className: 'must-fill' }, ' *')
+        ),
+        React.createElement('input', { id: 'job', onChange: this.handleJobValueChange })
       )
     );
   }
