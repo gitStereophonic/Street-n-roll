@@ -15,12 +15,21 @@ describe('interview/redux/nextPage', () => {
   });
 
   it('handles action type INTERVIEW_NEXT_PAGE correctly', () => {
-    const prevState = {};
+    const prevState = {
+      interviewStages: [0, 33, 435, 36],
+      currentIndex: 2,
+      pageContent: 2,
+    };
+    const expectedState = {
+      interviewStages: [0, 33, 435, 36],
+      currentIndex: 3,
+      pageContent: 36,
+    };
     const state = reducer(
       prevState,
       { type: INTERVIEW_NEXT_PAGE }
     );
     expect(state).to.not.equal(prevState); // should be immutable
-    expect(state).to.deep.equal(prevState); // TODO: replace this line with real case.
+    expect(state).to.deep.equal(expectedState); // TODO: replace this line with real case.
   });
 });
