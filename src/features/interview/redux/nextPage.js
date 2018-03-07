@@ -11,14 +11,15 @@ export function nextPage() {
 }
 
 export function reducer(state, action) {
-  const curInd = state.currentIndex + 1 < state.interviewStages.count ? state.currentIndex + 1 : state.currentIndex;
+  const newIndex = state.currentIndex + 1 < state.interviewStages.length ? state.currentIndex + 1 : state.currentIndex;
 
   switch (action.type) {
     case INTERVIEW_NEXT_PAGE:
+      console.log('emited next');
       return {
         ...state,
-        currentIndex: curInd,
-        pageContent: state.interviewStages[state.currentIndex + 1],
+        currentIndex: newIndex,
+        pageContent: state.interviewStages[newIndex],
       };
 
     default:

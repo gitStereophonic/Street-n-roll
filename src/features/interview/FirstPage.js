@@ -54,6 +54,7 @@ export class FirstPage extends Component {
   }
 
   checkRequired() {
+    if (this.props.interview.currentIndex !== 1) return;
     const green =
       this.props.interview.firstFields.city !== '' &&
       this.props.interview.firstFields.age !== '' &&
@@ -62,7 +63,6 @@ export class FirstPage extends Component {
       this.props.interview.firstFields.job !== '' &&
       this.props.interview.firstFields.everPlayed !== '';
     const btn = $('.next-btn').last();
-    btn.disabled = !green;
     if (green) btn.removeClass('btn-disable');
     else btn.addClass('btn-disable');
   }

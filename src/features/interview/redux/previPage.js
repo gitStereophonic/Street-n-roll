@@ -2,21 +2,21 @@
 // putting related actions and reducers in one file. See more at:
 // https://medium.com/@nate_wang/a-new-approach-for-managing-redux-actions-91c26ce8b5da
 
-import { INTERVIEW_START_INTERVIEW } from './constants';
+import { INTERVIEW_PREVI_PAGE } from './constants';
 
-export function startInterview() {
+export function previPage() {
   return {
-    type: INTERVIEW_START_INTERVIEW,
+    type: INTERVIEW_PREVI_PAGE,
   };
 }
 
 export function reducer(state, action) {
+  console.log(action);
   switch (action.type) {
-    case INTERVIEW_START_INTERVIEW:
+    case INTERVIEW_PREVI_PAGE:
+      console.log('emit prev');
       return {
         ...state,
-        currentIndex: state.currentIndex + 1,
-        pageContent: state.interviewStages[state.currentIndex + 1],
       };
 
     default:

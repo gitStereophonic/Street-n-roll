@@ -6,7 +6,6 @@ import * as actions from './redux/actions';
 
 export class StartPage extends Component {
   static propTypes = {
-    interview: PropTypes.object.isRequired,
     actions: PropTypes.object.isRequired,
   };
 

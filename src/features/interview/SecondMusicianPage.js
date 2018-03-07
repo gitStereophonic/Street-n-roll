@@ -19,9 +19,9 @@ export class SecondMusicianPage extends Component {
   }
 
   checkRequired() {
-    const green = true;
+    if (this.props.interview.currentIndex !== 2) return;
+    const green = false;
     const btn = $('.next-btn').last();
-    btn.disabled = !green;
     if (green) btn.removeClass('btn-disable');
     else btn.addClass('btn-disable');
   }
