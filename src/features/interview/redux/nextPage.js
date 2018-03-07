@@ -15,7 +15,6 @@ export function reducer(state, action) {
 
   switch (action.type) {
     case INTERVIEW_NEXT_PAGE:
-      console.log('emited next');
       return {
         ...state,
         currentIndex: newIndex,

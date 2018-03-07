@@ -12,7 +12,7 @@ export class InterviewPage extends Component {
 
   render() {
     const { currentIndex, pageContent } = this.props.interview;
-    const { previPage, nextPage } = this.props.actions;
+    const { prevPage, nextPage } = this.props.actions;
 
     return React.createElement(
       'div',
@@ -27,7 +27,7 @@ export class InterviewPage extends Component {
       pageContent,
       React.createElement(
         'button',
-        { className: 'prev-btn', style: { visibility: currentIndex > 0 ? 'visible' : 'hidden' }, onClick: previPage },
+        { className: 'prev-btn', style: { visibility: currentIndex > 0 ? 'visible' : 'hidden' }, onClick: prevPage },
         'Назад'
       ),
       React.createElement(
