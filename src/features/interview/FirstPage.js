@@ -19,41 +19,48 @@ export class FirstPage extends Component {
     this.handleEduOptionChange = this.handleEduOptionChange.bind(this);
     this.handleGenderOptionChange = this.handleGenderOptionChange.bind(this);
     this.handleJobValueChange = this.handleJobValueChange.bind(this);
+    this.handleEverPlayedOptionChange = this.handleEverPlayedOptionChange.bind(this);
     this.checkRequired = this.checkRequired.bind(this);
   }
 
   handleCityValueChange(changeEvent) {
-    this.props.interview.allFields.city = changeEvent.target.value;
+    this.props.interview.firstFields.city = changeEvent.target.value;
     this.checkRequired();
   }
 
   handleAgeOptionChange(changeEvent) {
-    this.props.interview.allFields.age = changeEvent.target.value;
+    this.props.interview.firstFields.age = changeEvent.target.value;
     this.checkRequired();
   }
 
   handleGenderOptionChange(changeEvent) {
-    this.props.interview.allFields.gender = changeEvent.target.value;
+    this.props.interview.firstFields.gender = changeEvent.target.value;
     this.checkRequired();
   }
 
   handleEduOptionChange(changeEvent) {
-    this.props.interview.allFields.eduChosen = changeEvent.target.value;
+    this.props.interview.firstFields.edu = changeEvent.target.value;
     this.checkRequired();
   }
 
   handleJobValueChange(changeEvent) {
-    this.props.interview.allFields.job = changeEvent.target.value;
+    this.props.interview.firstFields.job = changeEvent.target.value;
+    this.checkRequired();
+  }
+
+  handleEverPlayedOptionChange(changeEvent) {
+    this.props.interview.firstFields.everPlayed = changeEvent.target.value;
     this.checkRequired();
   }
 
   checkRequired() {
     const green =
-      this.props.interview.allFields.city !== '' &&
-      this.props.interview.allFields.age !== '' &&
-      this.props.interview.allFields.gender !== '' &&
-      this.props.interview.allFields.eduChosen !== '' &&
-      this.props.interview.allFields.job !== '';
+      this.props.interview.firstFields.city !== '' &&
+      this.props.interview.firstFields.age !== '' &&
+      this.props.interview.firstFields.gender !== '' &&
+      this.props.interview.firstFields.edu !== '' &&
+      this.props.interview.firstFields.job !== '' &&
+      this.props.interview.firstFields.everPlayed !== '';
     const btn = $('.next-btn').last();
     btn.disabled = !green;
     if (green) btn.removeClass('btn-disable');
@@ -209,7 +216,7 @@ export class FirstPage extends Component {
             onChange: this.handleEduOptionChange,
           }),
           'Другое: ',
-          React.createElement('input', { id: 'edu', disabled: this.props.interview.allFields.eduChosen !== 'Другое' })
+          React.createElement('input', { id: 'edu', disabled: this.props.interview.firstFields.edu !== 'Другое' })
         )
       ),
       React.createElement(
@@ -222,6 +229,35 @@ export class FirstPage extends Component {
           React.createElement('h3', { className: 'must-fill' }, ' *')
         ),
         React.createElement('input', { id: 'job', onChange: this.handleJobValueChange })
+      ),
+      React.createElement(
+        'div',
+        { className: 'qstn' },
+        React.createElement(
+          'span',
+          null,
+          React.createElement('h3', null, 'Играли ли Вы когда-нибудь на улице?'),
+          React.createElement('h3', { className: 'must-fill' }, ' *')
+        ),
+        React.createElement(
+          'div',
+          { className: 'radio-group' },
+          React.createElement('input', {
+            type: 'radio',
+            name: 'everPlayed',
+            value: 'Да, бывало',
+            onChange: this.handleEverPlayedOptionChange,
+          }),
+          'Да, бывало',
+          React.createElement('br'),
+          React.createElement('input', {
+            type: 'radio',
+            name: 'everPlayed',
+            value: 'Нет, никогда',
+            onChange: this.handleEverPlayedOptionChange,
+          }),
+          'Нет, никогда'
+        )
       )
     );
   }

@@ -5,7 +5,7 @@ import { FirstPage } from 'src/features/interview/FirstPage';
 
 const props = {
   interview: {
-    allFields: {
+    firstFields: {
       city: 'Moscow',
       age: '18',
       gender: 'female',
