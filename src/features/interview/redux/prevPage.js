@@ -11,7 +11,7 @@ export function prevPage() {
 }
 
 export function reducer(state, action) {
-  const newIndex = state.currentIndex > 0 ? state.currentIndex - 1 : state.currentIndex;
+  const newIndex = state.keyValues[state.currentIndex].back;
 
   switch (action.type) {
     case INTERVIEW_PREV_PAGE:
