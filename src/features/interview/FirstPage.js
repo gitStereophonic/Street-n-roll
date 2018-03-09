@@ -71,7 +71,8 @@ export class FirstPage extends Component {
     return React.createElement(
       'div',
       { className: 'interview-first-page' },
-      React.createElement('h1', null, '... и так, начнем!'),
+      React.createElement('img', { className: 'page-head-img', src: '../../images/first_quiz.jpg', alt: 'page image' }),
+      React.createElement('h1', null, '... итак, начнем!'),
       React.createElement(
         'div',
         { className: 'qstn' },

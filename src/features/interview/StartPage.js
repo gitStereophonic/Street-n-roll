@@ -14,6 +14,7 @@ export class StartPage extends Component {
     return React.createElement(
       'div',
       { className: 'interview-start-page' },
+      React.createElement('img', { className: 'start-img', src: './../../images/start_img.png', alt: 'start' }),
       React.createElement('h1', null, 'Опрос: уличные музыканты'),
       React.createElement('p', null, 'Приготовьтесь, это будет долго...'),
       React.createElement('button', { onClick: startInterview }, 'Приступить')

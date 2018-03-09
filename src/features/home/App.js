@@ -36,8 +36,9 @@ export default class App extends Component {
           {
             className: 'memo',
           },
-          'Разработано на основании курсовой работы студентки 1-го курса факультета филологии НИУ-ВШЭ, Казимирской Ольги, ' +
-            'для сбора и дальнейшей обработки статистических данных'
+          '@CapralPikaChu',
+          React.createElement('br'),
+          '@gitStereophonic'
         )
       ),
       React.createElement(
