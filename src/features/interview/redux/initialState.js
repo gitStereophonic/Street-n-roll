@@ -15,6 +15,13 @@ const initialState = {
   pageContent: React.createElement(StartPage),
   firstFields: { city: '', age: '', gender: '', edu: '', job: '' },
   secondFields: { everPlayed: '' },
+  keyValues: [
+    { yep: 1, nope: -1, back: -1 },
+    { yep: 2, nope: -1, back: 0 },
+    { yep: 6, nope: 3, back: 1 },
+    { yep: 4, nope: -1, back: 2 },
+  ],
+  currentKeyValue: '',
 };
 
 export default initialState;

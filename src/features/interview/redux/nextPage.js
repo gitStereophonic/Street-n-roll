@@ -11,7 +11,11 @@ export function nextPage() {
 }
 
 export function reducer(state, action) {
-  const newIndex = state.currentIndex + 1 < state.interviewStages.length ? state.currentIndex + 1 : state.currentIndex;
+  const key = state.keyValues[state.currentIndex];
+  let newIndex = key.yep;
+  if (key.nope !== -1) {
+    newIndex = state.currentKeyValue === 'yep' ? key.yep : key.nope;
+  }
 
   switch (action.type) {
     case INTERVIEW_NEXT_PAGE:
