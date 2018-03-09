@@ -19,7 +19,6 @@ export class FirstPage extends Component {
     this.handleEduOptionChange = this.handleEduOptionChange.bind(this);
     this.handleGenderOptionChange = this.handleGenderOptionChange.bind(this);
     this.handleJobValueChange = this.handleJobValueChange.bind(this);
-    this.handleEverPlayedOptionChange = this.handleEverPlayedOptionChange.bind(this);
     this.checkRequired = this.checkRequired.bind(this);
   }
 
@@ -48,11 +47,6 @@ export class FirstPage extends Component {
     this.checkRequired();
   }
 
-  handleEverPlayedOptionChange(changeEvent) {
-    this.props.interview.firstFields.everPlayed = changeEvent.target.value;
-    this.checkRequired();
-  }
-
   checkRequired() {
     if (this.props.interview.currentIndex !== 1) return;
     const green =
@@ -60,8 +54,7 @@ export class FirstPage extends Component {
       this.props.interview.firstFields.age !== '' &&
       this.props.interview.firstFields.gender !== '' &&
       this.props.interview.firstFields.edu !== '' &&
-      this.props.interview.firstFields.job !== '' &&
-      this.props.interview.firstFields.everPlayed !== '';
+      this.props.interview.firstFields.job !== '';
     const btn = $('.next-btn').last();
     if (green) btn.removeClass('btn-disable');
     else btn.addClass('btn-disable');
@@ -230,35 +223,6 @@ export class FirstPage extends Component {
           React.createElement('h3', { className: 'must-fill' }, ' *')
         ),
         React.createElement('input', { id: 'job', onChange: this.handleJobValueChange })
-      ),
-      React.createElement(
-        'div',
-        { className: 'qstn' },
-        React.createElement(
-          'span',
-          null,
-          React.createElement('h3', null, 'Играли ли Вы когда-нибудь на улице?'),
-          React.createElement('h3', { className: 'must-fill' }, ' *')
-        ),
-        React.createElement(
-          'div',
-          { className: 'radio-group' },
-          React.createElement('input', {
-            type: 'radio',
-            name: 'everPlayed',
-            value: 'Да, бывало',
-            onChange: this.handleEverPlayedOptionChange,
-          }),
-          'Да, бывало',
-          React.createElement('br'),
-          React.createElement('input', {
-            type: 'radio',
-            name: 'everPlayed',
-            value: 'Нет, никогда',
-            onChange: this.handleEverPlayedOptionChange,
-          }),
-          'Нет, никогда'
-        )
       )
     );
   }
