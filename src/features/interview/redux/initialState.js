@@ -15,6 +15,7 @@ import {
   FourthListenerPage,
   FifthListenerPage,
   SixthListenerPage,
+  SeventhMusicianPage,
 } from './../';
 
 const initialState = {
@@ -26,6 +27,7 @@ const initialState = {
     React.createElement(FourthListenerPage),
     React.createElement(FifthListenerPage),
     React.createElement(SixthListenerPage),
+    React.createElement(SeventhMusicianPage),
   ],
   currentIndex: 0,
   pageContent: React.createElement(StartPage),
@@ -43,6 +45,7 @@ const initialState = {
     { yep: 5, nope: -1, back: 3 },
     { yep: 6, nope: -1, back: 4 },
     { yep: 21, nope: -1, back: 5 },
+    { yep: 8, nope: -1, back: 2 },
   ],
   currentKeyValue: '',
   backDoor: true,
