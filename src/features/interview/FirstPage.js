@@ -49,12 +49,16 @@ export class FirstPage extends Component {
 
   checkRequired() {
     if (this.props.interview.currentIndex !== 1) return;
-    const green =
+    let green =
       this.props.interview.firstFields.city !== '' &&
       this.props.interview.firstFields.age !== '' &&
       this.props.interview.firstFields.gender !== '' &&
       this.props.interview.firstFields.edu !== '' &&
       this.props.interview.firstFields.job !== '';
+
+    // TODO: Remove this at every page when release
+    if (this.props.interview.backDoor) green = true;
+
     const btn = $('.next-btn').last();
     if (green) btn.removeClass('btn-disable');
     else btn.addClass('btn-disable');
@@ -64,7 +68,7 @@ export class FirstPage extends Component {
     return React.createElement(
       'div',
       { className: 'interview-first-page' },
-      React.createElement('img', { className: 'page-head-img', src: '../../images/first_quiz.jpg', alt: 'page image' }),
+      React.createElement('img', { className: 'page-head-img', src: '../../images/first_img.jpg', alt: 'page image' }),
       React.createElement('h1', null, '... итак, начнем!'),
       React.createElement(
         'div',

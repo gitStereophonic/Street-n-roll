@@ -2,13 +2,49 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import $ from 'jquery';
 import * as actions from './redux/actions';
 
 export class ThirdListenerPage extends Component {
   static propTypes = {
     interview: PropTypes.object.isRequired,
-    actions: PropTypes.object.isRequired,
   };
+
+  constructor(props) {
+    super(props);
+    this.checkRequired();
+
+    this.handleInterestValueChanged = this.handleInterestValueChanged.bind(this);
+    this.handleWhoValueChanged = this.handleWhoValueChanged.bind(this);
+    this.checkRequired = this.checkRequired.bind(this);
+  }
+
+  checkRequired() {
+    if (this.props.interview.currentIndex !== 3) return;
+    let green = this.props.interview.thirdFields.who !== '';
+
+    // TODO: Remove this at every page when release
+    if (this.props.interview.backDoor) green = true;
+
+    const btn = $('.next-btn').last();
+    if (green) btn.removeClass('btn-disable');
+    else btn.addClass('btn-disable');
+  }
+
+  handleInterestValueChanged(changeEvent) {
+    this.props.interview.thirdFields.interest = changeEvent.target.value;
+    this.checkRequired();
+  }
+
+  handleWhoValueChanged(changeEvent) {
+    this.props.interview.thirdFields.who = changeEvent.target.value;
+    this.checkRequired();
+  }
+
+  handleMoneyValueChanged(changeEvent) {
+    this.props.interview.thirdFields.money = changeEvent.target.value;
+    this.checkRequired();
+  }
 
   render() {
     return React.createElement(
@@ -31,7 +67,7 @@ export class ThirdListenerPage extends Component {
           min: 0,
           max: 6,
           defaultValue: 3,
-          onChange: this.handleEverPlayedOptionChange,
+          onChange: this.handleInterestValueChanged,
         }),
         'Играют огонь! Каждый раз останавливаюсь'
       ),
@@ -41,14 +77,21 @@ export class ThirdListenerPage extends Component {
         React.createElement(
           'span',
           null,
-          React.createElement('h3', null, 'Кто такие, на Ваш взгляд, уличные музыканты?')
+          React.createElement('h3', null, 'Кто такие, на Ваш взгляд, уличные музыканты?'),
+          React.createElement('h3', { className: 'must-fill' }, ' *')
         ),
         React.createElement(
           'p',
           null,
           'Что это за люди, какими они должны быть, честны ли они, симпатизируете ли Вы им?'
         ),
-        React.createElement('input', { id: 'who', onChange: this.handleCityValueChange })
+        React.createElement('input', { id: 'who', onChange: this.handleWhoValueChanged })
+      ),
+      React.createElement(
+        'div',
+        { className: 'qstn' },
+        React.createElement('span', null, React.createElement('h3', null, 'Даете ли Вы деньги музыкантам и почему?')),
+        React.createElement('input', { id: 'money', onChange: this.handleWhoValueChanged })
       )
     );
   }

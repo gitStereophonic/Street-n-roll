@@ -20,12 +20,17 @@ export class SecondPage extends Component {
 
   handleEverPlayedOptionChange(changeEvent) {
     this.props.interview.secondFields.everPlayed = changeEvent.target.value;
+    this.props.interview.currentKeyValue = changeEvent.target.value;
     this.checkRequired();
   }
 
   checkRequired() {
     if (this.props.interview.currentIndex !== 2) return;
-    const green = this.props.interview.secondFields.everPlayed !== '';
+    let green = this.props.interview.secondFields.everPlayed !== '';
+
+    // TODO: Remove this at every page when release
+    if (this.props.interview.backDoor) green = true;
+
     const btn = $('.next-btn').last();
     if (green) btn.removeClass('btn-disable');
     else btn.addClass('btn-disable');
@@ -55,7 +60,7 @@ export class SecondPage extends Component {
           React.createElement('input', {
             type: 'radio',
             name: 'everPlayed',
-            value: 'Да, бывало',
+            value: 'yep',
             onChange: this.handleEverPlayedOptionChange,
           }),
           'Да, бывало',
@@ -63,7 +68,7 @@ export class SecondPage extends Component {
           React.createElement('input', {
             type: 'radio',
             name: 'everPlayed',
-            value: 'Нет, никогда',
+            value: 'nope',
             onChange: this.handleEverPlayedOptionChange,
           }),
           'Нет, никогда'
