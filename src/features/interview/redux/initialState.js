@@ -37,6 +37,7 @@ const initialState = {
   fourthFields: { songs: '' },
   fifthFields: { sign: '', traditions: '' },
   sixthFields: { experience: '' },
+  seventhFields: { hobbie: '', rather: '' },
   keyValues: [
     { yep: 1, nope: -1, back: -1 },
     { yep: 2, nope: -1, back: 0 },
@@ -45,7 +46,7 @@ const initialState = {
     { yep: 5, nope: -1, back: 3 },
     { yep: 6, nope: -1, back: 4 },
     { yep: 21, nope: -1, back: 5 },
-    { yep: 8, nope: -1, back: 2 },
+    { yep: 9, nope: 8, back: 2 },
   ],
   currentKeyValue: '',
   backDoor: true,

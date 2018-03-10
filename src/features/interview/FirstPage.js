@@ -40,6 +40,11 @@ export class FirstPage extends Component {
   handleEduOptionChange(changeEvent) {
     this.props.interview.firstFields.edu = changeEvent.target.value;
     this.checkRequired();
+    const inp = $('#edu');
+    if (inp) {
+      if (changeEvent.target.value === 'other') inp.removeClass('inviz');
+      else inp.addClass('inviz');
+    }
   }
 
   handleJobValueChange(changeEvent) {
@@ -210,11 +215,14 @@ export class FirstPage extends Component {
           React.createElement('input', {
             type: 'radio',
             name: 'edu',
-            value: 'Другое',
+            value: 'other',
             onChange: this.handleEduOptionChange,
           }),
           'Другое: ',
-          React.createElement('input', { id: 'edu', disabled: this.props.interview.firstFields.edu !== 'Другое' })
+          React.createElement('input', {
+            id: 'edu',
+            className: 'inviz',
+          })
         )
       ),
       React.createElement(
