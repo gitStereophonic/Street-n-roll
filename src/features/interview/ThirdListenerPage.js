@@ -14,7 +14,8 @@ export class ThirdListenerPage extends Component {
     return React.createElement(
       'div',
       { className: 'interview-third-listener-page' },
-      'Вы - мирный житель'
+      React.createElement('h1', null, 'Вы мирный житель'),
+      React.createElement('img', { className: 'page-head-img', src: '../../images/third_img.jpg', alt: 'page image' }),
     );
   }
 }

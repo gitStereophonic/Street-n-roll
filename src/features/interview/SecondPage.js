@@ -35,6 +35,11 @@ export class SecondPage extends Component {
     return React.createElement(
       'div',
       { className: 'interview-second-page' },
+      React.createElement('img', {
+        className: 'page-head-img',
+        src: './../../images/second_img.jpg',
+        alt: 's image',
+      }),
       React.createElement(
         'div',
         { className: 'qstn' },

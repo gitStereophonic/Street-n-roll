@@ -7,10 +7,15 @@
 // NOTE: initialState constant is necessary so that Rekit could auto add initial state when creating async actions.
 
 import React from 'react';
-import { StartPage, FirstPage, SecondPage } from './../';
+import { StartPage, FirstPage, SecondPage, ThirdListenerPage } from './../';
 
 const initialState = {
-  interviewStages: [React.createElement(StartPage), React.createElement(FirstPage), React.createElement(SecondPage)],
+  interviewStages: [
+    React.createElement(StartPage),
+    React.createElement(FirstPage),
+    React.createElement(SecondPage),
+    React.createElement(ThirdListenerPage),
+  ],
   currentIndex: 0,
   pageContent: React.createElement(StartPage),
   firstFields: { city: '', age: '', gender: '', edu: '', job: '' },
@@ -20,6 +25,7 @@ const initialState = {
     { yep: 2, nope: -1, back: 0 },
     { yep: 6, nope: 3, back: 1 },
     { yep: 4, nope: -1, back: 2 },
+    { yep: 5, nope: -1, back: 3 },
   ],
   currentKeyValue: '',
 };
