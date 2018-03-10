@@ -34,6 +34,21 @@ export class ThirdListenerPage extends Component {
           onChange: this.handleEverPlayedOptionChange,
         }),
         'Играют огонь! Каждый раз останавливаюсь'
+      ),
+      React.createElement(
+        'div',
+        { className: 'qstn' },
+        React.createElement(
+          'span',
+          null,
+          React.createElement('h3', null, 'Кто такие, на Ваш взгляд, уличные музыканты?')
+        ),
+        React.createElement(
+          'p',
+          null,
+          'Что это за люди, какими они должны быть, честны ли они, симпатизируете ли Вы им?'
+        ),
+        React.createElement('input', { id: 'who', onChange: this.handleCityValueChange })
       )
     );
   }
