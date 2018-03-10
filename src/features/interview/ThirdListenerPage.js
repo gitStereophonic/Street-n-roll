@@ -16,6 +16,25 @@ export class ThirdListenerPage extends Component {
       { className: 'interview-third-listener-page' },
       React.createElement('h1', null, 'Вы мирный житель'),
       React.createElement('img', { className: 'page-head-img', src: '../../images/third_img.jpg', alt: 'page image' }),
+      React.createElement(
+        'div',
+        { className: 'qstn' },
+        React.createElement(
+          'span',
+          null,
+          React.createElement('h3', null, 'Насколько интересует Вас уличная музыка и ее исполнители?')
+        ),
+        'Шли бы все эти дармоеды работать!',
+        React.createElement('input', {
+          type: 'range',
+          name: 'everPlayed',
+          min: 0,
+          max: 6,
+          defaultValue: 3,
+          onChange: this.handleEverPlayedOptionChange,
+        }),
+        'Играют огонь! Каждый раз останавливаюсь'
+      )
     );
   }
 }
