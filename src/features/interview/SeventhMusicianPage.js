@@ -15,6 +15,7 @@ export class SeventhMusicianPage extends Component {
     this.checkRequired();
 
     this.handleHobbieOptionChange = this.handleHobbieOptionChange.bind(this);
+    this.handleRatherOptionChanged = this.handleRatherOptionChanged.bind(this);
     this.checkRequired = this.checkRequired.bind(this);
   }
 

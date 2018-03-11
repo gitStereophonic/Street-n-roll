@@ -7,3 +7,4 @@ export { default as FourthListenerPage } from './FourthListenerPage';
 export { default as FifthListenerPage } from './FifthListenerPage';
 export { default as SixthListenerPage } from './SixthListenerPage';
 export { default as SeventhMusicianPage } from './SeventhMusicianPage';
+export { default as EighthMusicianPage } from './EighthMusicianPage';
