@@ -58,7 +58,7 @@ export class FifthListenerPage extends Component {
           React.createElement('h3', { className: 'must-fill' }, ' *')
         ),
         React.createElement('p', null, 'Например, "встретить менестреля - к удаче"'),
-        React.createElement('input', { id: 'sign', type: 'text', onChange: this.handleSignValueChanged })
+        React.createElement('textarea', { id: 'sign', onChange: this.handleSignValueChanged })
       ),
       React.createElement(
         'div',

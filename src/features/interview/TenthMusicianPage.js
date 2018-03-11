@@ -15,12 +15,14 @@ export class TenthMusicianPage extends Component {
     this.checkRequired();
 
     this.handleOfficialOptionChange = this.handleOfficialOptionChange.bind(this);
+    this.handleWoComValueChanged = this.handleWoComValueChanged.bind(this);
+    this.handleHowJoinValueChanged = this.handleHowJoinValueChanged.bind(this);
     this.checkRequired = this.checkRequired.bind(this);
   }
 
   checkRequired() {
     if (this.props.interview.currentIndex !== 10) return;
-    let green = this.props.interview.tenthFields.official !== '';
+    let green = this.props.interview.tenthFields.official !== '' && this.props.interview.tenthFields.howjoin !== '';
 
     // TODO: Remove this at every page when release
     if (this.props.interview.backDoor) green = true;
@@ -39,6 +41,16 @@ export class TenthMusicianPage extends Component {
       if (changeEvent.target.value === 'other') inp.removeClass('inviz');
       else inp.addClass('inviz');
     }
+  }
+
+  handleWoComValueChanged(changeEvent) {
+    this.props.interview.tenthFields.wocom = changeEvent.target.value;
+    this.checkRequired();
+  }
+
+  handleHowJoinValueChanged(changeEvent) {
+    this.props.interview.tenthFields.howjoin = changeEvent.target.value;
+    this.checkRequired();
   }
 
   render() {
@@ -84,6 +96,35 @@ export class TenthMusicianPage extends Component {
           'Другое: ',
           React.createElement('input', { id: 'official', className: 'inviz' })
         )
+      ),
+      React.createElement(
+        'div',
+        { className: 'qstn' },
+        React.createElement(
+          'span',
+          null,
+          React.createElement('h3', null, 'Может ли уличный музыкант не состоять в сообществе?')
+        ),
+        React.createElement('p', null, 'Представляет ли это неудобства?'),
+        React.createElement('input', { id: 'wocom', onChange: this.handleWoComValueChanged })
+      ),
+      React.createElement(
+        'div',
+        { className: 'qstn' },
+        React.createElement(
+          'span',
+          null,
+          React.createElement('h3', null, 'Как в него вступить?'),
+          React.createElement('h3', { className: 'must-fill' }, ' *')
+        ),
+        React.createElement('textarea', { id: 'howjoin', onChange: this.handleHowJoinValueChanged })
+      ),
+      React.createElement(
+        'div',
+        { className: 'qstn' },
+        React.createElement('span', null, React.createElement('h3', null, 'Какие выгоды приобретает член сообщества?')),
+        React.createElement('p', null, 'Плюшечки ^_^'),
+        React.createElement('textarea', { id: 'cookies', onChange: this.handleCookiesValueChanged })
       )
     );
   }
