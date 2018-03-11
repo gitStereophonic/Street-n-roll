@@ -41,6 +41,12 @@ export class SeventhMusicianPage extends Component {
     }
   }
 
+  handleRatherOptionChanged(changeEvent) {
+    this.props.interview.seventhFields.rather = changeEvent.target.value;
+    this.props.interview.currentKeyValue = changeEvent.target.value;
+    this.checkRequired();
+  }
+
   render() {
     return React.createElement(
       'div',
@@ -88,6 +94,59 @@ export class SeventhMusicianPage extends Component {
           }),
           'Другое: ',
           React.createElement('input', { id: 'hobbie', className: 'inviz' })
+        )
+      ),
+      React.createElement(
+        'div',
+        { className: 'qstn' },
+        React.createElement(
+          'span',
+          null,
+          React.createElement('h3', null, 'Как часто Вы играете на улицах?'),
+          React.createElement('h3', { className: 'must-fill' }, ' *')
+        ),
+        React.createElement(
+          'div',
+          { className: 'radio-group' },
+          React.createElement('input', {
+            type: 'radio',
+            name: 'rather',
+            value: 'yep',
+            onChange: this.handleRatherOptionChanged,
+          }),
+          'Постоянно, жить без этого не могу, каждый день гоняю',
+          React.createElement('br'),
+          React.createElement('input', {
+            type: 'radio',
+            name: 'rather',
+            value: 'yep',
+            onChange: this.handleRatherOptionChanged,
+          }),
+          'Ну так, по настроению',
+          React.createElement('br'),
+          React.createElement('input', {
+            type: 'radio',
+            name: 'rather',
+            value: 'yep',
+            onChange: this.handleRatherOptionChanged,
+          }),
+          'С некоторой периодичностью: раз в неделю, раз в месяц',
+          React.createElement('br'),
+          React.createElement('input', {
+            type: 'radio',
+            name: 'rather',
+            value: 'yep',
+            onChange: this.handleRatherOptionChanged,
+          }),
+          'Да один только раз было всего!',
+          React.createElement('br'),
+          React.createElement('input', {
+            type: 'radio',
+            name: 'rather',
+            value: 'nope',
+            onChange: this.handleRatherOptionChanged,
+          }),
+          'Завязал, больше не гоняю...'
         )
       )
     );
