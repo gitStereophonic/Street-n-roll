@@ -13,3 +13,4 @@ export { default as TenthMusicianPage } from './TenthMusicianPage';
 export { default as EleventhMusicianPage } from './EleventhMusicianPage';
 export { default as TwelfthMusicianPage } from './TwelfthMusicianPage';
 export { default as ThirteenthMusicianPage } from './ThirteenthMusicianPage';
+export { default as FourteenthMusicianPage } from './FourteenthMusicianPage';
