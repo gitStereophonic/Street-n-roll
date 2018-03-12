@@ -30,6 +30,7 @@ import {
   NineteenthMusicianPage,
   TwentiethMusicianPage,
   TwentyFirstMusicianPage,
+  FinishPage,
 } from './../';
 
 const initialState = {
@@ -56,6 +57,7 @@ const initialState = {
     React.createElement(NineteenthMusicianPage),
     React.createElement(TwentiethMusicianPage),
     React.createElement(TwentyFirstMusicianPage),
+    React.createElement(FinishPage),
   ],
   currentIndex: 0,
   pageContent: React.createElement(StartPage),
@@ -103,6 +105,7 @@ const initialState = {
     { yep: 20, nope: -1, back: 18 },
     { yep: 21, nope: -1, back: 19 },
     { yep: 21, nope: -1, back: 20 },
+    { yep: 22, nope: 22, back: 22 },
   ],
   currentKeyValue: '',
   lastPage: 21,

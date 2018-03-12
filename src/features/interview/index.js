@@ -21,3 +21,4 @@ export { default as EighteenthMusicianPage } from './EighteenthMusicianPage';
 export { default as NineteenthMusicianPage } from './NineteenthMusicianPage';
 export { default as TwentiethMusicianPage } from './TwentiethMusicianPage';
 export { default as TwentyFirstMusicianPage } from './TwentyFirstMusicianPage';
+export { default as FinishPage } from './FinishPage';
