@@ -22,6 +22,12 @@ export class SecondPage extends Component {
   handleEverPlayedOptionChange(changeEvent) {
     this.props.interview.secondFields.everPlayed = changeEvent.target.value;
     this.props.interview.currentKeyValue = changeEvent.target.value;
+    if (changeEvent.target.value === 'yep') {
+      this.props.interview.keyValues[this.props.interview.lastPage].back = this.props.interview.lastPage - 1;
+    } else {
+      this.props.interview.keyValues[this.props.interview.lastPage].back =
+        this.props.interview.keyValues[this.props.interview.currentIndex].yep - 1;
+    }
     this.checkRequired();
   }
 
