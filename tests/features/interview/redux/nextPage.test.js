@@ -1,14 +1,8 @@
 import { expect } from 'chai';
-import React from 'react';
 
-import {
-  INTERVIEW_NEXT_PAGE,
-} from 'src/features/interview/redux/constants';
+import { INTERVIEW_NEXT_PAGE } from 'src/features/interview/redux/constants';
 
-import {
-  nextPage,
-  reducer,
-} from 'src/features/interview/redux/nextPage';
+import { nextPage, reducer } from 'src/features/interview/redux/nextPage';
 
 describe('interview/redux/nextPage', () => {
   it('returns correct action by nextPage', () => {
@@ -20,16 +14,25 @@ describe('interview/redux/nextPage', () => {
       interviewStages: [0, 33, 435, 36],
       currentIndex: 2,
       pageContent: 2,
+      keyValues: [
+        { yep: 1, nope: 2, back: 0 },
+        { yep: 2, nope: 0, back: 0 },
+        { yep: 3, nope: -1, back: 1 },
+        { yep: 3, nope: 0, back: 2 },
+      ],
     };
     const expectedState = {
       interviewStages: [0, 33, 435, 36],
       currentIndex: 3,
       pageContent: 36,
+      keyValues: [
+        { yep: 1, nope: 2, back: 0 },
+        { yep: 2, nope: 0, back: 0 },
+        { yep: 3, nope: -1, back: 1 },
+        { yep: 3, nope: 0, back: 2 },
+      ],
     };
-    const state = reducer(
-      prevState,
-      { type: INTERVIEW_NEXT_PAGE }
-    );
+    const state = reducer(prevState, { type: INTERVIEW_NEXT_PAGE });
     expect(state).to.not.equal(prevState); // should be immutable
     expect(state).to.deep.equal(expectedState); // TODO: replace this line with real case.
   });

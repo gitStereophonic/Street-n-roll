@@ -7,6 +7,12 @@ describe('interview/redux/reducer', () => {
       interviewStages: [0, 33, 435, 36],
       currentIndex: 2,
       pageContent: 2,
+      keyValues: [
+        { yep: 1, nope: 2, back: 0 },
+        { yep: 2, nope: 0, back: 0 },
+        { yep: 3, nope: -1, back: 1 },
+        { yep: 3, nope: 0, back: 2 },
+      ],
     };
     const state = reducer(
       prevState,
