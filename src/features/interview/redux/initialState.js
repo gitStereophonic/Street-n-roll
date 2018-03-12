@@ -23,6 +23,7 @@ import {
   TwelfthMusicianPage,
   ThirteenthMusicianPage,
   FourteenthMusicianPage,
+  FifteenthMusicianPage,
 } from './../';
 
 const initialState = {
@@ -42,6 +43,7 @@ const initialState = {
     React.createElement(TwelfthMusicianPage),
     React.createElement(ThirteenthMusicianPage),
     React.createElement(FourteenthMusicianPage),
+    React.createElement(FifteenthMusicianPage),
   ],
   currentIndex: 0,
   pageContent: React.createElement(StartPage),
@@ -59,6 +61,7 @@ const initialState = {
   twelfthFields: { reasons: '', where: '', whywhere: '', meetingtime: ['', '', '', '', ''] },
   thirteenthFields: { place: '', descplace: '', time: '' },
   fourteenthFields: { whatplay: '', whythisplay: '', placeplay: '' },
+  fifteenthFields: { howcome: '', howleave: '', firstmoney: '', talk: '' },
   keyValues: [
     { yep: 1, nope: -1, back: -1 },
     { yep: 2, nope: -1, back: 0 },
@@ -75,6 +78,7 @@ const initialState = {
     { yep: 13, nope: -1, back: 11 },
     { yep: 14, nope: -1, back: 11 },
     { yep: 15, nope: -1, back: 13 },
+    { yep: 16, nope: -1, back: 14 },
   ],
   currentKeyValue: '',
   backDoor: true,
