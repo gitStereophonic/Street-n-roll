@@ -22,7 +22,14 @@ function renderRouteConfigV3(Container, routes, contextPath) {
     if (item.component && item.childRoutes) {
       children.push(renderRouteConfigV3(item.component, item.childRoutes, newContextPath));
     } else if (item.component) {
-      children.push(<Route key={newContextPath} component={item.component} path={newContextPath} exact />);
+      children.push(
+        React.createElement(Route, {
+          key: newContextPath,
+          component: item.component,
+          path: newContextPath,
+          exact: true,
+        })
+      );
     } else if (item.childRoutes) {
       item.childRoutes.forEach(r => renderRoute(r, newContextPath));
     }
@@ -31,15 +38,9 @@ function renderRouteConfigV3(Container, routes, contextPath) {
   routes.forEach(item => renderRoute(item, contextPath));
 
   // Use Switch as the default container by default
-  if (!Container) return <Switch>{children}</Switch>;
+  if (!Container) return React.createElement(Switch, null, children);
 
-  return (
-    <Container key={contextPath}>
-      <Switch>
-        {children}
-      </Switch>
-    </Container>
-  );
+  return React.createElement(Container, { key: contextPath }, React.createElement(Switch, null, children));
 }
 
 export default class Root extends React.Component {
@@ -49,13 +50,10 @@ export default class Root extends React.Component {
   };
   render() {
     const children = renderRouteConfigV3(null, this.props.routeConfig, '/');
-    return (
-      <Provider store={this.props.store}>
-        <ConnectedRouter history={history}>
-          {children}
-        </ConnectedRouter>
-      </Provider>
+    return React.createElement(
+      Provider,
+      { store: this.props.store },
+      React.createElement(ConnectedRouter, { history: history }, children)
     );
   }
 }
-

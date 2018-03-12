@@ -1,0 +1,109 @@
+@import '../../styles/mixins';
+
+.interview-interview-page {
+  line-height: 160%;
+  position: relative;
+
+  h1 {
+    padding-left: 60px;
+    margin-bottom: 30px;
+    font-size: 32px;
+  }
+
+  p {
+    padding-top: 20px;
+    position: relative;
+  }
+
+  span {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+  }
+
+  button {
+    margin-top: 20px;
+    margin-left: 20px;
+    color: white;
+    font: 16px bold;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    border: 15px black;
+    border-radius: 5px;
+    height: 40px;
+    width: 100px;
+    cursor: pointer;
+  }
+
+  input {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    height: 25px;
+    border-radius: 5px;
+    font: 16px bold;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+  }
+
+  textarea {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    height: 25px;
+    border-radius: 5px;
+    font: 16px bold;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+  }
+
+  .star-must {
+    margin-bottom: 20px;
+    color: red;
+  }
+
+  .must-fill {
+    color: red;
+  }
+
+  .next-btn {
+    background: radial-gradient( ellipse at top left, green, #30cc30);
+  }
+
+  .prev-btn {
+    background: radial-gradient( ellipse at top left, #aa3030, red);
+  }
+
+  .btn-disable {
+    background: radial-gradient( ellipse at top left, #aa3030, grey);
+    pointer-events: none;
+  }
+
+  .radio-group {
+    input {
+      margin-top: 0;
+      margin-bottom: 15px;
+    }
+  }
+
+  .qstn {
+    border-width: 2px;
+    border-style: solid;
+    -webkit-border-image: 
+      -webkit-gradient(linear, 0 0, 0 100%, from(gray), to(rgba(0, 0, 0, 0))) 0 0 100% 1;
+    -webkit-border-image: 
+      -webkit-linear-gradient(gray, rgba(0, 0, 0, 0)) 0 0 100% 1;
+    -moz-border-image:
+      -moz-linear-gradient(gray, rgba(0, 0, 0, 0)) 0 0 100% 1;    
+    -o-border-image:
+      -o-linear-gradient(gray, rgba(0, 0, 0, 0)) 0 0 100% 1;
+    border-image:
+      linear-gradient(to right, gray, rgba(0, 0, 0, 0)) 0 0 100% 1;
+    margin-top: 20px;
+  }
+
+  .page-head-img {
+    max-width: 600px;
+    border-radius: 60px;
+    opacity: 0.8;
+  }
+
+  .inviz {
+    visibility: hidden;
+  }
+}
