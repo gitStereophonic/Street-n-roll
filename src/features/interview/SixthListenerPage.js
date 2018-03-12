@@ -11,6 +11,7 @@ export class SixthListenerPage extends Component {
 
   constructor(props) {
     super(props);
+    window.scrollTo(0, 0);
 
     this.handleExperienceValueChanged = this.handleExperienceValueChanged.bind(this);
   }

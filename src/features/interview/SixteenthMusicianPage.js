@@ -13,6 +13,7 @@ export class SixteenthMusicianPage extends Component {
   constructor(props) {
     super(props);
     this.checkRequired();
+    window.scrollTo(0, 0);
 
     this.state = { other: '' };
 

@@ -13,6 +13,7 @@ export class EleventhMusicianPage extends Component {
   constructor(props) {
     super(props);
     this.checkRequired();
+    window.scrollTo(0, 0);
 
     this.handleMeetingsOptionChange = this.handleMeetingsOptionChange.bind(this);
     this.checkRequired = this.checkRequired.bind(this);

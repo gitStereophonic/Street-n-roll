@@ -13,6 +13,7 @@ export class TenthMusicianPage extends Component {
   constructor(props) {
     super(props);
     this.checkRequired();
+    window.scrollTo(0, 0);
 
     this.handleOfficialOptionChange = this.handleOfficialOptionChange.bind(this);
     this.handleWoComValueChanged = this.handleWoComValueChanged.bind(this);

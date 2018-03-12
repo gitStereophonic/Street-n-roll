@@ -13,6 +13,7 @@ export class TwelfthMusicianPage extends Component {
   constructor(props) {
     super(props);
     this.cheackRequired();
+    window.scrollTo(0, 0);
 
     this.handleReasonsValueChanged = this.handleReasonsValueChanged.bind(this);
     this.handleWhereValueChanged = this.handleWhereValueChanged.bind(this);

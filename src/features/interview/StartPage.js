@@ -9,6 +9,11 @@ export class StartPage extends Component {
     actions: PropTypes.object.isRequired,
   };
 
+  constructor(props) {
+    super(props);
+    window.scrollTo(0, 0);
+  }
+
   render() {
     const { startInterview } = this.props.actions;
     return React.createElement(

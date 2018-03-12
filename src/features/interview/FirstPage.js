@@ -13,6 +13,7 @@ export class FirstPage extends Component {
   constructor(props) {
     super(props);
     this.checkRequired();
+    window.scrollTo(0, 0);
 
     this.handleCityValueChange = this.handleCityValueChange.bind(this);
     this.handleAgeOptionChange = this.handleAgeOptionChange.bind(this);

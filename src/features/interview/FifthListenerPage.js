@@ -12,12 +12,12 @@ export class FifthListenerPage extends Component {
 
   constructor(props) {
     super(props);
+    this.checkRequired();
+    window.scrollTo(0, 0);
 
     this.handleSignValueChanged = this.handleSignValueChanged.bind(this);
     this.handleTraditionsValueChanged = this.handleTraditionsValueChanged.bind(this);
     this.checkRequired = this.checkRequired.bind(this);
-
-    this.checkRequired();
   }
 
   checkRequired() {

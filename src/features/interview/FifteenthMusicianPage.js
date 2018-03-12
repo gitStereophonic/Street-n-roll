@@ -13,6 +13,7 @@ export class FifteenthMusicianPage extends Component {
   constructor(props) {
     super(props);
     this.checkRequired();
+    window.scrollTo(0, 0);
 
     this.handleHowComeValueChanged = this.handleHowComeValueChanged.bind(this);
     this.handleHowLeaveValueChanged = this.handleHowLeaveValueChanged.bind(this);

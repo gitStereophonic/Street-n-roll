@@ -13,6 +13,7 @@ export class SeventhMusicianPage extends Component {
   constructor(props) {
     super(props);
     this.checkRequired();
+    window.scrollTo(0, 0);
 
     this.handleHobbieOptionChange = this.handleHobbieOptionChange.bind(this);
     this.handleRatherOptionChanged = this.handleRatherOptionChanged.bind(this);
