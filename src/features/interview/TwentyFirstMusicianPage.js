@@ -10,7 +10,24 @@ export class TwentyFirstMusicianPage extends Component {
     actions: PropTypes.object.isRequired,
   };
 
+  constructor(props) {
+    super(props);
+    window.scrollTo(0, 0);
+
+    this.handleThanksValueChanged = this.handleThanksValueChanged.bind(this);
+    this.handleHelpValueChanged = this.handleHelpValueChanged.bind(this);
+  }
+
+  handleThanksValueChanged(changeEvent) {
+    this.props.interview.twentyFirstFields.thanks = changeEvent.target.value;
+  }
+
+  handleHelpValueChanged(changeEvent) {
+    this.props.interview.twentyFirstFields.help = changeEvent.target.value;
+  }
+
   render() {
+    const { finishInterview } = this.props.actions;
     return React.createElement(
       'div',
       { className: 'interview-twenty-first-musician-page' },
@@ -44,7 +61,7 @@ export class TwentyFirstMusicianPage extends Component {
         ),
         React.createElement('textarea', { id: 'help', onChange: this.handleHelpValueChanged })
       ),
-      React.createElement('button', { onClick: {} }, 'Завершить и отправить')
+      React.createElement('button', { onClick: finishInterview }, 'Завершить и отправить')
     );
   }
 }
