@@ -10,11 +10,13 @@ import initialState from './initialState';
 import { reducer as startInterviewReducer } from './startInterview';
 import { reducer as nextPageReducer } from './nextPage';
 import { reducer as prevPageReducer } from './prevPage';
+import { reducer as finishInterviewReducer } from './finishInterview';
 
 const reducers = [
   startInterviewReducer,
   nextPageReducer,
   prevPageReducer,
+  finishInterviewReducer,
 ];
 
 export default function reducer(state = initialState, action) {

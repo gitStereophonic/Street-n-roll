@@ -21,7 +21,7 @@ export class InterviewPage extends Component {
       },
       React.createElement(
         'p',
-        { className: 'star-must', style: { visibility: currentIndex > 0 ? 'visible' : 'hidden' } },
+        { className: 'star-must', style: { visibility: currentIndex > 0 && currentIndex < lastPage ? 'visible' : 'hidden' } },
         '* - Обязательные поля'
       ),
       pageContent,
