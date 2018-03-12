@@ -13,7 +13,12 @@ export class TenthMusicianPage extends Component {
   constructor(props) {
     super(props);
     this.checkRequired();
-    window.scrollTo(0, 0);
+    $('body,html').animate(
+      {
+        scrollTop: 0,
+      },
+      700
+    );
 
     this.handleOfficialOptionChange = this.handleOfficialOptionChange.bind(this);
     this.handleWoComValueChanged = this.handleWoComValueChanged.bind(this);

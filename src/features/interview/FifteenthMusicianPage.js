@@ -13,7 +13,12 @@ export class FifteenthMusicianPage extends Component {
   constructor(props) {
     super(props);
     this.checkRequired();
-    window.scrollTo(0, 0);
+    $('body,html').animate(
+      {
+        scrollTop: 0,
+      },
+      700
+    );
 
     this.handleHowComeValueChanged = this.handleHowComeValueChanged.bind(this);
     this.handleHowLeaveValueChanged = this.handleHowLeaveValueChanged.bind(this);

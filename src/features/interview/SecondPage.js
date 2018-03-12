@@ -13,7 +13,12 @@ export class SecondPage extends Component {
   constructor(props) {
     super(props);
     this.checkRequired();
-    window.scrollTo(0, 0);
+    $('body,html').animate(
+      {
+        scrollTop: 0,
+      },
+      700
+    );
 
     this.handleEverPlayedOptionChange = this.handleEverPlayedOptionChange.bind(this);
     this.checkRequired = this.checkRequired.bind(this);

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import $ from 'jquery';
 import * as actions from './redux/actions';
 
 export class SixthListenerPage extends Component {
@@ -11,7 +12,12 @@ export class SixthListenerPage extends Component {
 
   constructor(props) {
     super(props);
-    window.scrollTo(0, 0);
+    $('body,html').animate(
+      {
+        scrollTop: 0,
+      },
+      700
+    );
 
     this.handleExperienceValueChanged = this.handleExperienceValueChanged.bind(this);
   }

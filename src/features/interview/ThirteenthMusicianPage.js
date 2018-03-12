@@ -13,7 +13,12 @@ export class ThirteenthMusicianPage extends Component {
   constructor(props) {
     super(props);
     this.checkRequired();
-    window.scrollTo(0, 0);
+    $('body,html').animate(
+      {
+        scrollTop: 0,
+      },
+      700
+    );
 
     this.handlePlaceValueChanged = this.handlePlaceValueChanged.bind(this);
     this.handleDescPlaceValueChanged = this.handleDescPlaceValueChanged.bind(this);
