@@ -52,7 +52,7 @@ const initialState = {
   ninethFields: { community: '' },
   tenthFields: { official: '', wocom: '', howjoin: '', cookies: '' },
   eleventhFields: { meetings: '' },
-  twelfthFields: { reasons: '', where: '', whywhere: '' },
+  twelfthFields: { reasons: '', where: '', whywhere: '', meetingtime: ['', '', '', '', ''] },
   keyValues: [
     { yep: 1, nope: -1, back: -1 },
     { yep: 2, nope: -1, back: 0 },

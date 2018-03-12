@@ -17,6 +17,7 @@ export class TwelfthMusicianPage extends Component {
     this.handleReasonsValueChanged = this.handleReasonsValueChanged.bind(this);
     this.handleWhereValueChanged = this.handleWhereValueChanged.bind(this);
     this.handleWhyWhereValueChanged = this.handleWhyWhereValueChanged.bind(this);
+    this.handleMeetingTimeOptionChange = this.handleMeetingTimeOptionChange.bind(this);
     this.cheackRequired = this.cheackRequired.bind(this);
   }
 
@@ -45,6 +46,30 @@ export class TwelfthMusicianPage extends Component {
   handleWhyWhereValueChanged(changeEvent) {
     this.props.interview.twelfthFields.whywhere = changeEvent.target.value;
     this.cheackRequired();
+  }
+
+  handleMeetingTimeOptionChange(changeEvent) {
+    switch (changeEvent.target.id) {
+      case 'morning':
+        this.props.interview.twelfthFields.meetingtime[0] = changeEvent.target.checked ? changeEvent.target.value : '';
+        break;
+      case 'midday':
+        this.props.interview.twelfthFields.meetingtime[1] = changeEvent.target.checked ? changeEvent.target.value : '';
+        break;
+      case 'evening':
+        this.props.interview.twelfthFields.meetingtime[2] = changeEvent.target.checked ? changeEvent.target.value : '';
+        break;
+      case 'night':
+        this.props.interview.twelfthFields.meetingtime[3] = changeEvent.target.checked ? changeEvent.target.value : '';
+        break;
+      case 'situation':
+        this.props.interview.twelfthFields.meetingtime[4] = changeEvent.target.checked ? changeEvent.target.value : '';
+        break;
+      default:
+        break;
+    }
+
+    console.log(this.props.interview.twelfthFields);
   }
 
   render() {
@@ -83,6 +108,63 @@ export class TwelfthMusicianPage extends Component {
           React.createElement('h3', { className: 'must-fill' }, ' *')
         ),
         React.createElement('textarea', { id: 'whywhere', onChange: this.handleWhyWhereValueChanged })
+      ),
+      React.createElement(
+        'div',
+        { className: 'qstn' },
+        React.createElement(
+          'span',
+          null,
+          React.createElement('h3', null, 'Собираются ли музыканты вместе в свободное от стрита время?')
+        ),
+        React.createElement(
+          'div',
+          { className: 'radio-group' },
+          React.createElement('input', {
+            type: 'checkbox',
+            id: 'morning',
+            name: 'meetingtime',
+            value: 'Утром',
+            onChange: this.handleMeetingTimeOptionChange,
+          }),
+          React.createElement('label', { htmlFor: 'morning' }, 'Утром'),
+          React.createElement('br'),
+          React.createElement('input', {
+            type: 'checkbox',
+            id: 'midday',
+            name: 'meetingtime',
+            value: 'Днем',
+            onChange: this.handleMeetingTimeOptionChange,
+          }),
+          React.createElement('label', { htmlFor: 'midday' }, 'Днем'),
+          React.createElement('br'),
+          React.createElement('input', {
+            type: 'checkbox',
+            id: 'evening',
+            name: 'meetingtime',
+            value: 'Вечером',
+            onChange: this.handleMeetingTimeOptionChange,
+          }),
+          React.createElement('label', { htmlFor: 'evening' }, 'Вечером'),
+          React.createElement('br'),
+          React.createElement('input', {
+            type: 'checkbox',
+            id: 'night',
+            name: 'meetingtime',
+            value: 'Ночью',
+            onChange: this.handleMeetingTimeOptionChange,
+          }),
+          React.createElement('label', { htmlFor: 'night' }, 'Ночью'),
+          React.createElement('br'),
+          React.createElement('input', {
+            type: 'checkbox',
+            id: 'situation',
+            name: 'meetingtime',
+            value: 'По ситуации',
+            onChange: this.handleMeetingTimeOptionChange,
+          }),
+          React.createElement('label', { htmlFor: 'situation' }, 'По ситуации')
+        )
       )
     );
   }
