@@ -68,8 +68,6 @@ export class TwelfthMusicianPage extends Component {
       default:
         break;
     }
-
-    console.log(this.props.interview.twelfthFields);
   }
 
   render() {
