@@ -19,3 +19,4 @@ export { default as SixteenthMusicianPage } from './SixteenthMusicianPage';
 export { default as SeventeenthMusicianPage } from './SeventeenthMusicianPage';
 export { default as EighteenthMusicianPage } from './EighteenthMusicianPage';
 export { default as NineteenthMusicianPage } from './NineteenthMusicianPage';
+export { default as TwentiethMusicianPage } from './TwentiethMusicianPage';

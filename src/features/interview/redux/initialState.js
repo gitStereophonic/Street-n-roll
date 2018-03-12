@@ -28,6 +28,7 @@ import {
   SeventeenthMusicianPage,
   EighteenthMusicianPage,
   NineteenthMusicianPage,
+  TwentiethMusicianPage,
 } from './../';
 
 const initialState = {
@@ -52,6 +53,7 @@ const initialState = {
     React.createElement(SeventeenthMusicianPage),
     React.createElement(EighteenthMusicianPage),
     React.createElement(NineteenthMusicianPage),
+    React.createElement(TwentiethMusicianPage),
   ],
   currentIndex: 0,
   pageContent: React.createElement(StartPage),
@@ -74,6 +76,7 @@ const initialState = {
   seventeenthFields: { celebrations: '', howceleb: '' },
   eighteenthFields: { competition: '', relations: '', whobest: '' },
   nineteenthFields: { events: '', reactions: '', story: '' },
+  twentiethFields: { identity: '' },
   keyValues: [
     { yep: 1, nope: -1, back: -1 },
     { yep: 2, nope: -1, back: 0 },
@@ -95,6 +98,7 @@ const initialState = {
     { yep: 18, nope: -1, back: 16 },
     { yep: 19, nope: -1, back: 17 },
     { yep: 20, nope: -1, back: 18 },
+    { yep: 21, nope: -1, back: 19 },
   ],
   currentKeyValue: '',
   backDoor: true,
