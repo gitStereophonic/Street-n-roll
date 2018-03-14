@@ -61,7 +61,7 @@ const initialState = {
   ],
   currentIndex: 0,
   pageContent: React.createElement(StartPage),
-  firstFields: { city: '', age: '', gender: '', edu: '', job: '' },
+  firstFields: { city: '', age: '', gender: '', edu: '', eduOther: '', job: '' },
   secondFields: { everPlayed: '' },
   thirdFields: { interest: '', who: '', money: '' },
   fourthFields: { songs: '' },
@@ -84,7 +84,7 @@ const initialState = {
   twentyFirstFields: { thanks: '', help: '' },
   checkPoints: [
     {},
-    { city: '', age: '', gender: '', edu: '', job: '' },
+    { city: '', age: '', gender: '', edu: '', eduOther: '', job: '' },
     { everPlayed: '' },
     { interest: '', who: '', money: '' },
     { songs: '' },
