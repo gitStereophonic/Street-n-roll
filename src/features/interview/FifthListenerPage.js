@@ -48,6 +48,8 @@ export class FifthListenerPage extends Component {
   }
 
   render() {
+    const { checkPoints, currentIndex } = this.props.interview;
+
     return React.createElement(
       'div',
       { className: 'interview-fifth-listener-page' },
@@ -63,7 +65,11 @@ export class FifthListenerPage extends Component {
           React.createElement('h3', { className: 'must-fill' }, ' *')
         ),
         React.createElement('p', null, 'Например, "встретить менестреля - к удаче"'),
-        React.createElement('textarea', { id: 'sign', onChange: this.handleSignValueChanged })
+        React.createElement('textarea', {
+          id: 'sign',
+          onChange: this.handleSignValueChanged,
+          defaultValue: checkPoints[currentIndex].sign,
+        })
       ),
       React.createElement(
         'div',
@@ -78,7 +84,11 @@ export class FifthListenerPage extends Component {
           null,
           'Как они приходят на место; как уходят; общаются с прохожими; принимают деньги; где собираются и пр. '
         ),
-        React.createElement('textarea', { id: 'traditions', onChange: this.handleTraditionsValueChanged })
+        React.createElement('textarea', {
+          id: 'traditions',
+          onChange: this.handleTraditionsValueChanged,
+          defaultValue: checkPoints[currentIndex].traditions,
+        })
       )
     );
   }
