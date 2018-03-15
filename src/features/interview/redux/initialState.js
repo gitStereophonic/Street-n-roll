@@ -63,7 +63,7 @@ const initialState = {
   pageContent: React.createElement(StartPage),
   firstFields: { city: '', age: '', gender: '', edu: '', eduOther: '', job: '' },
   secondFields: { everPlayed: '' },
-  thirdFields: { interest: '', who: '', money: '' },
+  thirdFields: { interest: 3, who: '', money: '' },
   fourthFields: { songs: '' },
   fifthFields: { sign: '', traditions: '' },
   sixthFields: { experience: '' },

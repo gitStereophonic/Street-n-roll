@@ -53,6 +53,8 @@ export class ThirdListenerPage extends Component {
   }
 
   render() {
+    const { checkPoints, currentIndex } = this.props.interview;
+
     return React.createElement(
       'div',
       { className: 'interview-third-listener-page' },
@@ -72,8 +74,8 @@ export class ThirdListenerPage extends Component {
           name: 'everPlayed',
           min: 0,
           max: 6,
-          defaultValue: 3,
           onChange: this.handleInterestValueChanged,
+          defaultValue: checkPoints[currentIndex].interest,
         }),
         'Играют огонь! Каждый раз останавливаюсь'
       ),
@@ -91,13 +93,21 @@ export class ThirdListenerPage extends Component {
           null,
           'Что это за люди, какими они должны быть, честны ли они, симпатизируете ли Вы им?'
         ),
-        React.createElement('input', { id: 'who', onChange: this.handleWhoValueChanged })
+        React.createElement('input', {
+          id: 'who',
+          onChange: this.handleWhoValueChanged,
+          defaultValue: checkPoints[currentIndex].who,
+        })
       ),
       React.createElement(
         'div',
         { className: 'qstn' },
         React.createElement('span', null, React.createElement('h3', null, 'Даете ли Вы деньги музыкантам и почему?')),
-        React.createElement('input', { id: 'money', onChange: this.handleWhoValueChanged })
+        React.createElement('input', {
+          id: 'money',
+          onChange: this.handleWhoValueChanged,
+          defaultValue: checkPoints[currentIndex].money,
+        })
       )
     );
   }
