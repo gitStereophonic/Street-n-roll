@@ -20,7 +20,23 @@ export class SeventhMusicianPage extends Component {
       700
     );
 
+    this.state = {
+      hobbieValues: [
+        'Занимаюсь только этим, живу на честно наигранное!',
+        'Конечно, хобби, кто ж проживет на такие деньги...',
+        'Другое: ',
+      ],
+      ratherValues: [
+        'Постоянно, жить без этого не могу, каждый день гоняю',
+        'Ну так, по настроению',
+        'С некоторой периодичностью: раз в неделю, раз в месяц',
+        'Да один только раз было всего!',
+        'Завязал, больше не гоняю...',
+      ],
+    };
+
     this.handleHobbieOptionChange = this.handleHobbieOptionChange.bind(this);
+    this.handleHobbieOtherValueChanged = this.handleHobbieOtherValueChanged.bind(this);
     this.handleRatherOptionChanged = this.handleRatherOptionChanged.bind(this);
     this.checkRequired = this.checkRequired.bind(this);
   }
@@ -43,18 +59,28 @@ export class SeventhMusicianPage extends Component {
 
     const inp = $('#hobbie');
     if (inp) {
-      if (changeEvent.target.value === 'other') inp.removeClass('inviz');
-      else inp.addClass('inviz');
+      if (changeEvent.target.value === this.state.hobbieValues[this.state.hobbieValues.length - 1]) {
+        inp.removeClass('inviz');
+      } else inp.addClass('inviz');
     }
   }
 
+  handleHobbieOtherValueChanged(changeEvent) {
+    this.props.interview.seventhFields.hobbieOther = changeEvent.target.value;
+    this.checkRequired();
+  }
+
   handleRatherOptionChanged(changeEvent) {
-    this.props.interview.seventhFields.rather = changeEvent.target.value;
-    this.props.interview.currentKeyValue = changeEvent.target.value;
+    const val = changeEvent.target.value === this.state.ratherValues[4] ? 'nope' : 'yep';
+    this.props.interview.seventhFields.rather = val;
+    this.props.interview.seventhFields.ratherExact = changeEvent.target.value;
+    this.props.interview.currentKeyValue = val;
     this.checkRequired();
   }
 
   render() {
+    const { checkPoints, currentIndex } = this.props.interview;
+
     return React.createElement(
       'div',
       { className: 'interview-seventh-musician-page' },
@@ -80,27 +106,39 @@ export class SeventhMusicianPage extends Component {
           React.createElement('input', {
             type: 'radio',
             name: 'hobbie',
-            value: 'Занимаюсь только этим, живу на честно наигранное!',
+            value: this.state.hobbieValues[0],
             onChange: this.handleHobbieOptionChange,
+            defaultChecked: checkPoints[currentIndex].hobbie === this.state.hobbieValues[0],
           }),
-          'Занимаюсь только этим, живу на честно наигранное!',
+          this.state.hobbieValues[0],
           React.createElement('br'),
           React.createElement('input', {
             type: 'radio',
             name: 'hobbie',
-            value: 'Конечно, хобби, кто ж проживет на такие деньги...',
+            value: this.state.hobbieValues[1],
             onChange: this.handleHobbieOptionChange,
+            defaultChecked: checkPoints[currentIndex].hobbie === this.state.hobbieValues[1],
           }),
-          'Конечно, хобби, кто ж проживет на такие деньги...',
+          this.state.hobbieValues[1],
           React.createElement('br'),
           React.createElement('input', {
             type: 'radio',
             name: 'hobbie',
-            value: 'other',
+            value: this.state.hobbieValues[this.state.hobbieValues.length - 1],
             onChange: this.handleHobbieOptionChange,
+            defaultChecked:
+              checkPoints[currentIndex].hobbie === this.state.hobbieValues[this.state.hobbieValues.length - 1],
           }),
-          'Другое: ',
-          React.createElement('input', { id: 'hobbie', className: 'inviz' })
+          this.state.hobbieValues[this.state.hobbieValues.length - 1],
+          React.createElement('input', {
+            id: 'hobbie',
+            className:
+              checkPoints[currentIndex].hobbie === this.state.hobbieValues[this.state.hobbieValues.length - 1]
+                ? ''
+                : 'inviz',
+            onChange: this.handleHobbieOtherValueChanged,
+            defaultValue: checkPoints[currentIndex].hobbieOther,
+          })
         )
       ),
       React.createElement(
@@ -118,42 +156,47 @@ export class SeventhMusicianPage extends Component {
           React.createElement('input', {
             type: 'radio',
             name: 'rather',
-            value: 'yep',
+            value: this.state.ratherValues[0],
             onChange: this.handleRatherOptionChanged,
+            defaultChecked: checkPoints[currentIndex].ratherExact === this.state.ratherValues[0],
           }),
-          'Постоянно, жить без этого не могу, каждый день гоняю',
+          this.state.ratherValues[0],
           React.createElement('br'),
           React.createElement('input', {
             type: 'radio',
             name: 'rather',
-            value: 'yep',
+            value: this.state.ratherValues[1],
             onChange: this.handleRatherOptionChanged,
+            defaultChecked: checkPoints[currentIndex].ratherExact === this.state.ratherValues[1],
           }),
-          'Ну так, по настроению',
+          this.state.ratherValues[1],
           React.createElement('br'),
           React.createElement('input', {
             type: 'radio',
             name: 'rather',
-            value: 'yep',
+            value: this.state.ratherValues[2],
             onChange: this.handleRatherOptionChanged,
+            defaultChecked: checkPoints[currentIndex].ratherExact === this.state.ratherValues[2],
           }),
-          'С некоторой периодичностью: раз в неделю, раз в месяц',
+          this.state.ratherValues[2],
           React.createElement('br'),
           React.createElement('input', {
             type: 'radio',
             name: 'rather',
-            value: 'yep',
+            value: this.state.ratherValues[3],
             onChange: this.handleRatherOptionChanged,
+            defaultChecked: checkPoints[currentIndex].ratherExact === this.state.ratherValues[3],
           }),
-          'Да один только раз было всего!',
+          this.state.ratherValues[3],
           React.createElement('br'),
           React.createElement('input', {
             type: 'radio',
             name: 'rather',
-            value: 'nope',
+            value: this.state.ratherValues[4],
             onChange: this.handleRatherOptionChanged,
+            defaultChecked: checkPoints[currentIndex].ratherExact === this.state.ratherValues[4],
           }),
-          'Завязал, больше не гоняю...'
+          this.state.ratherValues[4]
         )
       )
     );

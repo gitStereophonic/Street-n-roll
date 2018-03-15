@@ -67,7 +67,7 @@ const initialState = {
   fourthFields: { songs: '' },
   fifthFields: { sign: '', traditions: '' },
   sixthFields: { experience: '' },
-  seventhFields: { hobbie: '', rather: '' },
+  seventhFields: { hobbie: '', hobbieOther: '', rather: '', ratherExact: '' },
   eighthFields: { why: '' },
   ninethFields: { community: '' },
   tenthFields: { official: '', wocom: '', howjoin: '', cookies: '' },
