@@ -21,6 +21,7 @@ export class TenthMusicianPage extends Component {
     );
 
     this.handleOfficialOptionChange = this.handleOfficialOptionChange.bind(this);
+    this.handleOfficialOtherValueChange = this.handleOfficialOtherValueChange.bind(this);
     this.handleWoComValueChanged = this.handleWoComValueChanged.bind(this);
     this.handleHowJoinValueChanged = this.handleHowJoinValueChanged.bind(this);
     this.checkRequired = this.checkRequired.bind(this);
@@ -44,9 +45,14 @@ export class TenthMusicianPage extends Component {
 
     const inp = $('#official');
     if (inp) {
-      if (changeEvent.target.value === 'other') inp.removeClass('inviz');
+      if (changeEvent.target.value === 'Другое: ') inp.removeClass('inviz');
       else inp.addClass('inviz');
     }
+  }
+
+  handleOfficialOtherValueChange(changeEvent) {
+    this.props.interview.tenthFields.officialOther = changeEvent.target.value;
+    this.checkRequired();
   }
 
   handleWoComValueChanged(changeEvent) {
@@ -60,6 +66,8 @@ export class TenthMusicianPage extends Component {
   }
 
   render() {
+    const { checkPoints, currentIndex } = this.props.interview;
+
     return React.createElement(
       'div',
       { className: 'interview-tenth-musician-page' },
@@ -82,6 +90,7 @@ export class TenthMusicianPage extends Component {
             name: 'official',
             value: 'Да',
             onChange: this.handleOfficialOptionChange,
+            defaultChecked: checkPoints[currentIndex].official === 'Да',
           }),
           'Да',
           React.createElement('br'),
@@ -90,17 +99,24 @@ export class TenthMusicianPage extends Component {
             name: 'official',
             value: 'Нет',
             onChange: this.handleOfficialOptionChange,
+            defaultChecked: checkPoints[currentIndex].official === 'Нет',
           }),
           'Нет',
           React.createElement('br'),
           React.createElement('input', {
             type: 'radio',
             name: 'official',
-            value: 'other',
+            value: 'Другое: ',
             onChange: this.handleOfficialOptionChange,
+            defaultChecked: checkPoints[currentIndex].official === 'Другое: ',
           }),
           'Другое: ',
-          React.createElement('input', { id: 'official', className: 'inviz' })
+          React.createElement('input', {
+            id: 'official',
+            className: checkPoints[currentIndex].official === 'Другое: ' ? '' : 'inviz',
+            onChange: this.handleOfficialOtherValueChange,
+            defaultValue: checkPoints[currentIndex].officialOther,
+          })
         )
       ),
       React.createElement(
