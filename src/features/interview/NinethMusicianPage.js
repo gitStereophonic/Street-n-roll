@@ -20,6 +20,16 @@ export class NinethMusicianPage extends Component {
       700
     );
 
+    this.state = {
+      communityValues: [
+        'Есть, и даже не одно',
+        'Есть, одно',
+        'Есть, и я в нем состою',
+        'Точно нет',
+        'Может, и есть, но я не в курсе',
+      ],
+    };
+
     this.handleCommunityOptionChanged = this.handleCommunityOptionChanged.bind(this);
     this.checkRequired = this.checkRequired.bind(this);
   }
@@ -37,12 +47,20 @@ export class NinethMusicianPage extends Component {
   }
 
   handleCommunityOptionChanged(changeEvent) {
-    this.props.interview.ninethFields.community = changeEvent.target.value;
-    this.props.interview.currentKeyValue = changeEvent.target.value;
+    const val =
+      changeEvent.target.value === this.state.communityValues[3] ||
+      changeEvent.target.value === this.state.communityValues[4]
+        ? 'nope'
+        : 'yep';
+    this.props.interview.ninethFields.community = val;
+    this.props.interview.ninethFields.communityExact = changeEvent.target.value;
+    this.props.interview.currentKeyValue = val;
     this.checkRequired();
   }
 
   render() {
+    const { checkPoints, currentIndex } = this.props.interview;
+
     return React.createElement(
       'div',
       { className: 'interview-nineth-musician-page' },
@@ -62,42 +80,47 @@ export class NinethMusicianPage extends Component {
           React.createElement('input', {
             type: 'radio',
             name: 'community',
-            value: 'yep',
+            value: this.state.communityValues[0],
             onChange: this.handleCommunityOptionChanged,
+            defaultChecked: checkPoints[currentIndex].communityExact === this.state.communityValues[0],
           }),
-          'Есть, и даже не одно',
+          this.state.communityValues[0],
           React.createElement('br'),
           React.createElement('input', {
             type: 'radio',
             name: 'community',
-            value: 'yep',
+            value: this.state.communityValues[1],
             onChange: this.handleCommunityOptionChanged,
+            defaultChecked: checkPoints[currentIndex].communityExact === this.state.communityValues[1],
           }),
-          'Есть, одно',
+          this.state.communityValues[1],
           React.createElement('br'),
           React.createElement('input', {
             type: 'radio',
             name: 'community',
-            value: 'yep',
+            value: this.state.communityValues[2],
             onChange: this.handleCommunityOptionChanged,
+            defaultChecked: checkPoints[currentIndex].communityExact === this.state.communityValues[2],
           }),
-          'Есть, и я в нем состою',
+          this.state.communityValues[2],
           React.createElement('br'),
           React.createElement('input', {
             type: 'radio',
             name: 'community',
-            value: 'nope',
+            value: this.state.communityValues[3],
             onChange: this.handleCommunityOptionChanged,
+            defaultChecked: checkPoints[currentIndex].communityExact === this.state.communityValues[3],
           }),
-          'Точно нет',
+          this.state.communityValues[3],
           React.createElement('br'),
           React.createElement('input', {
             type: 'radio',
             name: 'community',
-            value: 'nope',
+            value: this.state.communityValues[4],
             onChange: this.handleCommunityOptionChanged,
+            defaultChecked: checkPoints[currentIndex].communityExact === this.state.communityValues[4],
           }),
-          'Может, и есть, но я не в курсе'
+          this.state.communityValues[4]
         )
       )
     );
