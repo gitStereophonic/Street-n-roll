@@ -27,6 +27,7 @@ export class SixthListenerPage extends Component {
   }
 
   render() {
+    const { checkPoints, currentIndex } = this.props.interview;
     return React.createElement(
       'div',
       { className: 'interview-sixth-listener-page' },
@@ -43,12 +44,12 @@ export class SixthListenerPage extends Component {
             'Были ли в Вашей жизни примечательные случаи, связанные с уличными музыкантами?'
           )
         ),
-        React.createElement(
-          'p',
-          null,
-          'Расскажите о них'
-        ),
-        React.createElement('textarea', { id: 'experience', onChange: this.handleExperienceValueChanged })
+        React.createElement('p', null, 'Расскажите о них'),
+        React.createElement('textarea', {
+          id: 'experience',
+          onChange: this.handleExperienceValueChanged,
+          defaultValue: checkPoints[currentIndex].experience,
+        })
       )
     );
   }
