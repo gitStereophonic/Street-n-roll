@@ -49,6 +49,8 @@ export class SecondPage extends Component {
   }
 
   render() {
+    const { checkPoints, currentIndex } = this.props.interview;
+
     return React.createElement(
       'div',
       { className: 'interview-second-page' },
@@ -74,6 +76,7 @@ export class SecondPage extends Component {
             name: 'everPlayed',
             value: 'yep',
             onChange: this.handleEverPlayedOptionChange,
+            defaultChecked: checkPoints[currentIndex].everPlayed === 'yep',
           }),
           'Да, бывало',
           React.createElement('br'),
@@ -82,6 +85,7 @@ export class SecondPage extends Component {
             name: 'everPlayed',
             value: 'nope',
             onChange: this.handleEverPlayedOptionChange,
+            defaultChecked: checkPoints[currentIndex].everPlayed === 'nope',
           }),
           'Нет, никогда'
         )
