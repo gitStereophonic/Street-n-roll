@@ -42,6 +42,8 @@ export class EighthMusicianPage extends Component {
   }
 
   render() {
+    const { checkPoints, currentIndex } = this.props.interview;
+
     return React.createElement(
       'div',
       { className: 'interview-eighth-musician-page' },
@@ -60,7 +62,11 @@ export class EighthMusicianPage extends Component {
           React.createElement('h3', null, 'Почему Вы прекратили?'),
           React.createElement('h3', { className: 'must-fill' }, ' *')
         ),
-        React.createElement('input', { id: 'why', onChange: this.handleWhyValueChanged })
+        React.createElement('input', {
+          id: 'why',
+          onChange: this.handleWhyValueChanged,
+          defaultValue: checkPoints[currentIndex].why,
+        })
       )
     );
   }
