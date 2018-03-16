@@ -20,6 +20,10 @@ export class EleventhMusicianPage extends Component {
       700
     );
 
+    this.state = {
+      meetingsValues: ['Да', 'Нет', 'Не знаю'],
+    };
+
     this.handleMeetingsOptionChange = this.handleMeetingsOptionChange.bind(this);
     this.checkRequired = this.checkRequired.bind(this);
   }
@@ -37,12 +41,16 @@ export class EleventhMusicianPage extends Component {
   }
 
   handleMeetingsOptionChange(changeEvent) {
-    this.props.interview.eleventhFields.meetings = changeEvent.target.value;
-    this.props.interview.currentKeyValue = changeEvent.target.value;
+    const val = changeEvent.target.value === this.state.meetingsValues[0] ? 'yep' : 'nope';
+    this.props.interview.eleventhFields.meetings = val;
+    this.props.interview.eleventhFields.meetingsExact = changeEvent.target.value;
+    this.props.interview.currentKeyValue = val;
     this.checkRequired();
   }
 
   render() {
+    const { checkPoints, currentIndex } = this.props.interview;
+
     return React.createElement(
       'div',
       { className: 'interview-eleventh-musician-page' },
@@ -63,24 +71,27 @@ export class EleventhMusicianPage extends Component {
           React.createElement('input', {
             type: 'radio',
             name: 'meetings',
-            value: 'yep',
+            value: this.state.meetingsValues[0],
             onChange: this.handleMeetingsOptionChange,
+            defaultChecked: checkPoints[currentIndex].meetingsExact === this.state.meetingsValues[0],
           }),
-          'Да',
+          this.state.meetingsValues[0],
           React.createElement('br'),
           React.createElement('input', {
             type: 'radio',
             name: 'meetings',
-            value: 'nope',
+            value: this.state.meetingsValues[1],
             onChange: this.handleMeetingsOptionChange,
+            defaultChecked: checkPoints[currentIndex].meetingsExact === this.state.meetingsValues[1],
           }),
           'Нет',
           React.createElement('br'),
           React.createElement('input', {
             type: 'radio',
             name: 'meetings',
-            value: 'nope',
+            value: this.state.meetingsValues[2],
             onChange: this.handleMeetingsOptionChange,
+            defaultChecked: checkPoints[currentIndex].meetingsExact === this.state.meetingsValues[2],
           }),
           'Не знаю'
         )

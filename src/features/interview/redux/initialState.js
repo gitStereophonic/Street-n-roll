@@ -71,7 +71,7 @@ const initialState = {
   eighthFields: { why: '' },
   ninethFields: { community: '', communityExact: '' },
   tenthFields: { official: '', officialOther: '', wocom: '', howjoin: '', cookies: '' },
-  eleventhFields: { meetings: '' },
+  eleventhFields: { meetings: '', meetingsExact: '' },
   twelfthFields: { reasons: '', where: '', whywhere: '', meetingtime: ['', '', '', '', ''] },
   thirteenthFields: { place: '', descplace: '', time: '' },
   fourteenthFields: { whatplay: '', whythisplay: '', placeplay: '' },
