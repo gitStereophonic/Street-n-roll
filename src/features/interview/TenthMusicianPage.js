@@ -24,6 +24,7 @@ export class TenthMusicianPage extends Component {
     this.handleOfficialOtherValueChange = this.handleOfficialOtherValueChange.bind(this);
     this.handleWoComValueChanged = this.handleWoComValueChanged.bind(this);
     this.handleHowJoinValueChanged = this.handleHowJoinValueChanged.bind(this);
+    this.handleCookiesValueChanged = this.handleCookiesValueChanged.bind(this);
     this.checkRequired = this.checkRequired.bind(this);
   }
 
@@ -62,6 +63,11 @@ export class TenthMusicianPage extends Component {
 
   handleHowJoinValueChanged(changeEvent) {
     this.props.interview.tenthFields.howjoin = changeEvent.target.value;
+    this.checkRequired();
+  }
+
+  handleCookiesValueChanged(changeEvent) {
+    this.props.interview.tenthFields.cookies = changeEvent.target.value;
     this.checkRequired();
   }
 
@@ -128,7 +134,11 @@ export class TenthMusicianPage extends Component {
           React.createElement('h3', null, 'Может ли уличный музыкант не состоять в сообществе?')
         ),
         React.createElement('p', null, 'Представляет ли это неудобства?'),
-        React.createElement('input', { id: 'wocom', onChange: this.handleWoComValueChanged })
+        React.createElement('input', {
+          id: 'wocom',
+          onChange: this.handleWoComValueChanged,
+          defaultValue: checkPoints[currentIndex].wocom,
+        })
       ),
       React.createElement(
         'div',
@@ -139,14 +149,22 @@ export class TenthMusicianPage extends Component {
           React.createElement('h3', null, 'Как в него вступить?'),
           React.createElement('h3', { className: 'must-fill' }, ' *')
         ),
-        React.createElement('textarea', { id: 'howjoin', onChange: this.handleHowJoinValueChanged })
+        React.createElement('textarea', {
+          id: 'howjoin',
+          onChange: this.handleHowJoinValueChanged,
+          defaultValue: checkPoints[currentIndex].howjoin,
+        })
       ),
       React.createElement(
         'div',
         { className: 'qstn' },
         React.createElement('span', null, React.createElement('h3', null, 'Какие выгоды приобретает член сообщества?')),
         React.createElement('p', null, 'Плюшечки ^_^'),
-        React.createElement('textarea', { id: 'cookies', onChange: this.handleCookiesValueChanged })
+        React.createElement('textarea', {
+          id: 'cookies',
+          onChange: this.handleCookiesValueChanged,
+          defaultValue: checkPoints[currentIndex].cookies,
+        })
       )
     );
   }
