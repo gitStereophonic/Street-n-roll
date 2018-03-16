@@ -20,7 +20,7 @@ export class SixteenthMusicianPage extends Component {
       700
     );
 
-    this.state = { other: '' };
+    this.state = { forwhatValues: ['Для удобства', 'Чтобы понимали только свои', 'Другое: '] };
 
     this.handleJargonValueChanged = this.handleJargonValueChanged.bind(this);
     this.handleSpecSignsValueChanged = this.handleSpecSignsValueChanged.bind(this);
@@ -70,30 +70,31 @@ export class SixteenthMusicianPage extends Component {
         this.props.interview.sixteenthFields.forwhat[1] = changeEvent.target.checked ? changeEvent.target.value : '';
         break;
       case 'other':
-        this.props.interview.sixteenthFields.forwhat[2] = changeEvent.target.checked
-          ? changeEvent.target.value + this.state.other
-          : '';
+        this.props.interview.sixteenthFields.forwhat[2] = changeEvent.target.checked ? changeEvent.target.value : '';
         break;
       default:
         break;
     }
 
     this.checkRequired();
-    console.log(this.props.interview.sixteenthFields.forwhat);
+
+    const inp = $('#forwhatother');
+    if (inp) {
+      if (this.props.interview.sixteenthFields.forwhat[2] === this.state.forwhatValues[2]) {
+        inp.removeClass('inviz');
+      } else inp.addClass('inviz');
+    }
+    console.log(changeEvent.target.value);
   }
 
   handleForWhatOtherOptionChange(changeEvent) {
-    const start = 'Другое: ';
-    this.setState({ other: changeEvent.target.value });
-    if (this.props.interview.sixteenthFields.forwhat[2] !== '') {
-      this.props.interview.sixteenthFields.forwhat[2] = start + changeEvent.target.value;
-    }
+    this.props.interview.sixteenthFields.forwhatOther = changeEvent.target.value;
     this.checkRequired();
-
-    console.log(this.props.interview.sixteenthFields.forwhat);
   }
 
   render() {
+    const { checkPoints, currentIndex } = this.props.interview;
+
     return React.createElement(
       'div',
       { className: 'interview-sixteenth-musician-page' },
@@ -108,20 +109,32 @@ export class SixteenthMusicianPage extends Component {
           React.createElement('h3', { className: 'must-fill' }, ' *')
         ),
         React.createElement('p', null, 'Слова, которыми пользуются только музыканты. Могли бы Вы их назвать?'),
-        React.createElement('textarea', { id: 'jargon', onChange: this.handleJargonValueChanged })
+        React.createElement('textarea', {
+          id: 'jargon',
+          onChange: this.handleJargonValueChanged,
+          defaultValue: checkPoints[currentIndex].jargon,
+        })
       ),
       React.createElement(
         'div',
         { className: 'qstn' },
         React.createElement('span', null, React.createElement('h3', null, 'Условные знаки')),
-        React.createElement('textarea', { id: 'specsigns', onChange: this.handleSpecSignsValueChanged })
+        React.createElement('textarea', {
+          id: 'specsigns',
+          onChange: this.handleSpecSignsValueChanged,
+          defaultValue: checkPoints[currentIndex].specsigns,
+        })
       ),
       React.createElement(
         'div',
         { className: 'qstn' },
         React.createElement('span', null, React.createElement('h3', null, 'Опознавательные знаки')),
         React.createElement('p', null, 'Как отличить уличного музыканта в толпе?'),
-        React.createElement('textarea', { id: 'idmarks', onChange: this.handleIdMarksValueChanged })
+        React.createElement('textarea', {
+          id: 'idmarks',
+          onChange: this.handleIdMarksValueChanged,
+          defaultValue: checkPoints[currentIndex].idmarks,
+        })
       ),
       React.createElement(
         'div',
@@ -139,29 +152,37 @@ export class SixteenthMusicianPage extends Component {
             type: 'checkbox',
             id: 'comfort',
             name: 'forwhat',
-            value: 'Для удобства',
+            value: this.state.forwhatValues[0],
             onChange: this.handleForWhatOptionChange,
+            defaultChecked: checkPoints[currentIndex].forwhat[0] === this.state.forwhatValues[0],
           }),
-          React.createElement('label', { htmlFor: 'comfort' }, 'Для удобства'),
+          React.createElement('label', { htmlFor: 'comfort' }, this.state.forwhatValues[0]),
           React.createElement('br'),
           React.createElement('input', {
             type: 'checkbox',
             id: 'insider',
             name: 'forwhat',
-            value: 'Чтобы понимали только свои',
+            value: this.state.forwhatValues[1],
             onChange: this.handleForWhatOptionChange,
+            defaultChecked: checkPoints[currentIndex].forwhat[1] === this.state.forwhatValues[1],
           }),
-          React.createElement('label', { htmlFor: 'insider' }, 'Чтобы понимали только свои'),
+          React.createElement('label', { htmlFor: 'insider' }, this.state.forwhatValues[1]),
           React.createElement('br'),
           React.createElement('input', {
             type: 'checkbox',
             id: 'other',
             name: 'forwhat',
-            value: 'Другое: ',
+            value: this.state.forwhatValues[2],
             onChange: this.handleForWhatOptionChange,
+            defaultChecked: checkPoints[currentIndex].forwhat[2] === this.state.forwhatValues[2],
           }),
-          React.createElement('label', { htmlFor: 'other' }, 'Другое: '),
-          React.createElement('input', { id: 'forwhatother', htmlFor: 'other', onChange: this.handleForWhatOtherOptionChange })
+          React.createElement('label', { htmlFor: 'other' }, this.state.forwhatValues[2]),
+          React.createElement('input', {
+            id: 'forwhatother',
+            className: checkPoints[currentIndex].forwhat[2] === this.state.forwhatValues[2] ? '' : 'inviz',
+            onChange: this.handleForWhatOtherOptionChange,
+            defaultValue: checkPoints[currentIndex].forwhatOther,
+          })
         )
       )
     );
