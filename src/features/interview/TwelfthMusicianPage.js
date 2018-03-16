@@ -20,6 +20,10 @@ export class TwelfthMusicianPage extends Component {
       700
     );
 
+    this.state = {
+      dayTime: ['Утром', 'Днем', 'Вечером', 'Ночью', 'По ситуации'],
+    };
+
     this.handleReasonsValueChanged = this.handleReasonsValueChanged.bind(this);
     this.handleWhereValueChanged = this.handleWhereValueChanged.bind(this);
     this.handleWhyWhereValueChanged = this.handleWhyWhereValueChanged.bind(this);
@@ -77,6 +81,8 @@ export class TwelfthMusicianPage extends Component {
   }
 
   render() {
+    const { checkPoints, currentIndex } = this.props.interview;
+
     return React.createElement(
       'div',
       { className: 'interview-twelfth-musician-page' },
@@ -89,7 +95,11 @@ export class TwelfthMusicianPage extends Component {
           React.createElement('h3', null, 'По каким поводам?'),
           React.createElement('h3', { className: 'must-fill' }, ' *')
         ),
-        React.createElement('textarea', { id: 'reasons', onChange: this.handleReasonsValueChanged })
+        React.createElement('textarea', {
+          id: 'reasons',
+          onChange: this.handleReasonsValueChanged,
+          defaultValue: checkPoints[currentIndex].reasons,
+        })
       ),
       React.createElement(
         'div',
@@ -100,7 +110,11 @@ export class TwelfthMusicianPage extends Component {
           React.createElement('h3', null, 'Где?'),
           React.createElement('h3', { className: 'must-fill' }, ' *')
         ),
-        React.createElement('textarea', { id: 'where', onChange: this.handleWhereValueChanged })
+        React.createElement('textarea', {
+          id: 'where',
+          onChange: this.handleWhereValueChanged,
+          defaultValue: checkPoints[currentIndex].where,
+        })
       ),
       React.createElement(
         'div',
@@ -111,7 +125,11 @@ export class TwelfthMusicianPage extends Component {
           React.createElement('h3', null, 'Почему именно там?'),
           React.createElement('h3', { className: 'must-fill' }, ' *')
         ),
-        React.createElement('textarea', { id: 'whywhere', onChange: this.handleWhyWhereValueChanged })
+        React.createElement('textarea', {
+          id: 'whywhere',
+          onChange: this.handleWhyWhereValueChanged,
+          defaultValue: checkPoints[currentIndex].whywhere,
+        })
       ),
       React.createElement(
         'div',
@@ -128,46 +146,51 @@ export class TwelfthMusicianPage extends Component {
             type: 'checkbox',
             id: 'morning',
             name: 'meetingtime',
-            value: 'Утром',
+            value: this.state.dayTime[0],
             onChange: this.handleMeetingTimeOptionChange,
+            defaultChecked: checkPoints[currentIndex].meetingtime[0] === this.state.dayTime[0],
           }),
-          React.createElement('label', { htmlFor: 'morning' }, 'Утром'),
+          React.createElement('label', { htmlFor: 'morning' }, this.state.dayTime[0]),
           React.createElement('br'),
           React.createElement('input', {
             type: 'checkbox',
             id: 'midday',
             name: 'meetingtime',
-            value: 'Днем',
+            value: this.state.dayTime[1],
             onChange: this.handleMeetingTimeOptionChange,
+            defaultChecked: checkPoints[currentIndex].meetingtime[1] === this.state.dayTime[1],
           }),
-          React.createElement('label', { htmlFor: 'midday' }, 'Днем'),
+          React.createElement('label', { htmlFor: 'midday' }, this.state.dayTime[1]),
           React.createElement('br'),
           React.createElement('input', {
             type: 'checkbox',
             id: 'evening',
             name: 'meetingtime',
-            value: 'Вечером',
+            value: this.state.dayTime[2],
             onChange: this.handleMeetingTimeOptionChange,
+            defaultChecked: checkPoints[currentIndex].meetingtime[2] === this.state.dayTime[2],
           }),
-          React.createElement('label', { htmlFor: 'evening' }, 'Вечером'),
+          React.createElement('label', { htmlFor: 'evening' }, this.state.dayTime[2]),
           React.createElement('br'),
           React.createElement('input', {
             type: 'checkbox',
             id: 'night',
             name: 'meetingtime',
-            value: 'Ночью',
+            value: this.state.dayTime[3],
             onChange: this.handleMeetingTimeOptionChange,
+            defaultChecked: checkPoints[currentIndex].meetingtime[3] === this.state.dayTime[3],
           }),
-          React.createElement('label', { htmlFor: 'night' }, 'Ночью'),
+          React.createElement('label', { htmlFor: 'night' }, this.state.dayTime[3]),
           React.createElement('br'),
           React.createElement('input', {
             type: 'checkbox',
             id: 'situation',
             name: 'meetingtime',
-            value: 'По ситуации',
+            value: this.state.dayTime[4],
             onChange: this.handleMeetingTimeOptionChange,
+            defaultChecked: checkPoints[currentIndex].meetingtime[4] === this.state.dayTime[4],
           }),
-          React.createElement('label', { htmlFor: 'situation' }, 'По ситуации')
+          React.createElement('label', { htmlFor: 'situation' }, this.state.dayTime[4])
         )
       )
     );
