@@ -55,6 +55,8 @@ export class ThirteenthMusicianPage extends Component {
   }
 
   render() {
+    const { checkPoints, currentIndex } = this.props.interview;
+
     return React.createElement(
       'div',
       { className: 'interview-thirteenth-musician-page' },
@@ -73,7 +75,11 @@ export class ThirteenthMusicianPage extends Component {
           React.createElement('h3', null, 'Как выбирается место для стрита?'),
           React.createElement('h3', { className: 'must-fill' }, ' *')
         ),
-        React.createElement('textarea', { id: 'place', onChange: this.handlePlaceValueChanged })
+        React.createElement('textarea', {
+          id: 'place',
+          onChange: this.handlePlaceValueChanged,
+          defaultValue: checkPoints[currentIndex].place,
+        })
       ),
       React.createElement(
         'div',
@@ -84,13 +90,21 @@ export class ThirteenthMusicianPage extends Component {
           React.createElement('h3', null, 'Каким должно быть это место?'),
           React.createElement('h3', { className: 'must-fill' }, ' *')
         ),
-        React.createElement('textarea', { id: 'descplace', onChange: this.handleDescPlaceValueChanged })
+        React.createElement('textarea', {
+          id: 'descplace',
+          onChange: this.handleDescPlaceValueChanged,
+          defaultValue: checkPoints[currentIndex].descplace,
+        })
       ),
       React.createElement(
         'div',
         { className: 'qstn' },
         React.createElement('span', null, React.createElement('h3', null, 'Когда лучше всего играть и почему?')),
-        React.createElement('textarea', { id: 'time', onChange: this.handleTimeValueChanged })
+        React.createElement('textarea', {
+          id: 'time',
+          onChange: this.handleTimeValueChanged,
+          defaultValue: checkPoints[currentIndex].time,
+        })
       )
     );
   }
