@@ -6,15 +6,38 @@ import { EleventhMusicianPage } from 'src/features/interview/EleventhMusicianPag
 describe('interview/EleventhMusicianPage', () => {
   it('renders node with correct class name', () => {
     const props = {
-      interview: {},
+      interview: {
+        eleventhFields: { meetings: '', meetingsExact: '' },
+        checkPoints: [
+          {},
+          {},
+          {},
+          {},
+          {},
+          {},
+          {},
+          {},
+          {},
+          {},
+          {},
+          { meetings: '', meetingsExact: '' },
+          {},
+          {},
+          {},
+          {},
+          {},
+          {},
+          {},
+          {},
+          {},
+          {},
+        ],
+        currentIndex: 11,
+      },
       actions: {},
     };
-    const renderedComponent = shallow(
-      <EleventhMusicianPage {...props} />
-    );
+    const renderedComponent = shallow(React.createElement(EleventhMusicianPage, { ...props }));
 
-    expect(
-      renderedComponent.find('.interview-eleventh-musician-page').getElement()
-    ).to.exist;
+    expect(renderedComponent.find('.interview-eleventh-musician-page').getElement()).to.exist;
   });
 });
