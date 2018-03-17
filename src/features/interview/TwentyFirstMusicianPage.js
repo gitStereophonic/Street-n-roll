@@ -33,6 +33,8 @@ export class TwentyFirstMusicianPage extends Component {
   }
 
   render() {
+    const { checkPoints, currentIndex } = this.props.interview;
+
     const { finishInterview } = this.props.actions;
     return React.createElement(
       'div',
@@ -51,7 +53,11 @@ export class TwentyFirstMusicianPage extends Component {
           )
         ),
         React.createElement('p', null, '*Если Вы живете в Москве'),
-        React.createElement('textarea', { id: 'thanks', onChange: this.handleThanksValueChanged })
+        React.createElement('textarea', {
+          id: 'thanks',
+          onChange: this.handleThanksValueChanged,
+          defaultValue: checkPoints[currentIndex].thanks,
+        })
       ),
       React.createElement(
         'div',
@@ -65,7 +71,11 @@ export class TwentyFirstMusicianPage extends Component {
             'Еще Вы можете помочь мне улучшить этот адский опросник, если напишете, что Вас особенно раздражало и как можно это исправить'
           )
         ),
-        React.createElement('textarea', { id: 'help', onChange: this.handleHelpValueChanged })
+        React.createElement('textarea', {
+          id: 'help',
+          onChange: this.handleHelpValueChanged,
+          defaultValue: checkPoints[currentIndex].help,
+        })
       ),
       React.createElement('button', { onClick: finishInterview }, 'Завершить и отправить')
     );

@@ -14,8 +14,8 @@ export class AboutUsPage extends Component {
     return React.createElement(
       'div',
       { className: 'about-us-about-us-page' },
-      '@CapralPikaChu - Kazimirskaya Olga',
-      '@gitStereophonic - Chinkov Sergey'
+      React.createElement('h3', null, '@CapralPikaChu - Kazimirskaya Olga'),
+      React.createElement('h3', null, '@gitStereophonic - Chinkov Sergey')
     );
   }
 }
