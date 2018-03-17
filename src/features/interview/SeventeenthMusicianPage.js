@@ -48,6 +48,8 @@ export class SeventeenthMusicianPage extends Component {
   }
 
   render() {
+    const { checkPoints, currentIndex } = this.props.interview;
+
     return React.createElement(
       'div',
       { className: 'interview-seventeenth-musician-page' },
@@ -62,13 +64,21 @@ export class SeventeenthMusicianPage extends Component {
           React.createElement('h3', { className: 'must-fill' }, ' *')
         ),
         React.createElement('p', null, 'Например, дни памяти или солидарности'),
-        React.createElement('input', { id: 'celebrations', onChange: this.handleCelebrationsValueChanged })
+        React.createElement('input', {
+          id: 'celebrations',
+          onChange: this.handleCelebrationsValueChanged,
+          defaultValue: checkPoints[currentIndex].celebrations,
+        })
       ),
       React.createElement(
         'div',
         { className: 'qstn' },
         React.createElement('span', null, React.createElement('h3', null, 'Как их отмечают?')),
-        React.createElement('textarea', { id: 'howceleb', onChange: this.handleHowCelebValueChanged })
+        React.createElement('textarea', {
+          id: 'howceleb',
+          onChange: this.handleHowCelebValueChanged,
+          defaultValue: checkPoints[currentIndex].howceleb,
+        })
       )
     );
   }
