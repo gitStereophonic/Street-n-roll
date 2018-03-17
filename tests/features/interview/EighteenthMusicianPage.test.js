@@ -86,8 +86,14 @@ describe('interview/EighteenthMusicianPage', () => {
       id: 'whobest',
     });
     const renderedComponent = shallow(React.createElement(EighteenthMusicianPage, { ...props }));
-    expect(renderedComponent.find('#competition').getElement().props.defaultValue).to.equal(expectedElementComp.props.defaultValue);
-    expect(renderedComponent.find('#relations').getElement().props.defaultValue).to.equal(expectedElementRel.props.defaultValue);
-    expect(renderedComponent.find('#whobest').getElement().props.defaultValue).to.equal(expectedElementWhB.props.defaultValue);
+    expect(renderedComponent.find('#competition').getElement().props.defaultValue).to.equal(
+      expectedElementComp.props.defaultValue
+    );
+    expect(renderedComponent.find('#relations').getElement().props.defaultValue).to.equal(
+      expectedElementRel.props.defaultValue
+    );
+    expect(renderedComponent.find('#whobest').getElement().props.defaultValue).to.equal(
+      expectedElementWhB.props.defaultValue
+    );
   });
 });
