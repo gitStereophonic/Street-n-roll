@@ -42,6 +42,8 @@ export class TwentiethMusicianPage extends Component {
   }
 
   render() {
+    const { checkPoints, currentIndex } = this.props.interview;
+
     return React.createElement(
       'div',
       { className: 'interview-twentieth-musician-page' },
@@ -56,7 +58,11 @@ export class TwentiethMusicianPage extends Component {
           React.createElement('h3', { className: 'must-fill' }, ' *')
         ),
         React.createElement('p', null, 'Если да, то чем?'),
-        React.createElement('textarea', { id: 'identity', onChange: this.handleIdentityValueChanged })
+        React.createElement('textarea', {
+          id: 'identity',
+          onChange: this.handleIdentityValueChanged,
+          defaultValue: checkPoints[currentIndex].identity,
+        })
       )
     );
   }

@@ -11,7 +11,12 @@ export class AboutUsPage extends Component {
   };
 
   render() {
-    return React.createElement('div', { className: 'about-us-about-us-page' }, 'Page Content: about-us/DefaultPage');
+    return React.createElement(
+      'div',
+      { className: 'about-us-about-us-page' },
+      React.createElement('h3', null, '@CapralPikaChu - Kazimirskaya Olga'),
+      React.createElement('h3', null, '@gitStereophonic - Chinkov Sergey')
+    );
   }
 }
 

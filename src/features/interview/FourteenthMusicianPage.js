@@ -57,6 +57,8 @@ export class FourteenthMusicianPage extends Component {
   }
 
   render() {
+    const { checkPoints, currentIndex } = this.props.interview;
+
     return React.createElement(
       'div',
       { className: 'interview-fourteenth-musician-page' },
@@ -75,7 +77,11 @@ export class FourteenthMusicianPage extends Component {
           React.createElement('h3', null, 'Что вы играете?'),
           React.createElement('h3', { className: 'must-fill' }, ' *')
         ),
-        React.createElement('textarea', { id: 'whatplay', onChange: this.handleWhatPlayValueChanged })
+        React.createElement('textarea', {
+          id: 'whatplay',
+          onChange: this.handleWhatPlayValueChanged,
+          defaultValue: checkPoints[currentIndex].whatplay,
+        })
       ),
       React.createElement(
         'div',
@@ -86,7 +92,11 @@ export class FourteenthMusicianPage extends Component {
           React.createElement('h3', null, 'По какому принципу сформирован Ваш репертуар?'),
           React.createElement('h3', { className: 'must-fill' }, ' *')
         ),
-        React.createElement('textarea', { id: 'whythisplay', onChange: this.handleWhyThisPlayValueChanged })
+        React.createElement('textarea', {
+          id: 'whythisplay',
+          onChange: this.handleWhyThisPlayValueChanged,
+          defaultValue: checkPoints[currentIndex].whythisplay,
+        })
       ),
       React.createElement(
         'div',
@@ -97,7 +107,11 @@ export class FourteenthMusicianPage extends Component {
           React.createElement('h3', null, 'Зависит ли репертуар от места, в котором Вы играете?'),
           React.createElement('h3', { className: 'must-fill' }, ' *')
         ),
-        React.createElement('input', { id: 'placeplay', onChange: this.handlePlacePlayValueChanged })
+        React.createElement('input', {
+          id: 'placeplay',
+          onChange: this.handlePlacePlayValueChanged,
+          defaultValue: checkPoints[currentIndex].placeplay,
+        })
       )
     );
   }

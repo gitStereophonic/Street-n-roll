@@ -54,6 +54,8 @@ export class NineteenthMusicianPage extends Component {
   }
 
   render() {
+    const { checkPoints, currentIndex } = this.props.interview;
+
     return React.createElement(
       'div',
       { className: 'interview-nineteenth-musician-page' },
@@ -77,20 +79,32 @@ export class NineteenthMusicianPage extends Component {
           null,
           'Например, гибель кумира (смерть Горшка, Честера Беннингтона), флэшмобы, массовые мероприятия и пр.'
         ),
-        React.createElement('textarea', { id: 'events', onChange: this.handleEventsValueChanged })
+        React.createElement('textarea', {
+          id: 'events',
+          onChange: this.handleEventsValueChanged,
+          defaultValue: checkPoints[currentIndex].events,
+        })
       ),
       React.createElement(
         'div',
         { className: 'qstn' },
         React.createElement('span', null, React.createElement('h3', null, 'Какой может быть их реакция?')),
         React.createElement('p', null, 'Смена репертуара, сходки и пр.'),
-        React.createElement('textarea', { id: 'reactions', onChange: this.handleReactionsValueChanged })
+        React.createElement('textarea', {
+          id: 'reactions',
+          onChange: this.handleReactionsValueChanged,
+          defaultValue: checkPoints[currentIndex].reactions,
+        })
       ),
       React.createElement(
         'div',
         { className: 'qstn' },
         React.createElement('span', null, React.createElement('h3', null, 'Опишите конкретный случай')),
-        React.createElement('textarea', { id: 'story', onChange: this.handleStoryValueChanged })
+        React.createElement('textarea', {
+          id: 'story',
+          onChange: this.handleStoryValueChanged,
+          defaultValue: checkPoints[currentIndex].story,
+        })
       )
     );
   }

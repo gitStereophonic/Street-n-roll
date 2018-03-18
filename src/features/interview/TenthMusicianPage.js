@@ -21,8 +21,10 @@ export class TenthMusicianPage extends Component {
     );
 
     this.handleOfficialOptionChange = this.handleOfficialOptionChange.bind(this);
+    this.handleOfficialOtherValueChange = this.handleOfficialOtherValueChange.bind(this);
     this.handleWoComValueChanged = this.handleWoComValueChanged.bind(this);
     this.handleHowJoinValueChanged = this.handleHowJoinValueChanged.bind(this);
+    this.handleCookiesValueChanged = this.handleCookiesValueChanged.bind(this);
     this.checkRequired = this.checkRequired.bind(this);
   }
 
@@ -44,9 +46,14 @@ export class TenthMusicianPage extends Component {
 
     const inp = $('#official');
     if (inp) {
-      if (changeEvent.target.value === 'other') inp.removeClass('inviz');
+      if (changeEvent.target.value === 'Другое: ') inp.removeClass('inviz');
       else inp.addClass('inviz');
     }
+  }
+
+  handleOfficialOtherValueChange(changeEvent) {
+    this.props.interview.tenthFields.officialOther = changeEvent.target.value;
+    this.checkRequired();
   }
 
   handleWoComValueChanged(changeEvent) {
@@ -59,7 +66,14 @@ export class TenthMusicianPage extends Component {
     this.checkRequired();
   }
 
+  handleCookiesValueChanged(changeEvent) {
+    this.props.interview.tenthFields.cookies = changeEvent.target.value;
+    this.checkRequired();
+  }
+
   render() {
+    const { checkPoints, currentIndex } = this.props.interview;
+
     return React.createElement(
       'div',
       { className: 'interview-tenth-musician-page' },
@@ -82,6 +96,7 @@ export class TenthMusicianPage extends Component {
             name: 'official',
             value: 'Да',
             onChange: this.handleOfficialOptionChange,
+            defaultChecked: checkPoints[currentIndex].official === 'Да',
           }),
           'Да',
           React.createElement('br'),
@@ -90,17 +105,24 @@ export class TenthMusicianPage extends Component {
             name: 'official',
             value: 'Нет',
             onChange: this.handleOfficialOptionChange,
+            defaultChecked: checkPoints[currentIndex].official === 'Нет',
           }),
           'Нет',
           React.createElement('br'),
           React.createElement('input', {
             type: 'radio',
             name: 'official',
-            value: 'other',
+            value: 'Другое: ',
             onChange: this.handleOfficialOptionChange,
+            defaultChecked: checkPoints[currentIndex].official === 'Другое: ',
           }),
           'Другое: ',
-          React.createElement('input', { id: 'official', className: 'inviz' })
+          React.createElement('input', {
+            id: 'official',
+            className: checkPoints[currentIndex].official === 'Другое: ' ? '' : 'inviz',
+            onChange: this.handleOfficialOtherValueChange,
+            defaultValue: checkPoints[currentIndex].officialOther,
+          })
         )
       ),
       React.createElement(
@@ -112,7 +134,11 @@ export class TenthMusicianPage extends Component {
           React.createElement('h3', null, 'Может ли уличный музыкант не состоять в сообществе?')
         ),
         React.createElement('p', null, 'Представляет ли это неудобства?'),
-        React.createElement('input', { id: 'wocom', onChange: this.handleWoComValueChanged })
+        React.createElement('input', {
+          id: 'wocom',
+          onChange: this.handleWoComValueChanged,
+          defaultValue: checkPoints[currentIndex].wocom,
+        })
       ),
       React.createElement(
         'div',
@@ -123,14 +149,22 @@ export class TenthMusicianPage extends Component {
           React.createElement('h3', null, 'Как в него вступить?'),
           React.createElement('h3', { className: 'must-fill' }, ' *')
         ),
-        React.createElement('textarea', { id: 'howjoin', onChange: this.handleHowJoinValueChanged })
+        React.createElement('textarea', {
+          id: 'howjoin',
+          onChange: this.handleHowJoinValueChanged,
+          defaultValue: checkPoints[currentIndex].howjoin,
+        })
       ),
       React.createElement(
         'div',
         { className: 'qstn' },
         React.createElement('span', null, React.createElement('h3', null, 'Какие выгоды приобретает член сообщества?')),
         React.createElement('p', null, 'Плюшечки ^_^'),
-        React.createElement('textarea', { id: 'cookies', onChange: this.handleCookiesValueChanged })
+        React.createElement('textarea', {
+          id: 'cookies',
+          onChange: this.handleCookiesValueChanged,
+          defaultValue: checkPoints[currentIndex].cookies,
+        })
       )
     );
   }

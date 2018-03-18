@@ -24,6 +24,7 @@ export class FirstPage extends Component {
     this.handleAgeOptionChange = this.handleAgeOptionChange.bind(this);
     this.handleEduOptionChange = this.handleEduOptionChange.bind(this);
     this.handleGenderOptionChange = this.handleGenderOptionChange.bind(this);
+    this.handleEduOtherValueChange = this.handleEduOtherValueChange.bind(this);
     this.handleJobValueChange = this.handleJobValueChange.bind(this);
     this.checkRequired = this.checkRequired.bind(this);
   }
@@ -53,6 +54,11 @@ export class FirstPage extends Component {
     }
   }
 
+  handleEduOtherValueChange(changeEvent) {
+    this.props.interview.firstFields.eduOther = changeEvent.target.value;
+    this.checkRequired();
+  }
+
   handleJobValueChange(changeEvent) {
     this.props.interview.firstFields.job = changeEvent.target.value;
     this.checkRequired();
@@ -76,6 +82,7 @@ export class FirstPage extends Component {
   }
 
   render() {
+    const { checkPoints, currentIndex } = this.props.interview;
     return React.createElement(
       'div',
       { className: 'interview-first-page' },
@@ -90,7 +97,12 @@ export class FirstPage extends Component {
           React.createElement('h3', null, 'Из какого Вы города?'),
           React.createElement('h3', { className: 'must-fill' }, ' *')
         ),
-        React.createElement('input', { id: 'city', onChange: this.handleCityValueChange })
+        React.createElement('input', {
+          id: 'city',
+          type: 'text',
+          onChange: this.handleCityValueChange,
+          defaultValue: checkPoints[currentIndex].city,
+        })
       ),
       React.createElement(
         'div',
@@ -109,6 +121,7 @@ export class FirstPage extends Component {
             name: 'age',
             value: 'Меньше 18',
             onChange: this.handleAgeOptionChange,
+            defaultChecked: checkPoints[currentIndex].age === 'Меньше 18',
           }),
           'Меньше 18',
           React.createElement('br'),
@@ -117,6 +130,7 @@ export class FirstPage extends Component {
             name: 'age',
             value: '18 - 25',
             onChange: this.handleAgeOptionChange,
+            defaultChecked: checkPoints[currentIndex].age === '18 - 25',
           }),
           '18 - 25',
           React.createElement('br'),
@@ -125,6 +139,7 @@ export class FirstPage extends Component {
             name: 'age',
             value: '25 - 40',
             onChange: this.handleAgeOptionChange,
+            defaultChecked: checkPoints[currentIndex].age === '25 - 40',
           }),
           '25 - 40',
           React.createElement('br'),
@@ -133,6 +148,7 @@ export class FirstPage extends Component {
             name: 'age',
             value: '40 - 60',
             onChange: this.handleAgeOptionChange,
+            defaultChecked: checkPoints[currentIndex].age === '40 - 60',
           }),
           '40 - 60',
           React.createElement('br'),
@@ -141,6 +157,7 @@ export class FirstPage extends Component {
             name: 'age',
             value: 'Больше 60',
             onChange: this.handleAgeOptionChange,
+            defaultChecked: checkPoints[currentIndex].age === 'Больше 60',
           }),
           'Больше 60'
         )
@@ -162,6 +179,7 @@ export class FirstPage extends Component {
             name: 'gender',
             value: 'Мужчина',
             onChange: this.handleGenderOptionChange,
+            defaultChecked: checkPoints[currentIndex].gender === 'Мужчина',
           }),
           'Мужчина',
           React.createElement('br'),
@@ -170,6 +188,7 @@ export class FirstPage extends Component {
             name: 'gender',
             value: 'Женщина',
             onChange: this.handleGenderOptionChange,
+            defaultChecked: checkPoints[currentIndex].gender === 'Женщина',
           }),
           'Женщина'
         )
@@ -191,6 +210,7 @@ export class FirstPage extends Component {
             name: 'edu',
             value: 'Среднее общее',
             onChange: this.handleEduOptionChange,
+            defaultChecked: checkPoints[currentIndex].edu === 'Среднее общее',
           }),
           'Среднее общее',
           React.createElement('br'),
@@ -199,6 +219,7 @@ export class FirstPage extends Component {
             name: 'edu',
             value: 'Среднее специальное',
             onChange: this.handleEduOptionChange,
+            defaultChecked: checkPoints[currentIndex].edu === 'Среднее специальное',
           }),
           'Среднее специальное',
           React.createElement('br'),
@@ -207,6 +228,7 @@ export class FirstPage extends Component {
             name: 'edu',
             value: 'Высшее неполное',
             onChange: this.handleEduOptionChange,
+            defaultChecked: checkPoints[currentIndex].edu === 'Высшее неполное',
           }),
           'Высшее неполное',
           React.createElement('br'),
@@ -215,6 +237,7 @@ export class FirstPage extends Component {
             name: 'edu',
             value: 'Высшее полное',
             onChange: this.handleEduOptionChange,
+            defaultChecked: checkPoints[currentIndex].edu === 'Высшее полное',
           }),
           'Высшее полное',
           React.createElement('br'),
@@ -223,11 +246,14 @@ export class FirstPage extends Component {
             name: 'edu',
             value: 'other',
             onChange: this.handleEduOptionChange,
+            defaultChecked: checkPoints[currentIndex].edu === 'other',
           }),
           'Другое: ',
           React.createElement('input', {
             id: 'edu',
-            className: 'inviz',
+            className: checkPoints[currentIndex].edu === 'other' ? '' : 'inviz',
+            onChange: this.handleEduOtherValueChange,
+            defaultValue: checkPoints[currentIndex].eduOther,
           })
         )
       ),
@@ -240,7 +266,11 @@ export class FirstPage extends Component {
           React.createElement('h3', null, 'Ваш род занятий'),
           React.createElement('h3', { className: 'must-fill' }, ' *')
         ),
-        React.createElement('input', { id: 'job', onChange: this.handleJobValueChange })
+        React.createElement('input', {
+          id: 'job',
+          onChange: this.handleJobValueChange,
+          defaultValue: checkPoints[currentIndex].job,
+        })
       )
     );
   }

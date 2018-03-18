@@ -63,6 +63,8 @@ export class FifteenthMusicianPage extends Component {
   }
 
   render() {
+    const { checkPoints, currentIndex } = this.props.interview;
+
     return React.createElement(
       'div',
       { className: 'interview-fifteenth-musician-page' },
@@ -86,7 +88,11 @@ export class FifteenthMusicianPage extends Component {
           null,
           'Приходите, раскладываете инструмент, начинаете играть. Есть ли в этом что-то особенное для вас?'
         ),
-        React.createElement('textarea', { id: 'howcome', onChange: this.handleHowComeValueChanged })
+        React.createElement('textarea', {
+          id: 'howcome',
+          onChange: this.handleHowComeValueChanged,
+          defaultValue: checkPoints[currentIndex].howcome,
+        })
       ),
       React.createElement(
         'div',
@@ -97,7 +103,11 @@ export class FifteenthMusicianPage extends Component {
           React.createElement('h3', null, 'А уходите с него?'),
           React.createElement('h3', { className: 'must-fill' }, ' *')
         ),
-        React.createElement('textarea', { id: 'howleave', onChange: this.handleHowLeaveValueChanged })
+        React.createElement('textarea', {
+          id: 'howleave',
+          onChange: this.handleHowLeaveValueChanged,
+          defaultValue: checkPoints[currentIndex].howleave,
+        })
       ),
       React.createElement(
         'div',
@@ -108,13 +118,21 @@ export class FifteenthMusicianPage extends Component {
           React.createElement('h3', null, 'Как принимаете первые заработанные деньги?'),
           React.createElement('h3', { className: 'must-fill' }, ' *')
         ),
-        React.createElement('input', { id: 'firstmoney', onChange: this.handleFirstMoneyValueChanged })
+        React.createElement('input', {
+          id: 'firstmoney',
+          onChange: this.handleFirstMoneyValueChanged,
+          defaultValue: checkPoints[currentIndex].firstmoney,
+        })
       ),
       React.createElement(
         'div',
         { className: 'qstn' },
         React.createElement('span', null, React.createElement('h3', null, 'Как Вы общаетесь с людьми?')),
-        React.createElement('textarea', { id: 'talk', onChange: this.handleTalkValueChanged })
+        React.createElement('textarea', {
+          id: 'talk',
+          onChange: this.handleTalkValueChanged,
+          defaultValue: checkPoints[currentIndex].talk,
+        })
       )
     );
   }

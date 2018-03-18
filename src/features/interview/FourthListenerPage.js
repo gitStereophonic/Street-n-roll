@@ -27,6 +27,8 @@ export class FourthListenerPage extends Component {
   }
 
   render() {
+    const { checkPoints, currentIndex } = this.props.interview;
+
     return React.createElement(
       'div',
       { className: 'interview-fourth-listener-page' },
@@ -35,9 +37,17 @@ export class FourthListenerPage extends Component {
       React.createElement(
         'div',
         { className: 'qstn' },
-        React.createElement('span', null, React.createElement('h3', null, 'Какие песни Вам доводилось слышать в исполнении менестрелей?')),
+        React.createElement(
+          'span',
+          null,
+          React.createElement('h3', null, 'Какие песни Вам доводилось слышать в исполнении менестрелей?')
+        ),
         React.createElement('p', null, 'Какие из них Вам нравятся или не нравятся?'),
-        React.createElement('textarea', { id: 'songs', onChange: this.handleSongsValueChanged })
+        React.createElement('textarea', {
+          id: 'songs',
+          onChange: this.handleSongsValueChanged,
+          defaultValue: checkPoints[currentIndex].songs,
+        })
       )
     );
   }

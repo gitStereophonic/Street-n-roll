@@ -9,12 +9,8 @@ describe('about-us/AboutUsPage', () => {
       aboutUs: {},
       actions: {},
     };
-    const renderedComponent = shallow(
-      <AboutUsPage {...props} />
-    );
+    const renderedComponent = shallow(React.createElement(AboutUsPage, { ...props }));
 
-    expect(
-      renderedComponent.find('.about-us-about-us-page').getElement()
-    ).to.exist;
+    expect(renderedComponent.find('.about-us-about-us-page').getElement()).to.exist;
   });
 });

@@ -54,6 +54,8 @@ export class EighteenthMusicianPage extends Component {
   }
 
   render() {
+    const { checkPoints, currentIndex } = this.props.interview;
+
     return React.createElement(
       'div',
       { className: 'interview-eighteenth-musician-page' },
@@ -72,27 +74,31 @@ export class EighteenthMusicianPage extends Component {
           React.createElement('h3', null, 'Есть ли в среде музыкантов конкуренция?'),
           React.createElement('h3', { className: 'must-fill' }, ' *')
         ),
-        React.createElement('input', { id: 'competition', onChange: this.handleCompetitionValueChanged })
+        React.createElement('input', {
+          id: 'competition',
+          onChange: this.handleCompetitionValueChanged,
+          defaultValue: checkPoints[currentIndex].competition,
+        })
       ),
       React.createElement(
         'div',
         { className: 'qstn' },
-        React.createElement(
-          'span',
-          null,
-          React.createElement('h3', null, 'Как относятся друг к другу конкуренты?')
-        ),
-        React.createElement('textarea', { id: 'relations', onChange: this.handleRelationsValueChanged })
+        React.createElement('span', null, React.createElement('h3', null, 'Как относятся друг к другу конкуренты?')),
+        React.createElement('textarea', {
+          id: 'relations',
+          onChange: this.handleRelationsValueChanged,
+          defaultValue: checkPoints[currentIndex].relations,
+        })
       ),
       React.createElement(
         'div',
         { className: 'qstn' },
-        React.createElement(
-          'span',
-          null,
-          React.createElement('h3', null, 'Как решается, кто лучше?')
-        ),
-        React.createElement('textarea', { id: 'whobest', onChange: this.handleWhoBestValueChanged })
+        React.createElement('span', null, React.createElement('h3', null, 'Как решается, кто лучше?')),
+        React.createElement('textarea', {
+          id: 'whobest',
+          onChange: this.handleWhoBestValueChanged,
+          defaultValue: checkPoints[currentIndex].whobest,
+        })
       )
     );
   }
