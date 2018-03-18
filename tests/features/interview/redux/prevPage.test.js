@@ -12,6 +12,8 @@ describe('interview/redux/prevPage', () => {
   it('handles action type INTERVIEW_PREV_PAGE correctly', () => {
     const prevState = {
       interviewStages: [0, 33, 435, 36],
+      checkPoints: [{}, {}, {}],
+      secondFields: { everPlayed: '' },
       currentIndex: 2,
       pageContent: 2,
       keyValues: [
@@ -23,6 +25,8 @@ describe('interview/redux/prevPage', () => {
     };
     const expectedState = {
       interviewStages: [0, 33, 435, 36],
+      checkPoints: [{}, {}, { everPlayed: '' }],
+      secondFields: { everPlayed: '' },
       currentIndex: 1,
       pageContent: 33,
       keyValues: [
