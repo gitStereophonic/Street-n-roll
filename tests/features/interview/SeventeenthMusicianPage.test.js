@@ -6,15 +6,15 @@ import { SeventeenthMusicianPage } from 'src/features/interview/SeventeenthMusic
 describe('interview/SeventeenthMusicianPage', () => {
   it('renders node with correct class name', () => {
     const props = {
-      interview: {},
+      interview: {
+        seventeenthFields: { celebrations: '', howceleb: '' },
+        checkPoints: [{ celebrations: '', howceleb: '' }],
+        currentIndex: 0,
+      },
       actions: {},
     };
-    const renderedComponent = shallow(
-      <SeventeenthMusicianPage {...props} />
-    );
+    const renderedComponent = shallow(React.createElement(SeventeenthMusicianPage, { ...props }));
 
-    expect(
-      renderedComponent.find('.interview-seventeenth-musician-page').getElement()
-    ).to.exist;
+    expect(renderedComponent.find('.interview-seventeenth-musician-page').getElement()).to.exist;
   });
 });
