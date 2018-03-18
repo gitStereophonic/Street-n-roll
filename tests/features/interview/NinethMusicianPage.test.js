@@ -6,15 +6,15 @@ import { NinethMusicianPage } from 'src/features/interview/NinethMusicianPage';
 describe('interview/NinethMusicianPage', () => {
   it('renders node with correct class name', () => {
     const props = {
-      interview: {},
+      interview: {
+        ninethFields: { community: '', communityExact: '' },
+        checkPoints: [{}, { community: '', communityExact: '' }],
+        currentIndex: 1,
+      },
       actions: {},
     };
-    const renderedComponent = shallow(
-      <NinethMusicianPage {...props} />
-    );
+    const renderedComponent = shallow(React.createElement(NinethMusicianPage, { ...props }));
 
-    expect(
-      renderedComponent.find('.interview-nineth-musician-page').getElement()
-    ).to.exist;
+    expect(renderedComponent.find('.interview-nineth-musician-page').getElement()).to.exist;
   });
 });
