@@ -6,15 +6,15 @@ import { FourthListenerPage } from 'src/features/interview/FourthListenerPage';
 describe('interview/FourthListenerPage', () => {
   it('renders node with correct class name', () => {
     const props = {
-      interview: {},
+      interview: {
+        fourthFields: { songs: '' },
+        checkPoints: [{}, { songs: '' }],
+        currentIndex: 1,
+      },
       actions: {},
     };
-    const renderedComponent = shallow(
-      <FourthListenerPage {...props} />
-    );
+    const renderedComponent = shallow(React.createElement(FourthListenerPage, { ...props }));
 
-    expect(
-      renderedComponent.find('.interview-fourth-listener-page').getElement()
-    ).to.exist;
+    expect(renderedComponent.find('.interview-fourth-listener-page').getElement()).to.exist;
   });
 });
