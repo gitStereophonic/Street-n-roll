@@ -5,6 +5,8 @@ describe('interview/redux/reducer', () => {
   it('does nothing if no matched action', () => {
     const prevState = {
       interviewStages: [0, 33, 435, 36],
+      checkPoints: [{}, {}, {}],
+      secondFields: { everPlayed: '' },
       currentIndex: 2,
       pageContent: 2,
       keyValues: [

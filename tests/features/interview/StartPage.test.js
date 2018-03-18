@@ -9,12 +9,8 @@ describe('interview/StartPage', () => {
       interview: {},
       actions: {},
     };
-    const renderedComponent = shallow(
-      <StartPage {...props} />
-    );
+    const renderedComponent = shallow(React.createElement(StartPage, { ...props }));
 
-    expect(
-      renderedComponent.find('.interview-start-page').getElement()
-    ).to.exist;
+    expect(renderedComponent.find('.interview-start-page').getElement()).to.exist;
   });
 });
