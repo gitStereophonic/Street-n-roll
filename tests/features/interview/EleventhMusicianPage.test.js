@@ -29,8 +29,6 @@ describe('interview/EleventhMusicianPage', () => {
     };
     const renderedComponent = shallow(React.createElement(EleventhMusicianPage, { ...props }));
 
-    console.log(renderedComponent.find('input'));
-
     expect(renderedComponent.find('input')).to.have.length(3);
     expect(renderedComponent.find('input').get(0).props.defaultChecked).to.equal(false);
     expect(renderedComponent.find('input').get(1).props.defaultChecked).to.equal(false);
