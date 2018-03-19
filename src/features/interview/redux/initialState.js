@@ -134,6 +134,8 @@ const initialState = {
   currentKeyValue: '',
   lastPage: 21,
   backDoor: true,
+  sendInterviewDataPending: false,
+  sendInterviewDataError: null,
 };
 
 export default initialState;
