@@ -28,10 +28,13 @@ export function sendInterviewData(content) {
       const doRequest = $.ajax({
         type: 'POST',
         url: '/send',
-        data: content,
+        data: JSON.stringify(content),
+        processData: false,
+        contentType: 'application/json',
         success: (data) => {
           console.log('successfull');
           console.log(data);
+          console.log(content);
         }
       });
       doRequest.then(

@@ -9,6 +9,7 @@ const http = require('http');
 const shell = require('shelljs');
 const crypto = require('crypto');
 const express = require('express');
+const bodyParser = require('body-parser');
 const fallback = require('express-history-api-fallback');
 const webpack = require('webpack');
 const devMiddleware = require('webpack-dev-middleware');
@@ -67,6 +68,8 @@ function startDevServer() {
   // Also support files from root folder, mainly for the dev-vendor bundle
   app.use(express.static(path.join(__dirname, '../')));
 
+  app.use(bodyParser.json());
+
   // Proxy all calls /api when DEV to
   const { rekit: { proxy: API } } = pkgJson;
   if (API) {
@@ -79,6 +82,8 @@ function startDevServer() {
 
   app.post('/send', (req, res) => {
     const fileBuffer = fs.readFileSync(path.join(__dirname, '../src/StreetnrollDB.db'));
+
+    console.log(JSON.stringify(req.body));
 
     // Load the database
     const sqlStr = "INSERT INTO answersStart VALUES (1, 'Moscow', '18', 'Male', 'High complete', '', 'programmer', 1, '', '')";
