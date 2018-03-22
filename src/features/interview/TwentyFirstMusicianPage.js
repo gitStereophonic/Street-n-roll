@@ -22,6 +22,7 @@ export class TwentyFirstMusicianPage extends Component {
 
     this.handleThanksValueChanged = this.handleThanksValueChanged.bind(this);
     this.handleHelpValueChanged = this.handleHelpValueChanged.bind(this);
+    this.handleFinish = this.handleFinish.bind(this);
   }
 
   handleThanksValueChanged(changeEvent) {
@@ -32,10 +33,14 @@ export class TwentyFirstMusicianPage extends Component {
     this.props.interview.twentyFirstFields.help = changeEvent.target.value;
   }
 
+  handleFinish() {
+    this.props.actions.finishInterview();
+    this.props.actions.sendInterviewData(this.props.interview.checkPoints);
+  }
+
   render() {
     const { checkPoints, currentIndex } = this.props.interview;
 
-    const { finishInterview } = this.props.actions;
     return React.createElement(
       'div',
       { className: 'interview-twenty-first-musician-page' },
@@ -77,7 +82,7 @@ export class TwentyFirstMusicianPage extends Component {
           defaultValue: checkPoints[currentIndex].help,
         })
       ),
-      React.createElement('button', { onClick: finishInterview }, 'Завершить и отправить')
+      React.createElement('button', { onClick: this.handleFinish }, 'Завершить и отправить')
     );
   }
 }
