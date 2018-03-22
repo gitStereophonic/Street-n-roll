@@ -17,6 +17,8 @@ const rekitStudioMiddleWare = require('rekit-studio/middleware');
 const request = require('request');
 const pkgJson = require('../package.json');
 const getConfig = require('../webpack-config');
+const fs = require('fs');
+const sql = require('sql.js');
 const { ArgumentParser } = require('argparse');
 
 const parser = new ArgumentParser({
@@ -74,6 +76,26 @@ function startDevServer() {
 
   // History api fallback
   app.use(fallback('index.html', { root: path.join(__dirname, '../src') }));
+
+  app.post('/send', (req, res) => {
+    const fileBuffer = fs.readFileSync(path.join(__dirname, '../src/StreetnrollDB.db'));
+
+    // Load the database
+    const sqlStr = "INSERT INTO answersStart VALUES (1, 'Moscow', '18', 'Male', 'High complete', '', 'programmer', 1, '', '')";
+    const db = new sql.Database(fileBuffer);
+
+    db.run(sqlStr);
+
+    var result = db.exec("SELECT * FROM answersStart");
+
+    console.log(result[0].values);
+
+    const newBuffer = new Buffer(db.export());
+    fs.writeFileSync(path.join(__dirname, '../src/StreetnrollDB.db'), newBuffer);
+
+    console.log('server post php');
+    res.sendStatus(200);
+  });
 
   // Other files should not happen, respond 404
   app.get('*', (req, res) => {
