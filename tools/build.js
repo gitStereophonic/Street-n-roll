@@ -72,8 +72,6 @@ shell.ShellString(indexHtml).to(path.join(buildFolder, 'index.html'));
 shell.cp(path.join(__dirname, '../src/favicon.png'), buildFolder);
 // Copy db
 shell.cp(path.join(__dirname, '../src/StreetnrollDB.db'), buildFolder);
-// Copy php protocols
-shell.cp(path.join(__dirname, '../src/sendData.php'), buildFolder);
 // Copy images
 shell.cp('-R', path.join( __dirname, '../src/images'), path.join(buildFolder, '/images'));
 
