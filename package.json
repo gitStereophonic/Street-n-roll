@@ -81,6 +81,7 @@
     "webpack-node-externals": "^1.6.0"
   },
   "dependencies": {
-    "jquery": "^3.3.1"
+    "jquery": "^3.3.1",
+    "sql.js": "^0.5.0"
   }
 }
