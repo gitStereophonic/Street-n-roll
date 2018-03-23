@@ -105,7 +105,7 @@ export class ThirdListenerPage extends Component {
         React.createElement('span', null, React.createElement('h3', null, 'Даете ли Вы деньги музыкантам и почему?')),
         React.createElement('input', {
           id: 'money',
-          onChange: this.handleWhoValueChanged,
+          onChange: this.handleMoneyValueChanged,
           defaultValue: checkPoints[currentIndex].money,
         })
       )

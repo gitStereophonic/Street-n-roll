@@ -137,7 +137,7 @@ export class TwelfthMusicianPage extends Component {
         React.createElement(
           'span',
           null,
-          React.createElement('h3', null, 'Собираются ли музыканты вместе в свободное от стрита время?')
+          React.createElement('h3', null, 'Когда?')
         ),
         React.createElement(
           'div',
