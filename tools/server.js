@@ -83,22 +83,20 @@ function startDevServer() {
   app.post('/send', (req, res) => {
     const fileBuffer = fs.readFileSync(path.join(__dirname, '../src/StreetnrollDB.db'));
 
-    console.log(JSON.stringify(req.body));
+    console.log(req.body);
 
     // Load the database
-    const sqlStr = "INSERT INTO answersStart VALUES (1, 'Moscow', '18', 'Male', 'High complete', '', 'programmer', 1, '', '')";
+    const sqlStr = "INSERT INTO answersStart VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
     const db = new sql.Database(fileBuffer);
 
-    db.run(sqlStr);
+    var count = db.exec("SELECT COUNT(*) FROM answersStart")[0].values[0][0];
+    console.log(count);
 
-    var result = db.exec("SELECT * FROM answersStart");
-
-    console.log(result[0].values);
+    db.run(sqlStr, [count, 'Moscow', '18 - 25', 'Male', 'High complete', '', 'programmer', 1, '', '']);
 
     const newBuffer = new Buffer(db.export());
     fs.writeFileSync(path.join(__dirname, '../src/StreetnrollDB.db'), newBuffer);
 
-    console.log('server post php');
     res.sendStatus(200);
   });
 
