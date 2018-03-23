@@ -42,9 +42,78 @@ export function sendInterviewData(content) {
       if (theWay) {
         console.log('misician');
         data.dataBase = 'answersMisician';
+
+        const concat = (array) => {
+          let strOut = array[0];
+          for (let i = 1; i < array.length; i += 1) {
+            strOut += ',';
+            strOut += array[i];
+          }
+
+          return strOut;
+        };
+
+        const table = {
+          hobbie: content[7].hobbie,
+          hobbieOther: content[7].hobbieOther,
+          rather: content[7].rather,
+          ratherExact: content[7].ratherExact,
+          why: content[8].why,
+          community: content[9].community,
+          communityExact: content[9].communityExact,
+          official: content[10].official,
+          officialOther: content[10].officialOther,
+          wocom: content[10].wocom,
+          howjoin: content[10].howjoin,
+          cookies: content[10].cookies,
+          meetings: content[11].meetings,
+          meetingsExact: content[11].meetingsExact,
+          reasons: content[12].reasons,
+          where: content[12].where,
+          whywhere: content[12].whywhere,
+          meetingtime: concat(content[12].meetingtime),
+          place: content[13].place,
+          descplace: content[13].descplace,
+          time: content[13].time,
+          whatplay: content[14].whatplay,
+          whythisplay: content[14].whythisplay,
+          placeplay: content[14].placeplay,
+          howcome: content[15].howcome,
+          howleave: content[15].howleave,
+          firstmoney: content[15].firstmoney,
+          talk: content[15].talk,
+          jargon: content[16].jargon,
+          specsigns: content[16].specsigns,
+          idmarks: content[16].idmarks,
+          forwhat: concat(content[16].forwhat),
+          forwhatOther: content[16].forwhatOther,
+          celebrations: content[17].celebrations,
+          howceleb: content[17].howceleb,
+          competition: content[18].competition,
+          relations: content[18].relations,
+          whobest: content[18].whobest,
+          events: content[19].events,
+          reactions: content[19].reactions,
+          story: content[19].story,
+          identity: content[20].identity
+        };
+
+        data.answersTable = table;
       } else {
         console.log('listener');
         data.dataBase = 'answersListener';
+
+        const table = {
+          interest: content[3].interest,
+          who: content[3].who,
+          money: content[3].money,
+          songs: content[4].songs,
+          sign: content[5].sign,
+          traditions: content[5].traditions,
+          experience: content[6].experience
+        };
+
+        data.answersTable = table;
       }
 
       const doRequest = $.ajax({
