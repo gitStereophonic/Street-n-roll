@@ -100,6 +100,42 @@ function startDevServer() {
       .authenticate()
       .then(() => {
         console.log('Connection established');
+
+        var answersStart = sequelize.define('answersStart', {
+          id: { type: Sequelize.INTEGER, primaryKey: true },
+          city: { type: Sequelize.STRING },
+          age: { type: Sequelize.STRING },
+          gender: { type: Sequelize.STRING },
+          edu: { type: Sequelize.STRING },
+          eduOther: { type: Sequelize.STRING },
+          job: { type: Sequelize.STRING },
+          everPlayed: { type: Sequelize.BOOLEAN },
+          thanks: { type: Sequelize.TEXT },
+          help: { type: Sequelize.TEXT }
+        }, {
+          createdAt: false,
+          updatedAt: false,
+          freezeTableName: true
+        });
+
+        answersStart.sync().then(function () {
+          answersStart.findAll().then(function(rows) {
+            answersStart.create({
+              id: rows.length,
+              city: 'Moscow',
+              age: '18 - 25',
+              gender: 'Male',
+              edu: 'High complete',
+              eduOther: '',
+              job: 'programer',
+              everPlayed: 1,
+              thanks: '',
+              help: ''
+            }).then(function () {
+              res.sendStatus(200);
+            });
+          });
+        });
       })
       .catch(err => {
         console.error('Connection Error: ', err);
