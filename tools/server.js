@@ -19,7 +19,7 @@ const request = require('request');
 const pkgJson = require('../package.json');
 const getConfig = require('../webpack-config');
 const fs = require('fs');
-const sql = require('sql.js');
+const Sequelize = require('sequelize');
 const { ArgumentParser } = require('argparse');
 
 const parser = new ArgumentParser({
@@ -81,21 +81,65 @@ function startDevServer() {
   app.use(fallback('index.html', { root: path.join(__dirname, '../src') }));
 
   app.post('/send', (req, res) => {
-    const fileBuffer = fs.readFileSync(path.join(__dirname, '../src/StreetnrollDB.db'));
+    const sequelize = new Sequelize('StreetnrollDB', 'sergey.chinkov', 'RRica29081BhA5', {
+      host: 'localhost',
+      dialect: 'sqlite',
 
-    console.log(req.body);
+      pool: {
+        max: 5,
+        min: 0,
+        idle: 10000
+      },
 
-    // Load the database
-    const sqlStr = "INSERT INTO answersStart VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-    const db = new sql.Database(fileBuffer);
+      storage: path.join(__dirname, '../src/StreetnrollDB.db'),
 
-    var count = db.exec("SELECT COUNT(*) FROM answersStart")[0].values[0][0];
-    console.log(count);
+      operatorsAliases: false
+    });
 
-    db.run(sqlStr, [count, 'Moscow', '18 - 25', 'Male', 'High complete', '', 'programmer', 1, '', '']);
+    sequelize
+      .authenticate()
+      .then(() => {
+        console.log('Connection established');
 
-    const newBuffer = new Buffer(db.export());
-    fs.writeFileSync(path.join(__dirname, '../src/StreetnrollDB.db'), newBuffer);
+        var answersStart = sequelize.define('answersStart', {
+          id: { type: Sequelize.INTEGER, primaryKey: true },
+          city: { type: Sequelize.STRING },
+          age: { type: Sequelize.STRING },
+          gender: { type: Sequelize.STRING },
+          edu: { type: Sequelize.STRING },
+          eduOther: { type: Sequelize.STRING },
+          job: { type: Sequelize.STRING },
+          everPlayed: { type: Sequelize.BOOLEAN },
+          thanks: { type: Sequelize.TEXT },
+          help: { type: Sequelize.TEXT }
+        }, {
+          createdAt: false,
+          updatedAt: false,
+          freezeTableName: true
+        });
+
+        answersStart.sync().then(function () {
+          answersStart.findAll().then(function(rows) {
+            answersStart.create({
+              id: rows.length,
+              city: 'Moscow',
+              age: '18 - 25',
+              gender: 'Male',
+              edu: 'High complete',
+              eduOther: '',
+              job: 'programer',
+              everPlayed: 1,
+              thanks: '',
+              help: ''
+            }).then(function () {
+              res.sendStatus(200);
+            });
+          });
+        });
+      })
+      .catch(err => {
+        console.error('Connection Error: ', err);
+      });
 
     res.sendStatus(200);
   });
