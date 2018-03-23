@@ -9,7 +9,7 @@ import {
 // Rekit uses redux-thunk for async actions by default: https://github.com/gaearon/redux-thunk
 // If you prefer redux-saga, you can use rekit-plugin-redux-saga: https://github.com/supnate/rekit-plugin-redux-saga
 export function sendInterviewData(content) {
-  return (dispatch) => { // optionally you can have getState as the second argument
+  return (dispatch, getState) => { // optionally you can have getState as the second argument
     dispatch({
       type: INTERVIEW_SEND_INTERVIEW_DATA_BEGIN,
     });
@@ -24,17 +24,33 @@ export function sendInterviewData(content) {
       // args.error here is only for test coverage purpose.
       // const doRequest = args.error ? Promise.reject(new Error()) : Promise.resolve();
 
-      console.log('ASYNC');
+      console.log(getState);
+      console.log(content);
+      const theWay = content[2].everPlayed === 'yep';
+      const data = [];
+
+      data.push({});
+      data.push(content[1]);
+
+      if (theWay) {
+        console.log('misician');
+        data[0] = { dbTable: 'answersMisician' };
+      } else {
+        console.log('listener');
+        data[0] = { dbTable: 'answersListener' };
+      }
+
       const doRequest = $.ajax({
         type: 'POST',
         url: '/send',
         data: JSON.stringify(content),
         processData: false,
         contentType: 'application/json',
-        success: (data) => {
-          console.log('successfull');
-          console.log(data);
-          console.log(content);
+        success: (data, state) => {
+          if (data) {
+            console.log('successfull');
+            console.log(state);
+          }
         }
       });
       doRequest.then(
