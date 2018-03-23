@@ -81,6 +81,13 @@ function startDevServer() {
   app.use(fallback('index.html', { root: path.join(__dirname, '../src') }));
 
   app.post('/send', (req, res) => {
+    const dataBase = req.body.dataBase;
+    const aStart = req.body.answersStart;
+    const aTable = req.body.answersTable;
+    console.log(dataBase);
+    console.log(aStart);
+    console.log(aTable);
+
     const sequelize = new Sequelize('StreetnrollDB', 'sergey.chinkov', 'RRica29081BhA5', {
       host: 'localhost',
       dialect: 'sqlite',
@@ -122,15 +129,15 @@ function startDevServer() {
           answersStart.findAll().then(function(rows) {
             answersStart.create({
               id: rows.length,
-              city: 'Moscow',
-              age: '18 - 25',
-              gender: 'Male',
-              edu: 'High complete',
-              eduOther: '',
-              job: 'programer',
-              everPlayed: 1,
-              thanks: '',
-              help: ''
+              city: aStart.city,
+              age: aStart.age,
+              gender: aStart.gender,
+              edu: aStart.edu,
+              eduOther: aStart.eduOther,
+              job: aStart.job,
+              everPlayed: aStart.everPlayed,
+              thanks: aStart.thanks,
+              help: aStart.help
             }).then(function () {
               res.sendStatus(200);
             });
