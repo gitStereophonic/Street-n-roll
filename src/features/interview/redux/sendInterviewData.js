@@ -7,7 +7,7 @@ import {
 } from './constants';
 
 export function sendInterviewData(content) {
-  return (dispatch, getState) => { // optionally you can have getState as the second argument
+  return (dispatch) => { // optionally you can have getState as the second argument
     dispatch({
       type: INTERVIEW_SEND_INTERVIEW_DATA_BEGIN,
     });
@@ -17,9 +17,6 @@ export function sendInterviewData(content) {
     // It's hard to use state to manage it, but returning a promise allows you to easily achieve it.
     // e.g.: handleSubmit() { this.props.actions.submitForm(data).then(()=> {}).catch(() => {}); }
     const promise = new Promise((resolve, reject) => {
-      console.log(getState);
-      console.log(content);
-
       const theWay = content[2].everPlayed === 'yep';
       const data = {
         dataBase: 'answersStart',
@@ -126,6 +123,20 @@ export function sendInterviewData(content) {
           if (data) {
             console.log('successfull');
             console.log(state);
+            console.log(data);
+          }
+        },
+        error: (xhr, textStatus, error) => {
+          console.log(xhr.statusText);
+          console.log(textStatus);
+          switch (error) {
+            case 'Bad Request':
+              break;
+            case 'Ok':
+              break;
+
+            default:
+              break;
           }
         }
       });
