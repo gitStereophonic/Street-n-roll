@@ -270,10 +270,8 @@ function startDevServer() {
                   });
                 });
               } else {
-                res.sendStatus(302);
+                res.sendStatus(400);
               }
-
-              res.sendStatus(200);
             });
           });
         });
@@ -282,8 +280,6 @@ function startDevServer() {
         console.error('Connection Error: ', err);
         res.sendStatus(502);
       });
-
-    res.sendStatus(200);
   });
 
   // Other files should not happen, respond 404
