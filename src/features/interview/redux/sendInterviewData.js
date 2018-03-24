@@ -41,7 +41,7 @@ export function sendInterviewData(content) {
 
       if (theWay) {
         console.log('misician');
-        data.dataBase = 'answersMisician';
+        data.dataBase = 'answersMusician';
 
         const concat = (array) => {
           let strOut = array[0];

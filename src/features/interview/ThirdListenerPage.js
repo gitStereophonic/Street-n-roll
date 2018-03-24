@@ -22,6 +22,7 @@ export class ThirdListenerPage extends Component {
 
     this.handleInterestValueChanged = this.handleInterestValueChanged.bind(this);
     this.handleWhoValueChanged = this.handleWhoValueChanged.bind(this);
+    this.handleMoneyValueChanged = this.handleMoneyValueChanged.bind(this);
     this.checkRequired = this.checkRequired.bind(this);
   }
 
