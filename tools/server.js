@@ -125,6 +125,27 @@ function startDevServer() {
           freezeTableName: true
         });
 
+        var answersTable;
+
+        if (dataBase === 'answersListener') {
+          answersTable = sequelize.define(dataBase, {
+            id: { type: Sequelize.INTEGER, primaryKey: true },
+            interest: { type: Sequelize.INTEGER },
+            who: { type: Sequelize.STRING },
+            money: { type: Sequelize.STRING },
+            songs: { type: Sequelize.TEXT },
+            sign: { type: Sequelize.TEXT },
+            traditions: { type: Sequelize.TEXT },
+            experience: { type: Sequelize.TEXT }
+          });
+        }
+
+        if (dataBase === 'answersMusician') {
+          answersTable = sequelize.define(dataBase, {
+            id: { type: Sequelize.INTEGER, primaryKey: true }
+          })
+        }
+
         answersStart.sync().then(function () {
           answersStart.findAll().then(function(rows) {
             answersStart.create({
@@ -139,6 +160,11 @@ function startDevServer() {
               thanks: aStart.thanks,
               help: aStart.help
             }).then(function () {
+              if (!answersTable) {
+                res.sendStatus(302);
+              }
+
+              
               res.sendStatus(200);
             });
           });
