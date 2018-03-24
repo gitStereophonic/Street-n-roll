@@ -81,6 +81,9 @@
     "webpack-node-externals": "^1.6.0"
   },
   "dependencies": {
-    "jquery": "^3.3.1"
+    "body-parser": "^1.18.2",
+    "jquery": "^3.3.1",
+    "sequelize": "^4.37.4",
+    "sqlite3": "^4.0.0"
   }
 }

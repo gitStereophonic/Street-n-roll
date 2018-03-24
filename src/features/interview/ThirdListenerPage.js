@@ -22,6 +22,7 @@ export class ThirdListenerPage extends Component {
 
     this.handleInterestValueChanged = this.handleInterestValueChanged.bind(this);
     this.handleWhoValueChanged = this.handleWhoValueChanged.bind(this);
+    this.handleMoneyValueChanged = this.handleMoneyValueChanged.bind(this);
     this.checkRequired = this.checkRequired.bind(this);
   }
 
@@ -105,7 +106,7 @@ export class ThirdListenerPage extends Component {
         React.createElement('span', null, React.createElement('h3', null, 'Даете ли Вы деньги музыкантам и почему?')),
         React.createElement('input', {
           id: 'money',
-          onChange: this.handleWhoValueChanged,
+          onChange: this.handleMoneyValueChanged,
           defaultValue: checkPoints[currentIndex].money,
         })
       )
