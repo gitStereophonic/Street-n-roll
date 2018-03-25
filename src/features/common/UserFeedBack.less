@@ -2,10 +2,23 @@
 
 .common-user-feed-back {
   position: fixed;
-  right: 10px;
+  right: -410px;
   top: 20px;
-  border-radius: 10px;
+  border-radius: 20px;
   width: 400px;
-  height: 200px;
-  border-color: grey;
+  height: 100px;
+  background-color: #e2e4f5;
+
+
+  animation: show 8s ease-in-out 1s 1;
+  border: #0a0 2px solid;
+}
+
+@keyframes show {
+  from, to { right: -410px; opacity: 0; }
+  25%, 90% { right: 10px; opacity: 0.8; }
+}
+
+#feedback-message {
+  margin: 20px;
 }

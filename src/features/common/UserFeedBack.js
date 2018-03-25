@@ -11,7 +11,11 @@ export class UserFeedBack extends Component {
   };
 
   render() {
-    return React.createElement('div', { className: 'common-user-feed-back' }, 'fgdfgdf');
+    return React.createElement(
+      'div',
+      { className: 'common-user-feed-back' },
+      React.createElement('h3', { id: 'feedback-message' }, 'Эй! Псть! Бухём?')
+    );
   }
 }
 
