@@ -136,6 +136,8 @@ const initialState = {
   backDoor: true,
   sendInterviewDataPending: false,
   sendInterviewDataError: null,
+  requestStatus: 0,
+  requestMessage: ''
 };
 
 export default initialState;

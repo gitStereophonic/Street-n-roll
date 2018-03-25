@@ -1,15 +1,15 @@
 import $ from 'jquery';
 import {
-  INTERVIEW_SEND_INTERVIEW_DATA_BEGIN,
-  INTERVIEW_SEND_INTERVIEW_DATA_SUCCESS,
-  INTERVIEW_SEND_INTERVIEW_DATA_FAILURE,
-  INTERVIEW_SEND_INTERVIEW_DATA_DISMISS_ERROR,
+  COMMON_SEND_INTERVIEW_DATA_AGAIN_BEGIN,
+  COMMON_SEND_INTERVIEW_DATA_AGAIN_SUCCESS,
+  COMMON_SEND_INTERVIEW_DATA_AGAIN_FAILURE,
+  COMMON_SEND_INTERVIEW_DATA_AGAIN_DISMISS_ERROR,
 } from './constants';
 
-export function sendInterviewData(content) {
+export function sendInterviewDataAgain(content) {
   return (dispatch) => { // optionally you can have getState as the second argument
     dispatch({
-      type: INTERVIEW_SEND_INTERVIEW_DATA_BEGIN,
+      type: COMMON_SEND_INTERVIEW_DATA_AGAIN_BEGIN,
     });
 
     // Return a promise so that you could control UI flow without states in the store.
@@ -98,7 +98,7 @@ export function sendInterviewData(content) {
         data.answersTable = table;
       } else {
         console.log('listener');
-        data.dataBase = 'answersLstener';
+        data.dataBase = 'answersListener';
 
         const table = {
           interest: content[3].interest,
@@ -135,7 +135,7 @@ export function sendInterviewData(content) {
       doRequest.then(
         (res) => {
           dispatch({
-            type: INTERVIEW_SEND_INTERVIEW_DATA_SUCCESS,
+            type: COMMON_SEND_INTERVIEW_DATA_AGAIN_SUCCESS,
             data: res,
           });
           resolve(res);
@@ -143,7 +143,7 @@ export function sendInterviewData(content) {
         // Use rejectHandler as the second argument so that render errors won't be caught.
         (err) => {
           dispatch({
-            type: INTERVIEW_SEND_INTERVIEW_DATA_FAILURE,
+            type: COMMON_SEND_INTERVIEW_DATA_AGAIN_FAILURE,
             data: { error: err },
           });
           reject(err);
@@ -157,38 +157,39 @@ export function sendInterviewData(content) {
 
 // Async action saves request error by default, this method is used to dismiss the error info.
 // If you don't want errors to be saved in Redux store, just ignore this method.
-export function dismissSendInterviewDataError() {
+export function dismissSendInterviewDataAgainError() {
   return {
-    type: INTERVIEW_SEND_INTERVIEW_DATA_DISMISS_ERROR,
+    type: COMMON_SEND_INTERVIEW_DATA_AGAIN_DISMISS_ERROR,
   };
 }
 
 export function reducer(state, action) {
   const feedBack = $('.common-user-feed-back');
   switch (action.type) {
-    case INTERVIEW_SEND_INTERVIEW_DATA_BEGIN:
+    case COMMON_SEND_INTERVIEW_DATA_AGAIN_BEGIN:
       // Just after a request is sent
       return {
         ...state,
-        sendInterviewDataPending: true,
-        sendInterviewDataError: null,
+        sendInterviewDataAgainPending: true,
+        sendInterviewDataAgainError: null,
       };
 
-    case INTERVIEW_SEND_INTERVIEW_DATA_SUCCESS:
+    case COMMON_SEND_INTERVIEW_DATA_AGAIN_SUCCESS:
       // The request is success
       $('.common-user-feed-back').removeClass('successfull-panel');
       $('.common-user-feed-back').removeClass('error-panel');
       $('.common-user-feed-back').removeClass('error-panel-out');
       feedBack.addClass('successfull-panel');
+      console.log(state);
       return {
         ...state,
-        sendInterviewDataPending: false,
-        sendInterviewDataError: null,
+        sendInterviewDataAgainPending: false,
+        sendInterviewDataAgainError: null,
         requestStatus: 0,
         requestMessage: 'Отправка данных прошла успешно! Благодарим за внимание к проекту'
       };
 
-    case INTERVIEW_SEND_INTERVIEW_DATA_FAILURE:
+    case COMMON_SEND_INTERVIEW_DATA_AGAIN_FAILURE:
       // The request is failed
       $('.common-user-feed-back').removeClass('successfull-panel');
       $('.common-user-feed-back').removeClass('error-panel');
@@ -196,17 +197,17 @@ export function reducer(state, action) {
       feedBack.addClass('error-panel');
       return {
         ...state,
-        sendInterviewDataPending: false,
-        sendInterviewDataError: action.data.error,
+        sendInterviewDataAgainPending: false,
+        sendInterviewDataAgainError: action.data.error,
         requestStatus: -1,
         requestMessage: 'При отправке данных произошла ошибка. \nПовторить отправку?'
       };
 
-    case INTERVIEW_SEND_INTERVIEW_DATA_DISMISS_ERROR:
+    case COMMON_SEND_INTERVIEW_DATA_AGAIN_DISMISS_ERROR:
       // Dismiss the request failure error
       return {
         ...state,
-        sendInterviewDataError: null,
+        sendInterviewDataAgainError: null,
       };
 
     default:
