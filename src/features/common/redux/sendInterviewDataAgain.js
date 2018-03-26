@@ -164,7 +164,23 @@ export function dismissSendInterviewDataAgainError() {
 }
 
 export function reducer(state, action) {
-  const feedBack = $('.common-user-feed-back');
+  const clearFeedBack = (error) => {
+    const commonPanel = $('.common-user-feed-back');
+    const successPanel = $('.successfull-feedback');
+    const errorPanel = $('.error-feedback');
+    commonPanel.removeClass('successfull-panel');
+    commonPanel.removeClass('error-panel');
+    commonPanel.removeClass('error-panel-out');
+    successPanel.addClass('hide-object');
+    errorPanel.addClass('hide-object');
+    if (error) {
+      commonPanel.addClass('error-panel');
+      errorPanel.removeClass('hide-object');
+    } else {
+      commonPanel.addClass('successfull-panel');
+      successPanel.removeClass('hide-object');
+    }
+  };
   switch (action.type) {
     case COMMON_SEND_INTERVIEW_DATA_AGAIN_BEGIN:
       // Just after a request is sent
@@ -176,31 +192,20 @@ export function reducer(state, action) {
 
     case COMMON_SEND_INTERVIEW_DATA_AGAIN_SUCCESS:
       // The request is success
-      $('.common-user-feed-back').removeClass('successfull-panel');
-      $('.common-user-feed-back').removeClass('error-panel');
-      $('.common-user-feed-back').removeClass('error-panel-out');
-      feedBack.addClass('successfull-panel');
-      console.log(state);
+      clearFeedBack(false);
       return {
         ...state,
         sendInterviewDataAgainPending: false,
         sendInterviewDataAgainError: null,
-        requestStatus: 0,
-        requestMessage: 'Отправка данных прошла успешно! Благодарим за внимание к проекту'
       };
 
     case COMMON_SEND_INTERVIEW_DATA_AGAIN_FAILURE:
       // The request is failed
-      $('.common-user-feed-back').removeClass('successfull-panel');
-      $('.common-user-feed-back').removeClass('error-panel');
-      $('.common-user-feed-back').removeClass('error-panel-out');
-      feedBack.addClass('error-panel');
+      clearFeedBack(true);
       return {
         ...state,
         sendInterviewDataAgainPending: false,
         sendInterviewDataAgainError: action.data.error,
-        requestStatus: -1,
-        requestMessage: 'При отправке данных произошла ошибка. \nПовторить отправку?'
       };
 
     case COMMON_SEND_INTERVIEW_DATA_AGAIN_DISMISS_ERROR:

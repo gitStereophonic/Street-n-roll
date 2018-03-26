@@ -98,7 +98,7 @@ export function sendInterviewData(content) {
         data.answersTable = table;
       } else {
         console.log('listener');
-        data.dataBase = 'answersLstener';
+        data.dataBase = 'answersListener';
 
         const table = {
           interest: content[3].interest,
@@ -164,7 +164,24 @@ export function dismissSendInterviewDataError() {
 }
 
 export function reducer(state, action) {
-  const feedBack = $('.common-user-feed-back');
+  const clearFeedBack = (error) => {
+    const commonPanel = $('.common-user-feed-back');
+    const successPanel = $('.successfull-feedback');
+    const errorPanel = $('.error-feedback');
+    commonPanel.removeClass('successfull-panel');
+    commonPanel.removeClass('error-panel');
+    commonPanel.removeClass('error-panel-out');
+    successPanel.addClass('hide-object');
+    errorPanel.addClass('hide-object');
+    if (error) {
+      commonPanel.addClass('error-panel');
+      errorPanel.removeClass('hide-object');
+    } else {
+      commonPanel.addClass('successfull-panel');
+      successPanel.removeClass('hide-object');
+    }
+  };
+
   switch (action.type) {
     case INTERVIEW_SEND_INTERVIEW_DATA_BEGIN:
       // Just after a request is sent
@@ -176,30 +193,20 @@ export function reducer(state, action) {
 
     case INTERVIEW_SEND_INTERVIEW_DATA_SUCCESS:
       // The request is success
-      $('.common-user-feed-back').removeClass('successfull-panel');
-      $('.common-user-feed-back').removeClass('error-panel');
-      $('.common-user-feed-back').removeClass('error-panel-out');
-      feedBack.addClass('successfull-panel');
+      clearFeedBack(false);
       return {
         ...state,
         sendInterviewDataPending: false,
         sendInterviewDataError: null,
-        requestStatus: 0,
-        requestMessage: 'Отправка данных прошла успешно! Благодарим за внимание к проекту'
       };
 
     case INTERVIEW_SEND_INTERVIEW_DATA_FAILURE:
       // The request is failed
-      $('.common-user-feed-back').removeClass('successfull-panel');
-      $('.common-user-feed-back').removeClass('error-panel');
-      $('.common-user-feed-back').removeClass('error-panel-out');
-      feedBack.addClass('error-panel');
+      clearFeedBack(true);
       return {
         ...state,
         sendInterviewDataPending: false,
         sendInterviewDataError: action.data.error,
-        requestStatus: -1,
-        requestMessage: 'При отправке данных произошла ошибка. \nПовторить отправку?'
       };
 
     case INTERVIEW_SEND_INTERVIEW_DATA_DISMISS_ERROR:
