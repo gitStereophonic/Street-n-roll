@@ -74,6 +74,8 @@ shell.cp(path.join(__dirname, '../src/favicon.png'), buildFolder);
 shell.cp(path.join(__dirname, '../src/StreetnrollDB.db'), buildFolder);
 // Copy images
 shell.cp('-R', path.join( __dirname, '../src/images'), path.join(buildFolder, '/images'));
+// Copy release server
+shell.cp(path.join(__dirname, '../src/server.js'), buildFolder);
 
 // Webpack build
 console.log('Building, it may take a few seconds...');
