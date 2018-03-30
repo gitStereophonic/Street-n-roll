@@ -12,7 +12,7 @@ export class WelcomePage extends Component {
       },
       React.createElement('h1', null, 'Добро пожаловать!'),
       React.createElement('p', null, 'Этот сайт посвящен уличным музыкантам и их деятельности'),
-      React.createElement('p', null, '<Далее идет какая-нибудь аннотация (например из курсача)>'),
+      React.createElement('p', null, 'Вместо аннотации пока что тестовые данные'),
       React.createElement(
         'p',
         null,
