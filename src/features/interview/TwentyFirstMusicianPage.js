@@ -13,6 +13,12 @@ export class TwentyFirstMusicianPage extends Component {
 
   constructor(props) {
     super(props);
+
+    this.state = {
+      agreement: false,
+    };
+
+    this.checkRequired();
     $('body,html').animate(
       {
         scrollTop: 0,
@@ -22,15 +28,34 @@ export class TwentyFirstMusicianPage extends Component {
 
     this.handleThanksValueChanged = this.handleThanksValueChanged.bind(this);
     this.handleHelpValueChanged = this.handleHelpValueChanged.bind(this);
+    this.handleAgreementOptionChanged = this.handleAgreementOptionChanged.bind(this);
     this.handleFinish = this.handleFinish.bind(this);
+    this.checkRequired = this.checkRequired.bind(this);
+  }
+
+  checkRequired() {
+    console.log(this.state.agreement);
+    if (this.props.interview.currentIndex !== 21) return;
+    const green = this.state.agreement;
+
+    const btn = $('#finish-btn').last();
+    if (green) btn.removeClass('btn-disable');
+    else btn.addClass('btn-disable');
   }
 
   handleThanksValueChanged(changeEvent) {
     this.props.interview.twentyFirstFields.thanks = changeEvent.target.value;
+    this.checkRequired();
   }
 
   handleHelpValueChanged(changeEvent) {
     this.props.interview.twentyFirstFields.help = changeEvent.target.value;
+    this.checkRequired();
+  }
+
+  handleAgreementOptionChanged(changeEvent) {
+    this.state.agreement = changeEvent.target.checked;
+    this.checkRequired();
   }
 
   handleFinish() {
@@ -82,7 +107,24 @@ export class TwentyFirstMusicianPage extends Component {
           defaultValue: checkPoints[currentIndex].help,
         })
       ),
-      React.createElement('button', { onClick: this.handleFinish }, 'Завершить и отправить')
+      React.createElement(
+        'div',
+        { className: 'radio-group' },
+        React.createElement('br'),
+        React.createElement('input', {
+          type: 'checkbox',
+          id: 'agreement',
+          name: 'agreement',
+          onChange: this.handleAgreementOptionChanged,
+          defaultChecked: false,
+        }),
+        React.createElement('label', { htmlFor: 'agreement' }, 'Бла бла я готов продать душу дьяволу')
+      ),
+      React.createElement(
+        'button',
+        { id: 'finish-btn', className: 'btn-disable', onClick: this.handleFinish },
+        'Завершить и отправить'
+      )
     );
   }
 }
