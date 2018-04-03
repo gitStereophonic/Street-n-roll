@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import * as actions from './redux/actions';
 
 export class AboutUsPage extends Component {
@@ -14,8 +15,23 @@ export class AboutUsPage extends Component {
     return React.createElement(
       'div',
       { className: 'about-us-about-us-page' },
+      React.createElement('h1', null, 'Авторы: '),
       React.createElement('h3', null, '@CapralPikaChu - Kazimirskaya Olga'),
-      React.createElement('h3', null, '@gitStereophonic - Chinkov Sergey')
+      React.createElement('h3', null, '@gitStereophonic - Chinkov Sergey'),
+      React.createElement(
+        'div',
+        { className: 'policys' },
+        React.createElement(
+          'p',
+          null,
+          'Вы можете ознакомится с нашей ',
+          React.createElement(
+            Link,
+            { to: '/about-us/personal-data-processing-policy' },
+            'политикой обработки персональных данных'
+          )
+        )
+      )
     );
   }
 }
