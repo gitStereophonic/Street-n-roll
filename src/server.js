@@ -1,9 +1,5 @@
 'use strict';
 
-// Summary:
-//  This script is used to start dev server, build result server and Rekit Studio.
-//  Feel free to edit it to meet your specific requirement since this file has been copied to your project.
-
 const path = require('path');
 const http = require('http');
 const shell = require('shelljs');
@@ -100,7 +96,6 @@ const aSettings = {
   freezeTableName: true
 }
 
-// Start an express server for build result.
 function startBuildServer() {
   const app = express();
   const root = __dirname;
