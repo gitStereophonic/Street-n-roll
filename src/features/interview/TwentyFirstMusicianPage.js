@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import $ from 'jquery';
 import * as actions from './redux/actions';
 
@@ -118,7 +119,16 @@ export class TwentyFirstMusicianPage extends Component {
           onChange: this.handleAgreementOptionChanged,
           defaultChecked: false,
         }),
-        React.createElement('label', { htmlFor: 'agreement' }, 'Бла бла я готов продать душу дьяволу')
+        React.createElement(
+          'label',
+          { htmlFor: 'agreement' },
+          'Я принимаю ',
+          React.createElement(
+            Link,
+            { to: '/about-us/personal-data-processing-policy' },
+            'соглашение сайта об обработке персональных данных'
+          )
+        )
       ),
       React.createElement(
         'button',
