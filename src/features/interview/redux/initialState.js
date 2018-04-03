@@ -133,7 +133,7 @@ const initialState = {
   ],
   currentKeyValue: '',
   lastPage: 21,
-  backDoor: true,
+  backDoor: false,
   sendInterviewDataPending: false,
   sendInterviewDataError: null,
 };
