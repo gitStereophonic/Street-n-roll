@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import SimpleNav from '../common/SimpleNav';
-import UserFeedBack from '../common/UserFeedBack';
+import connect from '../common/UserFeedBack';
 import routeConfig from '../../common/routeConfig';
 
 /*
@@ -48,7 +48,7 @@ export default class App extends Component {
           className: 'page-container',
         },
         this.props.children,
-        React.createElement(UserFeedBack)
+        React.createElement(connect)
       )
     );
   }
