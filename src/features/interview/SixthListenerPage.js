@@ -4,6 +4,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import $ from 'jquery';
 import * as actions from './redux/actions';
+import { InterviewPage } from './InterviewPage';
 
 export class SixthListenerPage extends Component {
   static propTypes = {
@@ -20,6 +21,8 @@ export class SixthListenerPage extends Component {
     );
 
     this.handleExperienceValueChanged = this.handleExperienceValueChanged.bind(this);
+
+    InterviewPage.nextStatus(true, 200);
   }
 
   handleExperienceValueChanged(changeEvent) {
