@@ -4,6 +4,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import $ from 'jquery';
 import * as actions from './redux/actions';
+import { InterviewPage } from './InterviewPage';
 
 export class FourthListenerPage extends Component {
   static propTypes = {
@@ -20,6 +21,8 @@ export class FourthListenerPage extends Component {
     );
 
     this.handleSongsValueChanged = this.handleSongsValueChanged.bind(this);
+
+    InterviewPage.nextStatus(true, 200);
   }
 
   handleSongsValueChanged(changeEvent) {

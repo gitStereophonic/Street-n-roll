@@ -4,6 +4,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import $ from 'jquery';
 import * as actions from './redux/actions';
+import { InterviewPage } from './InterviewPage';
 
 export class TwelfthMusicianPage extends Component {
   static propTypes = {
@@ -12,7 +13,6 @@ export class TwelfthMusicianPage extends Component {
 
   constructor(props) {
     super(props);
-    this.cheackRequired();
     $('body,html').animate(
       {
         scrollTop: 0,
@@ -28,34 +28,34 @@ export class TwelfthMusicianPage extends Component {
     this.handleWhereValueChanged = this.handleWhereValueChanged.bind(this);
     this.handleWhyWhereValueChanged = this.handleWhyWhereValueChanged.bind(this);
     this.handleMeetingTimeOptionChange = this.handleMeetingTimeOptionChange.bind(this);
-    this.cheackRequired = this.cheackRequired.bind(this);
+    this.checkRequired = this.checkRequired.bind(this);
+
+    this.checkRequired();
   }
 
-  cheackRequired() {
+  checkRequired() {
     if (this.props.interview.currentIndex !== 12) return;
     let green = this.props.interview.twelfthFields.reasons !== '' && this.props.interview.twelfthFields.where !== '';
 
     // TODO: Remove this at every page when release
     if (this.props.interview.backDoor) green = true;
 
-    const btn = $('.next-btn').last();
-    if (green) btn.removeClass('btn-disable');
-    else btn.addClass('btn-disable');
+    InterviewPage.nextStatus(green, 500);
   }
 
   handleReasonsValueChanged(changeEvent) {
     this.props.interview.twelfthFields.reasons = changeEvent.target.value;
-    this.cheackRequired();
+    this.checkRequired();
   }
 
   handleWhereValueChanged(changeEvent) {
     this.props.interview.twelfthFields.where = changeEvent.target.value;
-    this.cheackRequired();
+    this.checkRequired();
   }
 
   handleWhyWhereValueChanged(changeEvent) {
     this.props.interview.twelfthFields.whywhere = changeEvent.target.value;
-    this.cheackRequired();
+    this.checkRequired();
   }
 
   handleMeetingTimeOptionChange(changeEvent) {

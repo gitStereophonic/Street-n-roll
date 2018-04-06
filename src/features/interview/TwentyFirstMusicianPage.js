@@ -19,7 +19,6 @@ export class TwentyFirstMusicianPage extends Component {
       agreement: false,
     };
 
-    this.checkRequired();
     $('body,html').animate(
       {
         scrollTop: 0,
@@ -32,6 +31,8 @@ export class TwentyFirstMusicianPage extends Component {
     this.handleAgreementOptionChanged = this.handleAgreementOptionChanged.bind(this);
     this.handleFinish = this.handleFinish.bind(this);
     this.checkRequired = this.checkRequired.bind(this);
+
+    this.checkRequired();
   }
 
   checkRequired() {
