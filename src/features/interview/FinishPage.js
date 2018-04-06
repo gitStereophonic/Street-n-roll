@@ -11,11 +11,18 @@ export class FinishPage extends Component {
   };
 
   render() {
+    const { resetInterview } = this.props.actions;
     return React.createElement(
       'div',
       { className: 'interview-finish-page' },
       React.createElement('h1', null, 'СПАСИБО ВАМ!'),
-      React.createElement('p', null, 'Вы помогли одному студенту не вылететь с первого курса!')
+      React.createElement('p', null, 'Вы помогли одному студенту не вылететь с первого курса!'),
+      React.createElement(
+        'button',
+        { id: 'reset-btn', onClick: resetInterview },
+        React.createElement('p', { id: 'p1' }, 'Эй! Псть!'),
+        React.createElement('p', { id: 'p2' }, 'Хочешь повторить?')
+      )
     );
   }
 }
