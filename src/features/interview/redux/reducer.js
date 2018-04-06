@@ -12,6 +12,7 @@ import { reducer as nextPageReducer } from './nextPage';
 import { reducer as prevPageReducer } from './prevPage';
 import { reducer as finishInterviewReducer } from './finishInterview';
 import { reducer as sendInterviewDataReducer } from './sendInterviewData';
+import { reducer as resetInterviewReducer } from './resetInterview';
 
 const reducers = [
   startInterviewReducer,
@@ -19,6 +20,7 @@ const reducers = [
   prevPageReducer,
   finishInterviewReducer,
   sendInterviewDataReducer,
+  resetInterviewReducer,
 ];
 
 export default function reducer(state = initialState, action) {
