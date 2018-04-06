@@ -4,6 +4,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import $ from 'jquery';
 import * as actions from './redux/actions';
+import { InterviewPage } from './InterviewPage';
 
 export class SeventeenthMusicianPage extends Component {
   static propTypes = {
@@ -12,7 +13,6 @@ export class SeventeenthMusicianPage extends Component {
 
   constructor(props) {
     super(props);
-    this.checkRequired();
     $('body,html').animate(
       {
         scrollTop: 0,
@@ -20,9 +20,11 @@ export class SeventeenthMusicianPage extends Component {
       700
     );
 
-    this.checkRequired = this.checkRequired.bind(this);
     this.handleCelebrationsValueChanged = this.handleCelebrationsValueChanged.bind(this);
     this.handleHowCelebValueChanged = this.handleHowCelebValueChanged.bind(this);
+    this.checkRequired = this.checkRequired.bind(this);
+
+    this.checkRequired();
   }
 
   checkRequired() {
@@ -32,9 +34,7 @@ export class SeventeenthMusicianPage extends Component {
     // TODO: Remove this at every page when release
     if (this.props.interview.backDoor) green = true;
 
-    const btn = $('.next-btn').last();
-    if (green) btn.removeClass('btn-disable');
-    else btn.addClass('btn-disable');
+    InterviewPage.nextStatus(green, 500);
   }
 
   handleCelebrationsValueChanged(changeEvent) {
