@@ -20,7 +20,7 @@ export class FinishPage extends Component {
       React.createElement(
         'button',
         { id: 'reset-btn', onClick: resetInterview },
-        React.createElement('p', { id: 'p1' }, 'Эй! Псть!'),
+        React.createElement('p', { id: 'p1' }, 'Хэй! Псть!'),
         React.createElement('p', { id: 'p2' }, 'Хочешь повторить?')
       )
     );
