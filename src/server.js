@@ -111,10 +111,6 @@ function startBuildServer() {
     const aStart = req.body.answersStart;
     const aTable = req.body.answersTable;
 
-    console.log(dataBase);
-    console.log(aStart);
-    console.log(aTable);
-
     const sequelize = new Sequelize('StreetnrollDB', 'sergey.chinkov@yandex.ru', 'RRica29081BhA5', {
       host: 'localhost',
       dialect: 'sqlite',
@@ -133,7 +129,7 @@ function startBuildServer() {
     sequelize
       .authenticate()
       .then(() => {
-        console.log('Connection established');
+        console.log('Connection to DB established');
 
         const answersStart = sequelize.define('answersStart', aS, aSettings);
 
