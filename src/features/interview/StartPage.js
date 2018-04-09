@@ -28,7 +28,7 @@ export class StartPage extends Component {
       React.createElement('img', { className: 'start-img', src: './../../images/start_img.png', alt: 'start' }),
       React.createElement('h1', null, 'Опрос: уличные музыканты'),
       React.createElement('p', null, 'Приготовьтесь, это будет долго...'),
-      React.createElement('button', { onClick: startInterview }, 'Приступить')
+      React.createElement('button', { id: 'start-btn', onClick: startInterview }, 'Начать')
     );
   }
 }
