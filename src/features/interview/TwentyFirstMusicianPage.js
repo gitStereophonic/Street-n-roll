@@ -41,8 +41,13 @@ export class TwentyFirstMusicianPage extends Component {
     const green = this.state.agreement;
 
     const btn = $('#finish-btn').last();
-    if (green) btn.removeClass('btn-disable');
-    else btn.addClass('btn-disable');
+    if (green) {
+      btn.removeClass('btn-disable');
+      btn.addClass('btn-enbl');
+    } else {
+      btn.removeClass('btn-enbl');
+      btn.addClass('btn-disable');
+    }
   }
 
   handleThanksValueChanged(changeEvent) {
