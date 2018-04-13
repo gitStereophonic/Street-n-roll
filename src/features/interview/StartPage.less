@@ -20,6 +20,10 @@
     border-radius: 40px;
   }
 
+  #start-btn {
+    animation: releasebtn 1s ease-out both;
+  }
+
   #start-btn:hover {
     color: grey;
     background: linear-gradient(90deg, transparent, grey, transparent) no-repeat center;
@@ -34,6 +38,19 @@
     to {
       background-size: 100% 100%;
       color: white;
+    }
+  }
+
+  @keyframes releasebtn {
+    from {
+      color: white;
+      background: linear-gradient(90deg, transparent, grey, transparent) no-repeat center;
+      background-size: 100% 100%;
+    }
+    to {
+      color: grey;
+      background: linear-gradient(90deg, transparent, grey, transparent) no-repeat center;
+      background-size: 0% 100%;
     }
   }
 }
