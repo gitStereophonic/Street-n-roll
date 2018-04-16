@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
@@ -7,8 +7,8 @@ import * as actions from './redux/actions';
 
 export class PersonalDataProcessingPolicy extends Component {
   static propTypes = {
-    aboutUs: PropTypes.object.isRequired,
-    actions: PropTypes.object.isRequired,
+    // aboutUs: PropTypes.object.isRequired,
+    // actions: PropTypes.object.isRequired,
   };
 
   render() {
