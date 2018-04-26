@@ -36,7 +36,6 @@ export class TwentyFirstMusicianPage extends Component {
   }
 
   checkRequired() {
-    console.log(this.state.agreement);
     if (this.props.interview.currentIndex !== 21) return;
     const green = this.state.agreement;
 

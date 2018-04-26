@@ -7,15 +7,11 @@ import {
 } from './constants';
 
 export function sendInterviewData(content) {
-  return (dispatch) => { // optionally you can have getState as the second argument
+  return (dispatch) => {
     dispatch({
       type: INTERVIEW_SEND_INTERVIEW_DATA_BEGIN,
     });
 
-    // Return a promise so that you could control UI flow without states in the store.
-    // For example: after submit a form, you need to redirect the page to another when succeeds or show some errors message if fails.
-    // It's hard to use state to manage it, but returning a promise allows you to easily achieve it.
-    // e.g.: handleSubmit() { this.props.actions.submitForm(data).then(()=> {}).catch(() => {}); }
     const promise = new Promise((resolve, reject) => {
       const theWay = content[2].everPlayed === 'yep';
       const data = {
@@ -121,7 +117,7 @@ export function sendInterviewData(content) {
         contentType: 'application/json',
         success: (data, state) => {
           if (data) {
-            console.log('successfull');
+            console.log('Send to DB: successfull');
             console.log(state);
             console.log(data);
           }
@@ -140,7 +136,6 @@ export function sendInterviewData(content) {
           });
           resolve(res);
         },
-        // Use rejectHandler as the second argument so that render errors won't be caught.
         (err) => {
           dispatch({
             type: INTERVIEW_SEND_INTERVIEW_DATA_FAILURE,

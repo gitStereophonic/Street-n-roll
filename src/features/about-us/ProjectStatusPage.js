@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import * as actions from './redux/actions';
 
 export class ProjectStatusPage extends Component {
   static propTypes = {
-    aboutUs: PropTypes.object.isRequired,
-    actions: PropTypes.object.isRequired,
+    // aboutUs: PropTypes.object.isRequired,
+    // actions: PropTypes.object.isRequired,
   };
 
   render() {
