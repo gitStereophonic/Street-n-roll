@@ -1,17 +1,70 @@
 import React, { Component } from 'react';
-// import PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import $ from 'jquery';
 import * as actions from './redux/actions';
 
 export class FeedbackPage extends Component {
   static propTypes = {
-    // aboutUs: PropTypes.object.isRequired,
-    // actions: PropTypes.object.isRequired,
+    aboutUs: PropTypes.object.isRequired,
+    actions: PropTypes.object.isRequired,
   };
 
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      agreement: false,
+    };
+
+    this.checkRequired = this.checkRequired.bind(this);
+    this.handleThanksValueChanged = this.handleThanksValueChanged.bind(this);
+    this.handleHelpValueChanged = this.handleHelpValueChanged.bind(this);
+    this.handleAgreementOptionChanged = this.handleAgreementOptionChanged.bind(this);
+    this.handleFinish = this.handleFinish.bind(this);
+
+    this.checkRequired();
+  }
+
+  checkRequired() {
+    const { feedBackPage } = this.props.aboutUs;
+    const btn = $('#finish-btn').last();
+    console.log(btn);
+    const green = (feedBackPage.thanks !== '' || feedBackPage.help !== '') && this.state.agreement;
+
+    if (green) {
+      btn.removeClass('btn-disable');
+      btn.addClass('btn-enbl');
+    } else {
+      btn.removeClass('btn-enbl');
+      btn.addClass('btn-disable');
+    }
+  }
+
+  handleThanksValueChanged(changeEvent) {
+    this.props.aboutUs.feedBackPage.thanks = changeEvent.target.value;
+    this.checkRequired();
+  }
+
+  handleHelpValueChanged(changeEvent) {
+    this.props.aboutUs.feedBackPage.help = changeEvent.target.value;
+    this.checkRequired();
+  }
+
+  handleAgreementOptionChanged(changeEvent) {
+    this.state.agreement = changeEvent.target.checked;
+    this.checkRequired();
+  }
+
+  handleFinish() {
+    this.checkRequired();
+    this.props.actions.sendFeedback(this.props.aboutUs.feedBackPage);
+  }
+
   render() {
+    const { feedBackPage } = this.props.aboutUs;
     return React.createElement(
       'div',
       { className: 'about-us-feedback-page' },
@@ -24,14 +77,14 @@ export class FeedbackPage extends Component {
           React.createElement(
             'h3',
             null,
-            'Если Вы музыкант и хотите, чтобы я Вас отблагодарила*, можете сообщить когда и где Вас найти :) Если Вы слушатель и заполнили этот опрос, +over 9000 Вам в карму и низкий поклон от меня лично'
+            'Если Вы музыкант и хотите, чтобы я Вас отблагодарила*, можете сообщить когда и где Вас найти'
           )
         ),
         React.createElement('p', null, '*Если Вы живете в Москве'),
         React.createElement('textarea', {
           id: 'thanks',
           onChange: this.handleThanksValueChanged,
-          // defaultValue: checkPoints[currentIndex].thanks,
+          defaultValue: feedBackPage.thanks,
         })
       ),
       React.createElement(
@@ -49,7 +102,7 @@ export class FeedbackPage extends Component {
         React.createElement('textarea', {
           id: 'help',
           onChange: this.handleHelpValueChanged,
-          // defaultValue: checkPoints[currentIndex].help,
+          defaultValue: feedBackPage.help,
         })
       ),
       React.createElement(
@@ -77,7 +130,7 @@ export class FeedbackPage extends Component {
       React.createElement(
         'button',
         { id: 'finish-btn', className: 'btn-disable', onClick: this.handleFinish },
-        'Завершить и отправить'
+        'Отправить'
       )
     );
   }
