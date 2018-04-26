@@ -20,6 +20,7 @@ const pkgJson = require('../package.json');
 const getConfig = require('../webpack-config');
 const fs = require('fs');
 const Sequelize = require('sequelize');
+const nodemailer = require('nodemailer');
 const { ArgumentParser } = require('argparse');
 
 const parser = new ArgumentParser({
@@ -119,6 +120,17 @@ const aSettings = {
   freezeTableName: true
 }
 
+const smtpConfig = {
+  service: 'Yandex',
+  secure: true,
+  auth: {
+    user: 'sergey.chinkov@yandex.ru',
+    pass: 'RRica29081BhA55'
+  }
+};
+
+const transporter = nodemailer.createTransport(smtpConfig);
+
 
 // Start an express server for development using webpack dev-middleware and hot-middleware
 function startDevServer() {
@@ -155,6 +167,31 @@ function startDevServer() {
 
   // History api fallback
   app.use(fallback('index.html', { root: path.join(__dirname, '../src') }));
+
+  app.post('/sendFeedback', (req, res) => {
+    const data = req.body;
+
+    const mailOptions = {
+      from: '"Street-n-roll Feedbacker" <sergey.chinkov@yandex.ru>',
+      to: 'gitstereophonic@gmail.com',
+      subject: 'Feedback from Street\'n\'roll',
+      text: data.thanks + '\n' + data.help,
+      html: '<h3>С сайта street-n-roll.ru было выслано сообщение с обратной связью</h3>'
+        + '<h4> Благодарности: </h4>'
+        + '<p>' + data.thanks + '</p>'
+        + '</br>'
+        + '<h4> Предложения по улучшению: </h4>'
+        + '<p>' + data.help + '</p>'
+    };
+
+    transporter.sendMail(mailOptions, function(error, info) {
+      if(error) {
+        return console.log(error);
+      }
+
+      console.log('Message sent: ' + info.response);
+    });
+  });
 
   app.post('/send', (req, res) => {
     const dataBase = req.body.dataBase;
