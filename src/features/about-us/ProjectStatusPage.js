@@ -14,7 +14,11 @@ export class ProjectStatusPage extends Component {
     return React.createElement(
       'div',
       { className: 'about-us-project-status-page' },
-      'Page Content: about-us/ProjectStatusPage'
+      React.createElement('img', {
+        src: '../../images/not_found.png',
+        alt: 'Page not implemented',
+      }),
+      React.createElement('p', null, 'Страница ещё на стадии разработки! Приносим свои извинения')
     );
   }
 }
