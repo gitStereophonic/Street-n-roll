@@ -14,7 +14,7 @@ export default {
       component: PersonalDataProcessingPolicy,
       autoIndexRoute: true,
     },
-    { path: 'feedback', name: 'Обратная связь', component: FeedbackPage },
-    { path: 'project-status', name: 'Project status page', component: ProjectStatusPage },
+    { path: 'feedback', name: 'Обратная связь', component: FeedbackPage, autoIndexRoute: true },
+    { path: 'project-status', name: 'Project status page', component: ProjectStatusPage, autoIndexRoute: true },
   ],
 };

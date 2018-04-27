@@ -15,15 +15,88 @@ export class FeedbackPage extends Component {
   constructor(props) {
     super(props);
 
-    this.state = {
-      agreement: false,
-    };
-
     this.checkRequired = this.checkRequired.bind(this);
     this.handleThanksValueChanged = this.handleThanksValueChanged.bind(this);
     this.handleHelpValueChanged = this.handleHelpValueChanged.bind(this);
     this.handleAgreementOptionChanged = this.handleAgreementOptionChanged.bind(this);
     this.handleFinish = this.handleFinish.bind(this);
+
+    this.state = {
+      agreement: false,
+      feedBackPageAfter: React.createElement(
+        'div',
+        { className: 'about-us-feedback-page' },
+        React.createElement('h1', null, 'Спасибо Вам за отзыв!')
+      ),
+      cntnt: React.createElement(
+        'div',
+        { className: 'about-us-feedback-page' },
+        React.createElement(
+          'div',
+          { className: 'qstn' },
+          React.createElement(
+            'span',
+            null,
+            React.createElement(
+              'h3',
+              null,
+              'Если Вы музыкант и хотите, чтобы я Вас отблагодарила*, можете сообщить когда и где Вас найти'
+            )
+          ),
+          React.createElement('p', null, '*Если Вы живете в Москве'),
+          React.createElement('textarea', {
+            id: 'thanks',
+            onChange: this.handleThanksValueChanged,
+            defaultValue: this.props.aboutUs.feedBackPage.thanks,
+          })
+        ),
+        React.createElement(
+          'div',
+          { className: 'qstn' },
+          React.createElement(
+            'span',
+            null,
+            React.createElement(
+              'h3',
+              null,
+              'Еще Вы можете помочь мне улучшить этот адский опросник, если напишете, что Вас особенно раздражало и как можно это исправить'
+            )
+          ),
+          React.createElement('textarea', {
+            id: 'help',
+            onChange: this.handleHelpValueChanged,
+            defaultValue: this.props.aboutUs.feedBackPage.help,
+          })
+        ),
+        React.createElement(
+          'div',
+          { className: 'radio-group' },
+          React.createElement('br'),
+          React.createElement('input', {
+            type: 'checkbox',
+            id: 'agreement',
+            name: 'agreement',
+            onChange: this.handleAgreementOptionChanged,
+            defaultChecked: false,
+          }),
+          React.createElement(
+            'label',
+            { htmlFor: 'agreement' },
+            'Я принимаю ',
+            React.createElement(
+              Link,
+              { to: '/about-us/personal-data-processing-policy' },
+              'соглашение сайта об обработке персональных данных'
+            )
+          )
+        ),
+        React.createElement(
+          'button',
+          { id: 'finish-btn', className: 'btn-disable', onClick: this.handleFinish },
+          'Отправить'
+        )
+      ),
+    };
 
     this.checkRequired();
   }
@@ -31,7 +104,7 @@ export class FeedbackPage extends Component {
   checkRequired() {
     const { feedBackPage } = this.props.aboutUs;
     const btn = $('#finish-btn').last();
-    console.log(btn);
+
     const green = (feedBackPage.thanks !== '' || feedBackPage.help !== '') && this.state.agreement;
 
     if (green) {
@@ -61,78 +134,11 @@ export class FeedbackPage extends Component {
   handleFinish() {
     this.checkRequired();
     this.props.actions.sendFeedback(this.props.aboutUs.feedBackPage);
+    this.state.cntnt = this.state.feedBackPageAfter;
   }
 
   render() {
-    const { feedBackPage } = this.props.aboutUs;
-    return React.createElement(
-      'div',
-      { className: 'about-us-feedback-page' },
-      React.createElement(
-        'div',
-        { className: 'qstn' },
-        React.createElement(
-          'span',
-          null,
-          React.createElement(
-            'h3',
-            null,
-            'Если Вы музыкант и хотите, чтобы я Вас отблагодарила*, можете сообщить когда и где Вас найти'
-          )
-        ),
-        React.createElement('p', null, '*Если Вы живете в Москве'),
-        React.createElement('textarea', {
-          id: 'thanks',
-          onChange: this.handleThanksValueChanged,
-          defaultValue: feedBackPage.thanks,
-        })
-      ),
-      React.createElement(
-        'div',
-        { className: 'qstn' },
-        React.createElement(
-          'span',
-          null,
-          React.createElement(
-            'h3',
-            null,
-            'Еще Вы можете помочь мне улучшить этот адский опросник, если напишете, что Вас особенно раздражало и как можно это исправить'
-          )
-        ),
-        React.createElement('textarea', {
-          id: 'help',
-          onChange: this.handleHelpValueChanged,
-          defaultValue: feedBackPage.help,
-        })
-      ),
-      React.createElement(
-        'div',
-        { className: 'radio-group' },
-        React.createElement('br'),
-        React.createElement('input', {
-          type: 'checkbox',
-          id: 'agreement',
-          name: 'agreement',
-          onChange: this.handleAgreementOptionChanged,
-          defaultChecked: false,
-        }),
-        React.createElement(
-          'label',
-          { htmlFor: 'agreement' },
-          'Я принимаю ',
-          React.createElement(
-            Link,
-            { to: '/about-us/personal-data-processing-policy' },
-            'соглашение сайта об обработке персональных данных'
-          )
-        )
-      ),
-      React.createElement(
-        'button',
-        { id: 'finish-btn', className: 'btn-disable', onClick: this.handleFinish },
-        'Отправить'
-      )
-    );
+    return this.state.cntnt;
   }
 }
 
