@@ -121,11 +121,11 @@ const aSettings = {
 }
 
 const smtpConfig = {
-  service: 'Yandex',
+  service: 'gmail',
   secure: true,
   auth: {
-    user: 'sergey.chinkov@yandex.ru',
-    pass: 'RRica29081BhA55'
+    user: 'richardelfsheep@gmail.com',
+    pass: 'shr572FktyZrt'
   }
 };
 
@@ -172,8 +172,8 @@ function startDevServer() {
     const data = req.body;
 
     const mailOptions = {
-      from: '"Street-n-roll Feedbacker" <sergey.chinkov@yandex.ru>',
-      to: 'gitstereophonic@gmail.com',
+      from: '"Street-n-roll Feedbacker" <richardelfsheep@gmail.com>',
+      to: 'sergey.chinkov@yandex.ru',
       subject: 'Feedback from Street\'n\'roll',
       text: data.thanks + '\n' + data.help,
       html: '<h3>С сайта street-n-roll.ru было выслано сообщение с обратной связью</h3>'
