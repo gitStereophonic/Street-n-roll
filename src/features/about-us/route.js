@@ -1,7 +1,7 @@
 // This is the JSON way to define React Router rules in a Rekit app.
 // Learn more from: http://rekit.js.org/docs/routing.html
 
-import { AboutUsPage, PersonalDataProcessingPolicy } from './';
+import { AboutUsPage, PersonalDataProcessingPolicy, FeedbackPage, ProjectStatusPage } from './';
 
 export default {
   path: 'about-us',
@@ -14,5 +14,7 @@ export default {
       component: PersonalDataProcessingPolicy,
       autoIndexRoute: true,
     },
+    { path: 'feedback', name: 'Обратная связь', component: FeedbackPage, autoIndexRoute: true },
+    { path: 'project-status', name: 'Project status page', component: ProjectStatusPage, autoIndexRoute: true },
   ],
 };

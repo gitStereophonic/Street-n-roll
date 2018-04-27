@@ -16,6 +16,7 @@ const pkgJson = require('../package.json');
 const getConfig = require('../webpack-config');
 const fs = require('fs');
 const Sequelize = require('sequelize');
+const nodemailer = require('nodemailer');
 const { ArgumentParser } = require('argparse');
 
 const manifestPath = path.join(__dirname, '../.tmp/dev-vendors-manifest.json');
@@ -96,6 +97,17 @@ const aSettings = {
   freezeTableName: true
 }
 
+const smtpConfig = {
+  service: 'gmail',
+  secure: true,
+  auth: {
+    user: 'richardelfsheep@gmail.com',
+    pass: 'shr572FktyZrt'
+  }
+};
+
+const transporter = nodemailer.createTransport(smtpConfig);
+
 function startBuildServer() {
   const app = express();
   const root = __dirname;
@@ -105,6 +117,31 @@ function startBuildServer() {
   app.use(express.static(__dirname));
 
   app.use(bodyParser.json());
+
+  app.post('/sendFeedback', (req, res) => {
+    const data = req.body;
+
+    const mailOptions = {
+      from: '"Street-n-roll Feedbacker" <richardelfsheep@gmail.com>',
+      to: 'pozhivi.s.moe@gmail.com, sergey.chinkov@yandex.ru',
+      subject: 'Feedback from Street\'n\'roll',
+      text: data.thanks + '\n' + data.help,
+      html: '<h3>С сайта street-n-roll.ru было выслано сообщение с обратной связью</h3>'
+        + '<h4> Благодарности: </h4>'
+        + '<p>' + data.thanks + '</p>'
+        + '</br>'
+        + '<h4> Предложения по улучшению: </h4>'
+        + '<p>' + data.help + '</p>'
+    };
+
+    transporter.sendMail(mailOptions, function(error, info) {
+      if(error) {
+        return console.log(error);
+      }
+
+      console.log('Message sent: ' + info.response);
+    });
+  });
 
   app.post('/send', (req, res) => {
     const dataBase = req.body.dataBase;

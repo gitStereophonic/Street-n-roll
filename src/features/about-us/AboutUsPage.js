@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
@@ -7,8 +7,8 @@ import * as actions from './redux/actions';
 
 export class AboutUsPage extends Component {
   static propTypes = {
-    aboutUs: PropTypes.object.isRequired,
-    actions: PropTypes.object.isRequired,
+    // aboutUs: PropTypes.object.isRequired,
+    // actions: PropTypes.object.isRequired,
   };
 
   render() {
@@ -30,6 +30,18 @@ export class AboutUsPage extends Component {
             { to: '/about-us/personal-data-processing-policy' },
             'политикой обработки персональных данных'
           )
+        )
+      ),
+      React.createElement(
+        'div',
+        { className: 'feedback-status' },
+        React.createElement(
+          'p',
+          null,
+          'Так же Вы можете оставить свой ',
+          React.createElement(Link, { to: '/about-us/feedback' }, 'отзыв'),
+          ' или узнать ',
+          React.createElement(Link, { to: '/about-us/project-status' }, 'информацию о нашем проекте')
         )
       )
     );
