@@ -6,15 +6,16 @@ import { FeedbackPage } from 'src/features/about-us/FeedbackPage';
 describe('about-us/FeedbackPage', () => {
   it('renders node with correct class name', () => {
     const props = {
-      aboutUs: {},
+      aboutUs: {
+        feedBackPage: {
+          thanks: '',
+          help: '',
+        },
+      },
       actions: {},
     };
-    const renderedComponent = shallow(
-      <FeedbackPage {...props} />
-    );
+    const renderedComponent = shallow(React.createElement(FeedbackPage, { ...props }));
 
-    expect(
-      renderedComponent.find('.about-us-feedback-page').getElement()
-    ).to.exist;
+    expect(renderedComponent.find('.about-us-feedback-page').getElement()).to.exist;
   });
 });
