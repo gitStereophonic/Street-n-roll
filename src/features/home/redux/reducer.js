@@ -8,8 +8,10 @@
 
 
 import initialState from './initialState';
+import { reducer as getDataReducer } from './getData';
 
 const reducers = [
+  getDataReducer,
 ];
 
 export default function reducer(state = initialState, action) {
