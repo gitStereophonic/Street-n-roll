@@ -168,6 +168,11 @@ function startDevServer() {
   // History api fallback
   app.use(fallback('index.html', { root: path.join(__dirname, '../src') }));
 
+  app.get('/getData', (req, res) => {
+    console.log('got it!');
+    res.type('application/json').end({hello: 'Hello'});
+  });
+
   app.post('/sendFeedback', (req, res) => {
     const data = req.body;
 
@@ -343,6 +348,17 @@ function startBuildServer() {
   app.use(express.static(path.join(__dirname, '../')));
 
   app.use(bodyParser.json());
+
+  app.post('/sendFeedback', (req, res) => {
+    const data = req.body;
+
+    const mailOptions = {
+      from: '"Street-n-roll Feedbacker" <richardelfsheep@gmail.com>',
+      to: 'sergey.chinkov@yandex.ru',
+      subject: 'Test feedback from Street\'n\'roll build server',
+      text: data.thanks + '\n' + data.help
+    };
+  });
 
   app.post('/send', (req, res) => {
     const dataBase = req.body.dataBase;
