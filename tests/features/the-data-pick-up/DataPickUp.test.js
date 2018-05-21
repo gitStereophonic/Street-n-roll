@@ -1,9 +1,9 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import { expect } from 'chai';
-import { DataPickUp } from 'src/features/home/DataPickUp';
+import { DataPickUp } from 'src/features/the-data-pick-up/DataPickUp';
 
-describe('home/DataPickUp', () => {
+describe('the-data-pick-up/DataPickUp', () => {
   it('renders node with correct class name', () => {
     const props = {
       home: {},
@@ -14,7 +14,7 @@ describe('home/DataPickUp', () => {
     );
 
     expect(
-      renderedComponent.find('.home-data-pick-up').getElement()
+      renderedComponent.find('.the-data-pick-up-data-pick-up').getElement()
     ).to.exist;
   });
 });
