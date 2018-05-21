@@ -1,15 +1,15 @@
 import $ from 'jquery';
 import {
-  HOME_GET_DATA_BEGIN,
-  HOME_GET_DATA_SUCCESS,
-  HOME_GET_DATA_FAILURE,
-  HOME_GET_DATA_DISMISS_ERROR,
+  THE_DATA_PICK_UP_GET_DATA_BEGIN,
+  THE_DATA_PICK_UP_GET_DATA_SUCCESS,
+  THE_DATA_PICK_UP_GET_DATA_FAILURE,
+  THE_DATA_PICK_UP_GET_DATA_DISMISS_ERROR,
 } from './constants';
 
 export function getData(args = {}) {
   return (dispatch) => {
     dispatch({
-      type: HOME_GET_DATA_BEGIN,
+      type: THE_DATA_PICK_UP_GET_DATA_BEGIN,
     });
 
     const promise = new Promise((resolve, reject) => {
@@ -20,6 +20,7 @@ export function getData(args = {}) {
         contebtType: 'application/json',
         success: (data, state) => {
           console.log('successful | zoibis');
+          console.log(data);
         },
         error: (xhr, textStatus) => {
           console.log(xhr.statusText);
@@ -31,14 +32,14 @@ export function getData(args = {}) {
       doRequest.then(
         (res) => {
           dispatch({
-            type: HOME_GET_DATA_SUCCESS,
+            type: THE_DATA_PICK_UP_GET_DATA_SUCCESS,
             data: res,
           });
           resolve(res);
         },
         (err) => {
           dispatch({
-            type: HOME_GET_DATA_FAILURE,
+            type: THE_DATA_PICK_UP_GET_DATA_FAILURE,
             data: { error: err },
           });
           reject(err);
@@ -52,13 +53,13 @@ export function getData(args = {}) {
 
 export function dismissGetDataError() {
   return {
-    type: HOME_GET_DATA_DISMISS_ERROR,
+    type: THE_DATA_PICK_UP_GET_DATA_DISMISS_ERROR,
   };
 }
 
 export function reducer(state, action) {
   switch (action.type) {
-    case HOME_GET_DATA_BEGIN:
+    case THE_DATA_PICK_UP_GET_DATA_BEGIN:
       // Just after a request is sent
       return {
         ...state,
@@ -66,7 +67,7 @@ export function reducer(state, action) {
         getDataError: null,
       };
 
-    case HOME_GET_DATA_SUCCESS:
+    case THE_DATA_PICK_UP_GET_DATA_SUCCESS:
       // The request is success
       return {
         ...state,
@@ -74,7 +75,7 @@ export function reducer(state, action) {
         getDataError: null,
       };
 
-    case HOME_GET_DATA_FAILURE:
+    case THE_DATA_PICK_UP_GET_DATA_FAILURE:
       // The request is failed
       return {
         ...state,
@@ -82,7 +83,7 @@ export function reducer(state, action) {
         getDataError: action.data.error,
       };
 
-    case HOME_GET_DATA_DISMISS_ERROR:
+    case THE_DATA_PICK_UP_GET_DATA_DISMISS_ERROR:
       // Dismiss the request failure error
       return {
         ...state,
