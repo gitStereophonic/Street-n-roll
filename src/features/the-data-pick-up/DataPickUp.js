@@ -8,7 +8,7 @@ import * as actions from './redux/actions';
 
 export class DataPickUp extends Component {
   static propTypes = {
-    // home: PropTypes.object.isRequired,
+    theDataPickUp: PropTypes.object.isRequired,
     actions: PropTypes.object.isRequired,
   };
 
@@ -16,17 +16,21 @@ export class DataPickUp extends Component {
     super(props);
 
     this.start = this.start.bind(this);
+    this.props.theDataPickUp.currentComponent = this.props.theDataPickUp.components.users;
   }
 
   start() {
-    this.props.actions.getData();
+    this.props.actions.getData({ id: -1 });
     $('.sidebar').addClass('hidden');
     $('.page-container').addClass('toLeft');
     $('.the-data-pick-up-data-pick-up').addClass('the-data-pick-up-data-pick-up-start');
-    $('.startPickUp').addClass('hidden');
+    $('.startPickUp').addClass('esc');
+    $('#mainField').addClass('mainField-start');
   }
 
   render() {
+    const { currentComponent } = this.props.theDataPickUp;
+
     // const data = {
     //   labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
     //   datasets: [
@@ -63,7 +67,7 @@ export class DataPickUp extends Component {
         React.createElement('h1', { className: 'app-title' }, "Welcome to Street'n'roll data pick up service for Olga")
       ),
       React.createElement('button', { className: 'startPickUp', onClick: this.start }, 'HEY BRO'),
-      React.createElement('div', { className: 'mainField' })
+      React.createElement('div', { id: 'mainField' }, currentComponent)
       // React.createElement(
       //   'div',
       //   { className: 'chart' },
@@ -90,7 +94,7 @@ export class DataPickUp extends Component {
 /* istanbul ignore next */
 function mapStateToProps(state) {
   return {
-    home: state.home,
+    theDataPickUp: state.theDataPickUp,
   };
 }
 

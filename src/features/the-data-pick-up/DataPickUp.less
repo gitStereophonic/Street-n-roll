@@ -4,8 +4,25 @@
   position: relative;
   top: 300px;
 
+  #mainField {
+    opacity: 0;
+    height: 0;
+  }
+
+  .mainField-start {
+    animation: show 1s ease-in-out both;
+  }
+
   .chart {
     width: 70%;
+  }
+
+  @keyframes show {
+    to {
+      opacity: 1;
+      height: 100%;
+      width: 100%;
+    }
   }
 }
 
@@ -17,6 +34,10 @@
   animation: hid 1s ease-in-out both;
 }
 
+.esc {
+  display: none;
+}
+
 .toLeft {
   animation: toLeft 1s ease-in-out both;
 }
@@ -25,7 +46,6 @@
   to {
     left: -500px;
     opacity: 0;
-    height: 0;
   }
 }
 

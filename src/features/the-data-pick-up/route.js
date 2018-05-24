@@ -4,7 +4,7 @@
 import { DataPickUp } from './';
 
 export default {
-  path: 'this-is-private-data-pick-up-page-for-Olga',
+  path: 'thisIsPrivateDataPickUpPageForOlga',
   name: 'The data pick up',
   autoIndexRoute: true,
   childRoutes: [

@@ -97,7 +97,6 @@ export function sendInterviewDataAgain(content) {
 
         data.answersTable = table;
       } else {
-        console.log('listener');
         data.dataBase = 'answersListener';
 
         const table = {
@@ -123,7 +122,6 @@ export function sendInterviewDataAgain(content) {
           if (data) {
             console.log('successfull');
             console.log(state);
-            console.log(data);
           }
         },
         error: (xhr, textStatus) => {

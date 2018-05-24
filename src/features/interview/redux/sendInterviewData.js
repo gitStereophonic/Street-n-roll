@@ -119,7 +119,6 @@ export function sendInterviewData(content) {
           if (data) {
             console.log('Send to DB: successfull');
             console.log(state);
-            console.log(data);
           }
         },
         error: (xhr, textStatus) => {

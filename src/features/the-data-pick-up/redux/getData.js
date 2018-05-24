@@ -6,7 +6,7 @@ import {
   THE_DATA_PICK_UP_GET_DATA_DISMISS_ERROR,
 } from './constants';
 
-export function getData(args = {}) {
+export function getData(args = { id: -1 }) {
   return (dispatch) => {
     dispatch({
       type: THE_DATA_PICK_UP_GET_DATA_BEGIN,
@@ -14,17 +14,21 @@ export function getData(args = {}) {
 
     const promise = new Promise((resolve, reject) => {
       const doRequest = $.ajax({
+        url: `/getstatdata/${args.id}`,
         type: 'GET',
-        url: '/getData',
-        processData: false,
-        contebtType: 'application/json',
-        success: (data, state) => {
+        success: (response, status) => {
           console.log('successful | zoibis');
+          if (!response || !JSON.parse(response)) {
+            console.log('Error! I\'ve got the invalid data from DB. Halp!');
+          }
+          const data = JSON.parse(response);
           console.log(data);
+          console.log(data.id);
+          console.log(status);
         },
-        error: (xhr, textStatus) => {
-          console.log(xhr.statusText);
-          console.log(textStatus);
+        error: (response) => {
+          console.log('error | huevo');
+          console.log(response);
         }
       });
 
