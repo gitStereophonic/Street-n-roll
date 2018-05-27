@@ -1,4 +1,5 @@
 import $ from 'jquery';
+import React from 'react';
 import {
   THE_DATA_PICK_UP_GET_DATA_BEGIN,
   THE_DATA_PICK_UP_GET_DATA_SUCCESS,
@@ -17,17 +18,21 @@ export function getData(args = { id: -1 }) {
         url: `/getstatdata/${args.id}`,
         type: 'GET',
         success: (response, status) => {
-          console.log('successful | zoibis');
-          if (!response || !JSON.parse(response)) {
-            console.log('Error! I\'ve got the invalid data from DB. Halp!');
-          }
-          const data = JSON.parse(response);
-          console.log(data);
-          console.log(data.id);
           console.log(status);
+          if (!response) {
+            console.log('Error! I\'ve got the invalid data from DB. Halp!');
+          } else {
+            const data = JSON.parse(response);
+            if (!data) {
+              console.log('Error! I can\'t parse response. Halp!');
+            } else {
+              // TODO: all the shit
+              console.log(data);
+            }
+          }
         },
         error: (response) => {
-          console.log('error | huevo');
+          console.log('Error! Problems with request. Halp!');
           console.log(response);
         }
       });
@@ -73,8 +78,12 @@ export function reducer(state, action) {
 
     case THE_DATA_PICK_UP_GET_DATA_SUCCESS:
       // The request is success
+      console.log('successed state: ');
+      console.log(state);
+      console.log(action);
       return {
         ...state,
+        startData: JSON.parse(action.data),
         getDataPending: false,
         getDataError: null,
       };
