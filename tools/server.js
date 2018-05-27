@@ -165,13 +165,70 @@ function startDevServer() {
     app.post('/api/*', (req, res) => req.pipe(request.post(`${API}${req.originalUrl}`)).pipe(res));
   }
 
+  app.get('/getstatdata/:id', (req, res) => {
+    const id = req.params.id;
+
+    let data = [];
+
+    const sequelize = new Sequelize('StreetnrollDB', 'sergey.chinkov', 'RRica29081BhA5', {
+      host: 'localhost',
+      dialect: 'sqlite',
+
+      pool: {
+        max: 5,
+        min: 0,
+        idle: 10000
+      },
+
+      storage: path.join(__dirname, '../src/StreetnrollDB.db'),
+
+      operatorsAliases: false
+    });
+
+    sequelize
+      .authenticate()
+      .then(() => {
+        console.log('Get connection to DB established');
+
+        const answersStart    = sequelize.define('answersStart',    aS, aSettings);
+        const answersListener = sequelize.define('answersListener', aL, aSettings);
+        const answersMusician = sequelize.define('answersMusician', aM, aSettings);
+
+        answersStart.sync().then(() => {
+          if (id < 0) {
+            answersStart.findAll().then((rows) => {
+              for (let i = 0; i < rows.length; i++) {
+                const row = rows[i].dataValues;
+                console.log('ROW: ======//======');
+                console.log(row);
+                if (row) {
+                  data.push({
+                    id: row.id,
+                    city: row.city,
+                    age: row.age
+                  });
+                }
+              }
+              res.send(JSON.stringify(data));
+            });
+          } else {
+            console.log(`${id} more then or equal 0`);
+            answersStart.find().then((item) => {
+
+            });
+          }
+        });
+      }
+    )
+    .catch(err => {
+        console.error('Connection Error: ', err);
+        res.sendStatus(502);
+      }
+    );
+  });
+
   // History api fallback
   app.use(fallback('index.html', { root: path.join(__dirname, '../src') }));
-
-  app.get('/getData', (req, res) => {
-    console.log('got it!');
-    res.type('application/json').end({hello: 'Hello'});
-  });
 
   app.post('/sendFeedback', (req, res) => {
     const data = req.body;
