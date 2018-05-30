@@ -168,8 +168,6 @@ function startDevServer() {
   app.get('/getstatdata/:id', (req, res) => {
     const id = req.params.id;
 
-    let data = [];
-
     const sequelize = new Sequelize('StreetnrollDB', 'sergey.chinkov', 'RRica29081BhA5', {
       host: 'localhost',
       dialect: 'sqlite',
@@ -197,6 +195,7 @@ function startDevServer() {
         answersStart.sync().then(() => {
           if (id < 0) {
             answersStart.findAll().then((rows) => {
+              let data = [];
               for (let i = 0; i < rows.length; i++) {
                 const row = rows[i].dataValues;
                 console.log('ROW: ======//======');
@@ -205,16 +204,26 @@ function startDevServer() {
                   data.push({
                     id: row.id,
                     city: row.city,
-                    age: row.age
+                    age: row.age,
+                    everPlayed: row.everPlayed ? 1 : 0
                   });
                 }
               }
               res.send(JSON.stringify(data));
             });
           } else {
-            console.log(`${id} more then or equal 0`);
-            answersStart.find().then((item) => {
+            answersStart.findById(id).then((item) => {
+              let data = {
+                aStart: item.dataValues,
+                aMain: {}
+              };
+              if (data.aStart.everPlayed) {
+                console.log('Gamal');
+              } else {
+                console.log('Ne gamal');
+              }
 
+              res.send(JSON.stringify(data));
             });
           }
         });
