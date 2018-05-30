@@ -11,13 +11,21 @@ export class Users extends Component {
   };
 
   render() {
+    const { getUserInfo } = this.props.actions;
     const { startData } = this.props.theDataPickUp;
     const usersToRender = [];
     for (let i = 0; i < startData.length; i += 1) {
+      const everPlayed = startData[i].everPlayed === 1 ? 'player' : 'non-player';
       usersToRender.push(
         React.createElement(
           'p',
-          { className: 'userPanel' },
+          {
+            className: `userPanel ${everPlayed}`,
+            key: startData[i].id,
+            onClick: () => {
+              getUserInfo({ id: startData[i].id });
+            },
+          },
           `${startData[i].id} : ${startData[i].city} : ${startData[i].age}`
         )
       );

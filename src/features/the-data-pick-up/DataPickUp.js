@@ -20,7 +20,7 @@ export class DataPickUp extends Component {
   }
 
   start() {
-    this.props.actions.getData({ id: -1 });
+    this.props.actions.getData();
     $('.sidebar').addClass('hidden');
     $('.page-container').addClass('toLeft');
     $('.the-data-pick-up-data-pick-up').addClass('the-data-pick-up-data-pick-up-start');
