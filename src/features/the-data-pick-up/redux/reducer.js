@@ -8,9 +8,11 @@
 
 import initialState from './initialState';
 import { reducer as getDataReducer } from './getData';
+import { reducer as getUserInfoReducer } from './getUserInfo';
 
 const reducers = [
   getDataReducer,
+  getUserInfoReducer,
 ];
 
 export default function reducer(state = initialState, action) {

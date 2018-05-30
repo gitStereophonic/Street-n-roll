@@ -12,9 +12,13 @@ const initialState = {
     React.createElement(StatByUsers)
   ),
   startData: [],
+  currentUser: -1,
+  currentUserInfo: [],
 
   getDataPending: false,
   getDataError: null,
+  getUserInfoPending: false,
+  getUserInfoError: null,
 };
 
 export default initialState;
