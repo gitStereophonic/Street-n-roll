@@ -213,17 +213,25 @@ function startDevServer() {
             });
           } else {
             answersStart.findById(id).then((item) => {
-              let data = {
-                aStart: item.dataValues,
-                aMain: {}
-              };
-              if (data.aStart.everPlayed) {
-                console.log('Gamal');
+              const aStart = item.dataValues;
+              if (aStart.everPlayed) {
+                answersMusician.sync().then(() => {
+                  answersMusician.findById(id).then((museItem) => {
+                    res.send(JSON.stringify({
+                      aStart: aStart,
+                      aMain: museItem.dataValues
+                    }));
+                    return;
+                  });
+                });
               } else {
-                console.log('Ne gamal');
+                answersListener.findById(id).then((listItem) => {
+                  res.send(JSON.stringify({
+                    aStart: aStart,
+                    aMain: listItem.dataValues
+                  }));
+                });
               }
-
-              res.send(JSON.stringify(data));
             });
           }
         });
