@@ -12,7 +12,16 @@ const initialState = {
     React.createElement(StatByUsers)
   ),
   startData: [],
-  currentUser: -1,
+  currentUser: {
+    aStart: {
+      id: -1,
+      city: ''
+    },
+    aMain: {
+      hobbie: '',
+      why: ''
+    }
+  },
   currentUserInfo: [],
 
   getDataPending: false,

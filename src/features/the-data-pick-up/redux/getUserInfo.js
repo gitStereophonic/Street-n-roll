@@ -62,8 +62,6 @@ export function dismissGetUserInfoError() {
 }
 
 export function reducer(state, action) {
-  const dataP = action.data;
-
   switch (action.type) {
     case THE_DATA_PICK_UP_GET_USER_INFO_BEGIN:
       // Just after a request is sent
@@ -77,7 +75,7 @@ export function reducer(state, action) {
       // The request is success
       return {
         ...state,
-        currentUser: JSON.parse(dataP).aStart.id,
+        currentUser: JSON.parse(action.data),
         getUserInfoPending: false,
         getUserInfoError: null,
       };
