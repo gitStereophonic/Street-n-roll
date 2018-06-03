@@ -4,7 +4,6 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import $ from 'jquery';
 import * as actions from './redux/actions';
-import { InterviewPage } from './InterviewPage';
 
 export class EighteenthMusicianPage extends Component {
   static propTypes = {
@@ -22,29 +21,14 @@ export class EighteenthMusicianPage extends Component {
 
     this.handleRelationsValueChanged = this.handleRelationsValueChanged.bind(this);
     this.handleWhoBestValueChanged = this.handleWhoBestValueChanged.bind(this);
-    this.checkRequired = this.checkRequired.bind(this);
-
-    this.checkRequired();
-  }
-
-  checkRequired() {
-    if (this.props.interview.currentIndex !== 18) return;
-    let green = this.props.interview.eighteenthFields.competition !== '';
-
-    // TODO: Remove this at every page when release
-    if (this.props.interview.backDoor) green = true;
-
-    InterviewPage.nextStatus(green, 500);
   }
 
   handleRelationsValueChanged(changeEvent) {
     this.props.interview.eighteenthFields.relations = changeEvent.target.value;
-    this.checkRequired();
   }
 
   handleWhoBestValueChanged(changeEvent) {
     this.props.interview.eighteenthFields.whobest = changeEvent.target.value;
-    this.checkRequired();
   }
 
   render() {
