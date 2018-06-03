@@ -1,54 +1,5 @@
 @import '../../styles/mixins';
 
 .interview-twenty-first-musician-page {
-  #thanks,
-  #help {
-    min-height: 150px;
-    min-width: 600px;
-  }
 
-  button {
-    color: grey;
-    font: 24px bold;
-    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-    border: 15px black;
-    border-radius: 100px;
-    height: 50px;
-    width: 350px;
-    cursor: pointer;
-    margin-top: 20px;
-  }
-
-  #finish-btn:hover {
-    color: grey;
-    background: linear-gradient(90deg, transparent, grey, transparent) no-repeat center;
-    animation: fillbtnlin 1s ease-out both;
-    @keyframes fillbtnlin {
-      from {
-        background-size: 1% 100%;
-        color: grey;
-      }
-      to {
-        background-size: 100% 100%;
-        color: white;
-      }
-    }
-  }
-
-  .btn-enbl {
-    animation: releasebtn 1s ease-out both;
-  }
-
-  @keyframes releasebtn {
-    from {
-      color: white;
-      background: linear-gradient(90deg, transparent, grey, transparent) no-repeat center;
-      background-size: 100% 100%;
-    }
-    to {
-      color: grey;
-      background: linear-gradient(90deg, transparent, grey, transparent) no-repeat center;
-      background-size: 0% 100%;
-    }
-  }
 }

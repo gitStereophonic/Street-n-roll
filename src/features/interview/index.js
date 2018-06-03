@@ -20,5 +20,6 @@ export { default as SeventeenthMusicianPage } from './SeventeenthMusicianPage';
 export { default as EighteenthMusicianPage } from './EighteenthMusicianPage';
 export { default as NineteenthMusicianPage } from './NineteenthMusicianPage';
 export { default as TwentiethMusicianPage } from './TwentiethMusicianPage';
-export { default as TwentyFirstMusicianPage } from './TwentyFirstMusicianPage';
+export { default as TwentySecondPage } from './TwentySecondPage';
 export { default as FinishPage } from './FinishPage';
+export { default as TwentyFirstMusicianPage } from './TwentyFirstMusicianPage';

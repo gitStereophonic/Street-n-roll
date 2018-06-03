@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
 import $ from 'jquery';
 import * as actions from './redux/actions';
+import { InterviewPage } from './InterviewPage';
 
 export class TwentyFirstMusicianPage extends Component {
   static propTypes = {
@@ -15,10 +15,6 @@ export class TwentyFirstMusicianPage extends Component {
   constructor(props) {
     super(props);
 
-    this.state = {
-      agreement: false,
-    };
-
     $('body,html').animate(
       {
         scrollTop: 0,
@@ -26,10 +22,6 @@ export class TwentyFirstMusicianPage extends Component {
       700
     );
 
-    this.handleThanksValueChanged = this.handleThanksValueChanged.bind(this);
-    this.handleHelpValueChanged = this.handleHelpValueChanged.bind(this);
-    this.handleAgreementOptionChanged = this.handleAgreementOptionChanged.bind(this);
-    this.handleFinish = this.handleFinish.bind(this);
     this.checkRequired = this.checkRequired.bind(this);
 
     this.checkRequired();
@@ -37,36 +29,12 @@ export class TwentyFirstMusicianPage extends Component {
 
   checkRequired() {
     if (this.props.interview.currentIndex !== 21) return;
-    const green = this.state.agreement;
+    let green = this.props.interview.twentySecondFields.names !== '';
 
-    const btn = $('#finish-btn').last();
-    if (green) {
-      btn.removeClass('btn-disable');
-      btn.addClass('btn-enbl');
-    } else {
-      btn.removeClass('btn-enbl');
-      btn.addClass('btn-disable');
-    }
-  }
+    // TODO: Remove this at every page when release
+    if (this.props.interview.backDoor) green = true;
 
-  handleThanksValueChanged(changeEvent) {
-    this.props.interview.twentyFirstFields.thanks = changeEvent.target.value;
-    this.checkRequired();
-  }
-
-  handleHelpValueChanged(changeEvent) {
-    this.props.interview.twentyFirstFields.help = changeEvent.target.value;
-    this.checkRequired();
-  }
-
-  handleAgreementOptionChanged(changeEvent) {
-    this.state.agreement = changeEvent.target.checked;
-    this.checkRequired();
-  }
-
-  handleFinish() {
-    this.props.actions.finishInterview();
-    this.props.actions.sendInterviewData(this.props.interview.checkPoints);
+    InterviewPage.nextStatus(green, 500);
   }
 
   render() {
@@ -75,70 +43,90 @@ export class TwentyFirstMusicianPage extends Component {
     return React.createElement(
       'div',
       { className: 'interview-twenty-first-musician-page' },
-      React.createElement('h1', null, 'Г-СПОДИ Б-ЖЕ ВЫ ДОШЛИ ДО КОНЦА БРАВО Я ВАС ЛЮБЛЮ'),
+      React.createElement('h1', null, 'Клички'),
       React.createElement(
         'div',
         { className: 'qstn' },
         React.createElement(
           'span',
           null,
-          React.createElement(
-            'h3',
-            null,
-            'Если Вы музыкант и хотите, чтобы я Вас отблагодарила*, можете сообщить когда и где Вас найти :) Если Вы слушатель и заполнили этот опрос, +over 9000 Вам в карму и низкий поклон от меня лично'
-          )
+          React.createElement('h3', null, 'Есть ли у Вас прозвище?'),
+          React.createElement('h3', { className: 'must-fill' }, ' *')
         ),
-        React.createElement('p', null, '*Если Вы живете в Москве'),
-        React.createElement('textarea', {
-          id: 'thanks',
-          onChange: this.handleThanksValueChanged,
-          defaultValue: checkPoints[currentIndex].thanks,
-        })
-      ),
-      React.createElement(
-        'div',
-        { className: 'qstn' },
         React.createElement(
-          'span',
-          null,
-          React.createElement(
-            'h3',
-            null,
-            'Еще Вы можете помочь мне улучшить этот адский опросник, если напишете, что Вас особенно раздражало и как можно это исправить'
-          )
-        ),
-        React.createElement('textarea', {
-          id: 'help',
-          onChange: this.handleHelpValueChanged,
-          defaultValue: checkPoints[currentIndex].help,
-        })
-      ),
-      React.createElement(
-        'div',
-        { className: 'radio-group' },
-        React.createElement('br'),
-        React.createElement('input', {
-          type: 'checkbox',
-          id: 'agreement',
-          name: 'agreement',
-          onChange: this.handleAgreementOptionChanged,
-          defaultChecked: false,
-        }),
-        React.createElement(
-          'label',
-          { htmlFor: 'agreement' },
-          'Я принимаю ',
-          React.createElement(
-            Link,
-            { to: '/about-us/personal-data-processing-policy' },
-            'соглашение сайта об обработке персональных данных'
-          )
+          'div',
+          { className: 'radio-group' },
+          React.createElement('input', {
+            type: 'radio',
+            name: 'names',
+            value: 'Да',
+            onChange: this.handleAgeOptionChange,
+            defaultChecked: checkPoints[currentIndex].names === 'Да',
+          }),
+          'Да',
+          React.createElement('br'),
+          React.createElement('input', {
+            type: 'radio',
+            name: 'age',
+            value: '18 - 25',
+            onChange: this.handleAgeOptionChange,
+            defaultChecked: checkPoints[currentIndex].age === '18 - 25',
+          }),
+          '18 - 25',
+          React.createElement('br'),
+          React.createElement('input', {
+            type: 'radio',
+            name: 'age',
+            value: '25 - 40',
+            onChange: this.handleAgeOptionChange,
+            defaultChecked: checkPoints[currentIndex].age === '25 - 40',
+          }),
+          '25 - 40',
+          React.createElement('br'),
+          React.createElement('input', {
+            type: 'radio',
+            name: 'age',
+            value: '40 - 60',
+            onChange: this.handleAgeOptionChange,
+            defaultChecked: checkPoints[currentIndex].age === '40 - 60',
+          }),
+          '40 - 60',
+          React.createElement('br'),
+          React.createElement('input', {
+            type: 'radio',
+            name: 'age',
+            value: 'Больше 60',
+            onChange: this.handleAgeOptionChange,
+            defaultChecked: checkPoints[currentIndex].age === 'Больше 60',
+          }),
+          'Больше 60'
         )
       ),
       React.createElement(
-        'button',
-        { id: 'finish-btn', className: 'btn-disable', onClick: this.handleFinish },
-        'Завершить и отправить'
+        'div',
+        { className: 'qstn' },
+        React.createElement(
+          'span',
+          null,
+          React.createElement('h3', null, 'Есть ли у Вас прозвище?'),
+          React.createElement('h3', { className: 'must-fill' }, ' *')
+        ),
+        React.createElement('p', null, 'Например, дни памяти или солидарности'),
+        React.createElement('input', {
+          id: 'celebrations',
+          onChange: this.handleCelebrationsValueChanged,
+          defaultValue: checkPoints[currentIndex].celebrations,
+        })
+      ),
+      React.createElement(
+        'div',
+        { className: 'qstn' },
+        React.createElement('span', null, React.createElement('h3', null, 'Как их отмечают?')),
+        React.createElement('textarea', {
+          id: 'howceleb',
+          onChange: this.handleHowCelebValueChanged,
+          defaultValue: checkPoints[currentIndex].howceleb,
+        })
       )
     );
   }

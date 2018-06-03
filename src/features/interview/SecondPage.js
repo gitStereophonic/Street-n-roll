@@ -30,7 +30,7 @@ export class SecondPage extends Component {
     this.props.interview.secondFields.everPlayed = changeEvent.target.value;
     this.props.interview.currentKeyValue = changeEvent.target.value;
     if (changeEvent.target.value === 'yep') {
-      this.props.interview.keyValues[this.props.interview.lastPage].back = this.props.interview.lastPage - 1;
+      this.props.interview.keyValues[this.props.interview.lastPage].back = this.props.interview.lastPage - 2;
     } else {
       this.props.interview.keyValues[this.props.interview.lastPage].back =
         this.props.interview.keyValues[this.props.interview.currentIndex].yep - 1;
