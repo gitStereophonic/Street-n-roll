@@ -80,6 +80,8 @@ export function sendInterviewDataAgain(content) {
           howleave: content[15].howleave,
           firstmoney: content[15].firstmoney,
           talk: content[15].talk,
+          mascot: content[15].mascot,
+          mascotdesc: content[15].mascotdesc,
           jargon: content[16].jargon,
           specsigns: content[16].specsigns,
           idmarks: content[16].idmarks,
@@ -93,7 +95,9 @@ export function sendInterviewDataAgain(content) {
           events: content[19].events,
           reactions: content[19].reactions,
           story: content[19].story,
-          identity: content[20].identity
+          identity: content[20].identity,
+          names: content[21].names,
+          nameslist: content[21].nameslist
         };
 
         data.answersTable = table;

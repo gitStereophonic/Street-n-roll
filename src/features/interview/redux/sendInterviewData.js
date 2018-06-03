@@ -76,6 +76,8 @@ export function sendInterviewData(content) {
           howleave: content[15].howleave,
           firstmoney: content[15].firstmoney,
           talk: content[15].talk,
+          mascot: content[15].mascot,
+          mascotdesc: content[15].mascotdesc,
           jargon: content[16].jargon,
           specsigns: content[16].specsigns,
           idmarks: content[16].idmarks,

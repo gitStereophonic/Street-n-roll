@@ -24,6 +24,8 @@ export class FifteenthMusicianPage extends Component {
     this.handleHowLeaveValueChanged = this.handleHowLeaveValueChanged.bind(this);
     this.handleFirstMoneyValueChanged = this.handleFirstMoneyValueChanged.bind(this);
     this.handleTalkValueChanged = this.handleTalkValueChanged.bind(this);
+    this.handleMascotOptionChange = this.handleMascotOptionChange.bind(this);
+    this.handleMascotDescValueChanged = this.handleMascotDescValueChanged.bind(this);
     this.checkRequired = this.checkRequired.bind(this);
 
     this.checkRequired();
@@ -34,7 +36,8 @@ export class FifteenthMusicianPage extends Component {
     let green =
       this.props.interview.fifteenthFields.howcome !== '' &&
       this.props.interview.fifteenthFields.howleave !== '' &&
-      this.props.interview.fifteenthFields.firstmoney !== '';
+      this.props.interview.fifteenthFields.firstmoney !== '' &&
+      this.props.interview.fifteenthFields.mascot !== '';
 
     // TODO: Remove this at every page when release
     if (this.props.interview.backDoor) green = true;
@@ -59,6 +62,16 @@ export class FifteenthMusicianPage extends Component {
 
   handleTalkValueChanged(changeEvent) {
     this.props.interview.fifteenthFields.talk = changeEvent.target.value;
+    this.checkRequired();
+  }
+
+  handleMascotOptionChange(changeEvent) {
+    this.props.interview.fifteenthFields.mascot = changeEvent.target.value;
+    this.checkRequired();
+  }
+
+  handleMascotDescValueChanged(changeEvent) {
+    this.props.interview.fifteenthFields.mascotdesc = changeEvent.target.value;
     this.checkRequired();
   }
 
@@ -133,7 +146,53 @@ export class FifteenthMusicianPage extends Component {
           onChange: this.handleTalkValueChanged,
           defaultValue: checkPoints[currentIndex].talk,
         })
-      )
+      ),
+      React.createElement(
+        'div',
+        { className: 'qstn' },
+        React.createElement(
+          'span',
+          null,
+          React.createElement('h3', null, 'Есть ли у Вас талисманы/приметы на удачу?'),
+          React.createElement('h3', { className: 'must-fill' }, ' *')
+        ),
+        React.createElement(
+          'div',
+          { className: 'radio-group' },
+          React.createElement('input', {
+            type: 'radio',
+            name: 'mascot',
+            value: 'Да',
+            onChange: this.handleMascotOptionChange,
+            defaultChecked: checkPoints[currentIndex].mascot === 'Да',
+          }),
+          'Да',
+          React.createElement('br'),
+          React.createElement('input', {
+            type: 'radio',
+            name: 'mascot',
+            value: 'Нет',
+            onChange: this.handleMascotOptionChange,
+            defaultChecked: checkPoints[currentIndex].mascot === 'Нет',
+          }),
+          'Нет'
+        )
+      ),
+      React.createElement(
+        'div',
+        { className: 'qstn' },
+        React.createElement(
+          'span',
+          null,
+          React.createElement('h3', null, 'Если да, опишите их?'),
+          React.createElement('h3', { className: 'must-fill' }, ' *')
+        ),
+        React.createElement('textarea', {
+          id: 'mascotdesc',
+          onChange: this.handleMascotDescValueChanged,
+          defaultValue: checkPoints[currentIndex].mascotdesc,
+        })
+      ),
     );
   }
 }
