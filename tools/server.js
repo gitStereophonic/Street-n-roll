@@ -112,7 +112,9 @@ const aM = {
   events:         { type: Sequelize.TEXT },
   reactions:      { type: Sequelize.TEXT },
   story:          { type: Sequelize.TEXT },
-  identity:       { type: Sequelize.TEXT }
+  identity:       { type: Sequelize.TEXT },
+  names:          { type: Sequelize.STRING },
+  nameslist:      { type: Sequelize.STRING }
 };
 
 const aSettings = {
@@ -379,7 +381,9 @@ function startDevServer() {
                     events:         aTable.events,
                     reactions:      aTable.reactions,
                     story:          aTable.story,
-                    identity:       aTable.identity
+                    identity:       aTable.identity,
+                    names:          aTable.names,
+                    nameslist:      aTable.nameslist
                   }).then(function() {
                     res.sendStatus(200);
                   });
@@ -547,7 +551,9 @@ function startBuildServer() {
                     events:         aTable.events,
                     reactions:      aTable.reactions,
                     story:          aTable.story,
-                    identity:       aTable.identity
+                    identity:       aTable.identity,
+                    names:          aTable.names,
+                    nameslist:      aTable.nameslist
                   }).then(function() {
                     res.sendStatus(200);
                   });

@@ -89,7 +89,9 @@ export function sendInterviewData(content) {
           events: content[19].events,
           reactions: content[19].reactions,
           story: content[19].story,
-          identity: content[20].identity
+          identity: content[20].identity,
+          names: content[21].names,
+          nameslist: content[21].nameslist
         };
 
         data.answersTable = table;

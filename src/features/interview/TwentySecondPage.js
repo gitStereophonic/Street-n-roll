@@ -36,7 +36,7 @@ export class TwentySecondPage extends Component {
   }
 
   checkRequired() {
-    if (this.props.interview.currentIndex !== 21) return;
+    if (this.props.interview.currentIndex !== 22) return;
     const green = this.state.agreement;
 
     const btn = $('#finish-btn').last();
@@ -50,12 +50,12 @@ export class TwentySecondPage extends Component {
   }
 
   handleThanksValueChanged(changeEvent) {
-    this.props.interview.twentyFirstFields.thanks = changeEvent.target.value;
+    this.props.interview.twentySecondFields.thanks = changeEvent.target.value;
     this.checkRequired();
   }
 
   handleHelpValueChanged(changeEvent) {
-    this.props.interview.twentyFirstFields.help = changeEvent.target.value;
+    this.props.interview.twentySecondFields.help = changeEvent.target.value;
     this.checkRequired();
   }
 

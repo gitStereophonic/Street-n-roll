@@ -9,7 +9,6 @@ import { InterviewPage } from './InterviewPage';
 export class TwentyFirstMusicianPage extends Component {
   static propTypes = {
     interview: PropTypes.object.isRequired,
-    actions: PropTypes.object.isRequired,
   };
 
   constructor(props) {
@@ -22,14 +21,26 @@ export class TwentyFirstMusicianPage extends Component {
       700
     );
 
+    this.handleNamesOptionChange = this.handleNamesOptionChange.bind(this);
+    this.handleNamesListValueChanged = this.handleNamesListValueChanged.bind(this);
     this.checkRequired = this.checkRequired.bind(this);
 
     this.checkRequired();
   }
 
+  handleNamesOptionChange(changeEvent) {
+    this.props.interview.twentyFirstFields.names = changeEvent.target.value;
+    this.checkRequired();
+  }
+
+  handleNamesListValueChanged(changeEvent) {
+    this.props.interview.twentyFirstFields.nameslist = changeEvent.target.value;
+    this.checkRequired();
+  }
+
   checkRequired() {
     if (this.props.interview.currentIndex !== 21) return;
-    let green = this.props.interview.twentySecondFields.names !== '';
+    let green = this.props.interview.twentyFirstFields.names !== '';
 
     // TODO: Remove this at every page when release
     if (this.props.interview.backDoor) green = true;
@@ -60,72 +71,29 @@ export class TwentyFirstMusicianPage extends Component {
             type: 'radio',
             name: 'names',
             value: 'Да',
-            onChange: this.handleAgeOptionChange,
+            onChange: this.handleNamesOptionChange,
             defaultChecked: checkPoints[currentIndex].names === 'Да',
           }),
           'Да',
           React.createElement('br'),
           React.createElement('input', {
             type: 'radio',
-            name: 'age',
-            value: '18 - 25',
-            onChange: this.handleAgeOptionChange,
-            defaultChecked: checkPoints[currentIndex].age === '18 - 25',
+            name: 'names',
+            value: 'Нет',
+            onChange: this.handleNamesOptionChange,
+            defaultChecked: checkPoints[currentIndex].names === 'Нет',
           }),
-          '18 - 25',
-          React.createElement('br'),
-          React.createElement('input', {
-            type: 'radio',
-            name: 'age',
-            value: '25 - 40',
-            onChange: this.handleAgeOptionChange,
-            defaultChecked: checkPoints[currentIndex].age === '25 - 40',
-          }),
-          '25 - 40',
-          React.createElement('br'),
-          React.createElement('input', {
-            type: 'radio',
-            name: 'age',
-            value: '40 - 60',
-            onChange: this.handleAgeOptionChange,
-            defaultChecked: checkPoints[currentIndex].age === '40 - 60',
-          }),
-          '40 - 60',
-          React.createElement('br'),
-          React.createElement('input', {
-            type: 'radio',
-            name: 'age',
-            value: 'Больше 60',
-            onChange: this.handleAgeOptionChange,
-            defaultChecked: checkPoints[currentIndex].age === 'Больше 60',
-          }),
-          'Больше 60'
+          'Нет'
         )
       ),
       React.createElement(
         'div',
         { className: 'qstn' },
-        React.createElement(
-          'span',
-          null,
-          React.createElement('h3', null, 'Есть ли у Вас прозвище?'),
-          React.createElement('h3', { className: 'must-fill' }, ' *')
-        ),
-        React.createElement('p', null, 'Например, дни памяти или солидарности'),
+        React.createElement('span', null, React.createElement('h3', null, 'Если да, то какое?')),
         React.createElement('input', {
-          id: 'celebrations',
-          onChange: this.handleCelebrationsValueChanged,
-          defaultValue: checkPoints[currentIndex].celebrations,
-        })
-      ),
-      React.createElement(
-        'div',
-        { className: 'qstn' },
-        React.createElement('span', null, React.createElement('h3', null, 'Как их отмечают?')),
-        React.createElement('textarea', {
-          id: 'howceleb',
-          onChange: this.handleHowCelebValueChanged,
-          defaultValue: checkPoints[currentIndex].howceleb,
+          id: 'nameslist',
+          onChange: this.handleNamesListValueChanged,
+          defaultValue: checkPoints[currentIndex].nameslist,
         })
       )
     );
