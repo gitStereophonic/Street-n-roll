@@ -20,8 +20,8 @@ export class SeventeenthMusicianPage extends Component {
       700
     );
 
-    this.handleCelebrationsValueChanged = this.handleCelebrationsValueChanged.bind(this);
-    this.handleHowCelebValueChanged = this.handleHowCelebValueChanged.bind(this);
+    this.handleCelebrationsOptionChange = this.handleCelebrationsOptionChange.bind(this);
+    this.handleWhatCelebValueChanged = this.handleWhatCelebValueChanged.bind(this);
     this.checkRequired = this.checkRequired.bind(this);
 
     this.checkRequired();
@@ -37,13 +37,13 @@ export class SeventeenthMusicianPage extends Component {
     InterviewPage.nextStatus(green, 500);
   }
 
-  handleCelebrationsValueChanged(changeEvent) {
+  handleCelebrationsOptionChange(changeEvent) {
     this.props.interview.seventeenthFields.celebrations = changeEvent.target.value;
     this.checkRequired();
   }
 
-  handleHowCelebValueChanged(changeEvent) {
-    this.props.interview.seventeenthFields.howceleb = changeEvent.target.value;
+  handleWhatCelebValueChanged(changeEvent) {
+    this.props.interview.seventeenthFields.whatceleb = changeEvent.target.value;
     this.checkRequired();
   }
 
@@ -64,20 +64,45 @@ export class SeventeenthMusicianPage extends Component {
           React.createElement('h3', { className: 'must-fill' }, ' *')
         ),
         React.createElement('p', null, 'Например, дни памяти или солидарности'),
-        React.createElement('input', {
-          id: 'celebrations',
-          onChange: this.handleCelebrationsValueChanged,
-          defaultValue: checkPoints[currentIndex].celebrations,
-        })
+        React.createElement(
+          'div',
+          { className: 'radio-group' },
+          React.createElement('input', {
+            type: 'radio',
+            name: 'celebrations',
+            value: 'Да',
+            onChange: this.handleCelebrationsOptionChange,
+            defaultChecked: checkPoints[currentIndex].celebrations === 'Да',
+          }),
+          'Да',
+          React.createElement('br'),
+          React.createElement('input', {
+            type: 'radio',
+            name: 'celebrations',
+            value: 'Нет',
+            onChange: this.handleСelebrationsOptionChange,
+            defaultChecked: checkPoints[currentIndex].celebrations === 'Нет',
+          }),
+          'Нет',
+          React.createElement('br'),
+          React.createElement('input', {
+            type: 'radio',
+            name: 'celebrations',
+            value: 'Не знаю',
+            onChange: this.handleСelebrationsOptionChange,
+            defaultChecked: checkPoints[currentIndex].celebrations === 'Не знаю',
+          }),
+          'Не знаю'
+        )
       ),
       React.createElement(
         'div',
         { className: 'qstn' },
-        React.createElement('span', null, React.createElement('h3', null, 'Как их отмечают?')),
+        React.createElement('span', null, React.createElement('h3', null, 'Если да, то какие?')),
         React.createElement('textarea', {
-          id: 'howceleb',
-          onChange: this.handleHowCelebValueChanged,
-          defaultValue: checkPoints[currentIndex].howceleb,
+          id: 'whatceleb',
+          onChange: this.handleWhatCelebValueChanged,
+          defaultValue: checkPoints[currentIndex].whatceleb,
         })
       )
     );

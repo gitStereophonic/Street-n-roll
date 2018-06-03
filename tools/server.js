@@ -72,6 +72,7 @@ const aM = {
   id:             { type: Sequelize.INTEGER, primaryKey: true },
   hobbie:         { type: Sequelize.STRING },
   hobbieOther:    { type: Sequelize.STRING },
+  howlong:        { type: Sequelize.STRING },
   rather:         { type: Sequelize.BOOLEAN },
   ratherExact:    { type: Sequelize.STRING },
   why:            { type: Sequelize.STRING },
@@ -98,20 +99,28 @@ const aM = {
   howleave:       { type: Sequelize.TEXT },
   firstmoney:     { type: Sequelize.STRING },
   talk:           { type: Sequelize.TEXT },
+  mascot:         { type: Sequelize.STRING },
+  mascotdesc:     { type: Sequelize.TEXT },
   jargon:         { type: Sequelize.TEXT },
   specsigns:      { type: Sequelize.TEXT },
   idmarks:        { type: Sequelize.TEXT },
   forwhat:        { type: Sequelize.STRING },
   forwhatOther:   { type: Sequelize.STRING },
   celebrations:   { type: Sequelize.STRING },
-  howceleb:       { type: Sequelize.TEXT },
-  competition:    { type: Sequelize.STRING },
+  whatceleb:      { type: Sequelize.TEXT },
   relations:      { type: Sequelize.TEXT },
   whobest:        { type: Sequelize.TEXT },
   events:         { type: Sequelize.TEXT },
   reactions:      { type: Sequelize.TEXT },
   story:          { type: Sequelize.TEXT },
-  identity:       { type: Sequelize.TEXT }
+  identity:       { type: Sequelize.TEXT },
+  names:          { type: Sequelize.STRING },
+  nameslist:      { type: Sequelize.STRING },
+  problems:       { type: Sequelize.BOOLEAN },
+  problemsExact:  { type: Sequelize.STRING },
+  problemsOther:  { type: Sequelize.STRING },
+  problemdesc:    { type: Sequelize.TEXT },
+  solution:       { type: Sequelize.TEXT }
 };
 
 const aSettings = {
@@ -164,6 +173,85 @@ function startDevServer() {
     app.get('/api/*', (req, res) => req.pipe(request.get(`${API}${req.originalUrl}`)).pipe(res));
     app.post('/api/*', (req, res) => req.pipe(request.post(`${API}${req.originalUrl}`)).pipe(res));
   }
+
+  app.get('/getstatdata/:id', (req, res) => {
+    const id = req.params.id;
+
+    const sequelize = new Sequelize('StreetnrollDB', 'sergey.chinkov', 'RRica29081BhA5', {
+      host: 'localhost',
+      dialect: 'sqlite',
+
+      pool: {
+        max: 5,
+        min: 0,
+        idle: 10000
+      },
+
+      storage: path.join(__dirname, '../src/StreetnrollDB.db'),
+
+      operatorsAliases: false
+    });
+
+    sequelize
+      .authenticate()
+      .then(() => {
+        console.log('Get connection to DB established');
+
+        const answersStart    = sequelize.define('answersStart',    aS, aSettings);
+        const answersListener = sequelize.define('answersListener', aL, aSettings);
+        const answersMusician = sequelize.define('answersMusician', aM, aSettings);
+
+        answersStart.sync().then(() => {
+          if (id < 0) {
+            answersStart.findAll().then((rows) => {
+              let data = [];
+              for (let i = 0; i < rows.length; i++) {
+                const row = rows[i].dataValues;
+                console.log('ROW: ======//======');
+                console.log(row);
+                if (row) {
+                  data.push({
+                    id: row.id,
+                    city: row.city,
+                    age: row.age,
+                    everPlayed: row.everPlayed ? 1 : 0
+                  });
+                }
+              }
+              res.send(JSON.stringify(data));
+            });
+          } else {
+            answersStart.findById(id).then((item) => {
+              const aStart = item.dataValues;
+              if (aStart.everPlayed) {
+                answersMusician.sync().then(() => {
+                  answersMusician.findById(id).then((museItem) => {
+                    res.send(JSON.stringify({
+                      aStart: aStart,
+                      aMain: museItem.dataValues
+                    }));
+                    return;
+                  });
+                });
+              } else {
+                answersListener.findById(id).then((listItem) => {
+                  res.send(JSON.stringify({
+                    aStart: aStart,
+                    aMain: listItem.dataValues
+                  }));
+                });
+              }
+            });
+          }
+        });
+      }
+    )
+    .catch(err => {
+        console.error('Connection Error: ', err);
+        res.sendStatus(502);
+      }
+    );
+  });
 
   // History api fallback
   app.use(fallback('index.html', { root: path.join(__dirname, '../src') }));
@@ -259,6 +347,7 @@ function startDevServer() {
                     id:             rows.length,
                     hobbie:         aTable.hobbie,
                     hobbieOther:    aTable.hobbieOther,
+                    howlong:        aTable.howlong,
                     rather:         aTable.rather,
                     ratherExact:    aTable.ratherExact,
                     why:            aTable.why,
@@ -285,20 +374,28 @@ function startDevServer() {
                     howleave:       aTable.howleave,
                     firstmoney:     aTable.firstmoney,
                     talk:           aTable.talk,
+                    mascot:         aTable.mascot,
+                    mascotdesc:     aTable.mascotdesc,
                     jargon:         aTable.jargon,
                     specsigns:      aTable.specsigns,
                     idmarks:        aTable.idmarks,
                     forwhat:        aTable.forwhat,
                     forwhatOther:   aTable.forwhatOther,
                     celebrations:   aTable.celebrations,
-                    howceleb:       aTable.howceleb,
-                    competition:    aTable.competition,
+                    whatceleb:      aTable.whatceleb,
                     relations:      aTable.relations,
                     whobest:        aTable.whobest,
                     events:         aTable.events,
                     reactions:      aTable.reactions,
                     story:          aTable.story,
-                    identity:       aTable.identity
+                    identity:       aTable.identity,
+                    names:          aTable.names,
+                    nameslist:      aTable.nameslist,
+                    problems:       aTable.problems,
+                    problemsExact:  aTable.problemsExact,
+                    problemsOther:  aTable.problemsOther,
+                    problemdesc:    aTable.problemdesc,
+                    solution:       aTable.solution
                   }).then(function() {
                     res.sendStatus(200);
                   });
@@ -343,6 +440,17 @@ function startBuildServer() {
   app.use(express.static(path.join(__dirname, '../')));
 
   app.use(bodyParser.json());
+
+  app.post('/sendFeedback', (req, res) => {
+    const data = req.body;
+
+    const mailOptions = {
+      from: '"Street-n-roll Feedbacker" <richardelfsheep@gmail.com>',
+      to: 'sergey.chinkov@yandex.ru',
+      subject: 'Test feedback from Street\'n\'roll build server',
+      text: data.thanks + '\n' + data.help
+    };
+  });
 
   app.post('/send', (req, res) => {
     const dataBase = req.body.dataBase;
@@ -415,6 +523,7 @@ function startBuildServer() {
                     id:             rows.length,
                     hobbie:         aTable.hobbie,
                     hobbieOther:    aTable.hobbieOther,
+                    howlong:        aTable.howlong,
                     rather:         aTable.rather,
                     ratherExact:    aTable.ratherExact,
                     why:            aTable.why,
@@ -441,20 +550,28 @@ function startBuildServer() {
                     howleave:       aTable.howleave,
                     firstmoney:     aTable.firstmoney,
                     talk:           aTable.talk,
+                    mascot:         aTable.mascot,
+                    mascotdesc:     aTable.mascotdesc,
                     jargon:         aTable.jargon,
                     specsigns:      aTable.specsigns,
                     idmarks:        aTable.idmarks,
                     forwhat:        aTable.forwhat,
                     forwhatOther:   aTable.forwhatOther,
                     celebrations:   aTable.celebrations,
-                    howceleb:       aTable.howceleb,
-                    competition:    aTable.competition,
+                    whatceleb:      aTable.whatceleb,
                     relations:      aTable.relations,
                     whobest:        aTable.whobest,
                     events:         aTable.events,
                     reactions:      aTable.reactions,
                     story:          aTable.story,
-                    identity:       aTable.identity
+                    identity:       aTable.identity,
+                    names:          aTable.names,
+                    nameslist:      aTable.nameslist,
+                    problems:       aTable.problems,
+                    problemsExact:  aTable.problemsExact,
+                    problemsOther:  aTable.problemsOther,
+                    problemdesc:    aTable.problemdesc,
+                    solution:       aTable.solution
                   }).then(function() {
                     res.sendStatus(200);
                   });

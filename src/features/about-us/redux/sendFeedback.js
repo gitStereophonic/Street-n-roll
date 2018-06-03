@@ -23,7 +23,6 @@ export function sendFeedback(info) {
           if (data) {
             console.log('Send feedback: successfull');
             console.log(state);
-            console.log(data);
           }
         },
         error: (xhr, textStatus) => {
