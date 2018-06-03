@@ -33,7 +33,6 @@ export function sendInterviewData(content) {
       };
 
       if (theWay) {
-        console.log('misician');
         data.dataBase = 'answersMusician';
 
         const concat = (array) => {
@@ -50,17 +49,17 @@ export function sendInterviewData(content) {
           hobbie: content[7].hobbie,
           hobbieOther: content[7].hobbieOther,
           howlong: content[7].howlong,
-          rather: content[7].rather,
+          rather: content[7].rather === 'yep',
           ratherExact: content[7].ratherExact,
           why: content[8].why,
-          community: content[9].community,
+          community: content[9].community === 'yep',
           communityExact: content[9].communityExact,
           official: content[10].official,
           officialOther: content[10].officialOther,
           wocom: content[10].wocom,
           howjoin: content[10].howjoin,
           cookies: content[10].cookies,
-          meetings: content[11].meetings,
+          meetings: content[11].meetings === 'yep',
           meetingsExact: content[11].meetingsExact,
           reasons: content[12].reasons,
           where: content[12].where,
@@ -84,8 +83,7 @@ export function sendInterviewData(content) {
           forwhat: concat(content[16].forwhat),
           forwhatOther: content[16].forwhatOther,
           celebrations: content[17].celebrations,
-          howceleb: content[17].howceleb,
-          competition: content[18].competition,
+          whatceleb: content[17].whatceleb,
           relations: content[18].relations,
           whobest: content[18].whobest,
           events: content[19].events,

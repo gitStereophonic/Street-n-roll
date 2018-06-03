@@ -20,7 +20,6 @@ export class EighteenthMusicianPage extends Component {
       700
     );
 
-    this.handleCompetitionValueChanged = this.handleCompetitionValueChanged.bind(this);
     this.handleRelationsValueChanged = this.handleRelationsValueChanged.bind(this);
     this.handleWhoBestValueChanged = this.handleWhoBestValueChanged.bind(this);
     this.checkRequired = this.checkRequired.bind(this);
@@ -36,11 +35,6 @@ export class EighteenthMusicianPage extends Component {
     if (this.props.interview.backDoor) green = true;
 
     InterviewPage.nextStatus(green, 500);
-  }
-
-  handleCompetitionValueChanged(changeEvent) {
-    this.props.interview.eighteenthFields.competition = changeEvent.target.value;
-    this.checkRequired();
   }
 
   handleRelationsValueChanged(changeEvent) {
@@ -60,26 +54,6 @@ export class EighteenthMusicianPage extends Component {
       'div',
       { className: 'interview-eighteenth-musician-page' },
       React.createElement('h1', null, 'Конкуренция'),
-      React.createElement('img', {
-        className: 'page-head-img',
-        src: '../../images/eighteenth_img.png',
-        alt: 'page image',
-      }),
-      React.createElement(
-        'div',
-        { className: 'qstn' },
-        React.createElement(
-          'span',
-          null,
-          React.createElement('h3', null, 'Есть ли в среде музыкантов конкуренция?'),
-          React.createElement('h3', { className: 'must-fill' }, ' *')
-        ),
-        React.createElement('input', {
-          id: 'competition',
-          onChange: this.handleCompetitionValueChanged,
-          defaultValue: checkPoints[currentIndex].competition,
-        })
-      ),
       React.createElement(
         'div',
         { className: 'qstn' },
