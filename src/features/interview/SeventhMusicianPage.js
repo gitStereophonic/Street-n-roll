@@ -26,6 +26,7 @@ export class SeventhMusicianPage extends Component {
         'Конечно, хобби, кто ж проживет на такие деньги...',
         'Другое: ',
       ],
+      howLongValues: ['Уже несколько лет', 'Год', 'Меньше года'],
       ratherValues: [
         'Постоянно, жить без этого не могу, каждый день гоняю',
         'Ну так, по настроению',
@@ -37,6 +38,7 @@ export class SeventhMusicianPage extends Component {
 
     this.handleHobbieOptionChange = this.handleHobbieOptionChange.bind(this);
     this.handleHobbieOtherValueChanged = this.handleHobbieOtherValueChanged.bind(this);
+    this.handleHowLongOptionChange = this.handleHowLongOptionChange.bind(this);
     this.handleRatherOptionChanged = this.handleRatherOptionChanged.bind(this);
     this.checkRequired = this.checkRequired.bind(this);
 
@@ -67,6 +69,11 @@ export class SeventhMusicianPage extends Component {
 
   handleHobbieOtherValueChanged(changeEvent) {
     this.props.interview.seventhFields.hobbieOther = changeEvent.target.value;
+    this.checkRequired();
+  }
+
+  handleHowLongOptionChange(changeEvent) {
+    this.props.interview.seventhFields.howlong = changeEvent.target.value;
     this.checkRequired();
   }
 
@@ -139,6 +146,41 @@ export class SeventhMusicianPage extends Component {
             onChange: this.handleHobbieOtherValueChanged,
             defaultValue: checkPoints[currentIndex].hobbieOther,
           })
+        )
+      ),
+      React.createElement(
+        'div',
+        { className: 'qstn' },
+        React.createElement('span', null, React.createElement('h3', null, 'Как давно?')),
+        React.createElement(
+          'div',
+          { className: 'radio-group' },
+          React.createElement('input', {
+            type: 'radio',
+            name: 'howlong',
+            value: this.state.howLongValues[0],
+            onChange: this.handleHowLongOptionChange,
+            defaultChecked: checkPoints[currentIndex].howlong === this.state.howLongValues[0],
+          }),
+          this.state.howLongValues[0],
+          React.createElement('br'),
+          React.createElement('input', {
+            type: 'radio',
+            name: 'howlong',
+            value: this.state.howLongValues[1],
+            onChange: this.handleHowLongOptionChange,
+            defaultChecked: checkPoints[currentIndex].howlong === this.state.howLongValues[1],
+          }),
+          this.state.howLongValues[1],
+          React.createElement('br'),
+          React.createElement('input', {
+            type: 'radio',
+            name: 'howlong',
+            value: this.state.howLongValues[2],
+            onChange: this.handleHowLongOptionChange,
+            defaultChecked: checkPoints[currentIndex].howlong === this.state.howLongValues[2],
+          }),
+          this.state.howLongValues[2]
         )
       ),
       React.createElement(

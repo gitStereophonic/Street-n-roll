@@ -49,6 +49,7 @@ export function sendInterviewData(content) {
         const table = {
           hobbie: content[7].hobbie,
           hobbieOther: content[7].hobbieOther,
+          howlong: content[7].howlong,
           rather: content[7].rather,
           ratherExact: content[7].ratherExact,
           why: content[8].why,
