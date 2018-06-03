@@ -6,15 +6,15 @@ import { TwentyThirdMusicianPage } from 'src/features/interview/TwentyThirdMusic
 describe('interview/TwentyThirdMusicianPage', () => {
   it('renders node with correct class name', () => {
     const props = {
-      interview: {},
+      interview: {
+        twentyThirdFields: { problemdesc: '', solution: '' },
+        checkPoints: [{}, { problemdesc: '', solution: '' }],
+        currentIndex: 1,
+      },
       actions: {},
     };
-    const renderedComponent = shallow(
-      <TwentyThirdMusicianPage {...props} />
-    );
+    const renderedComponent = shallow(React.createElement(TwentyThirdMusicianPage, { ...props }));
 
-    expect(
-      renderedComponent.find('.interview-twenty-third-musician-page').getElement()
-    ).to.exist;
+    expect(renderedComponent.find('.interview-twenty-third-musician-page').getElement()).to.exist;
   });
 });

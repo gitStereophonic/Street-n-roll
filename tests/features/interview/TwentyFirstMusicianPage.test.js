@@ -6,15 +6,15 @@ import { TwentyFirstMusicianPage } from 'src/features/interview/TwentyFirstMusic
 describe('interview/TwentyFirstMusicianPage', () => {
   it('renders node with correct class name', () => {
     const props = {
-      interview: {},
+      interview: {
+        twentyFirstFields: { names: '', nameslist: '' },
+        checkPoints: [{}, { names: '', nameslist: '' }],
+        currentIndex: 1,
+      },
       actions: {},
     };
-    const renderedComponent = shallow(
-      <TwentyFirstMusicianPage {...props} />
-    );
+    const renderedComponent = shallow(React.createElement(TwentyFirstMusicianPage, { ...props }));
 
-    expect(
-      renderedComponent.find('.interview-twenty-first-musician-page').getElement()
-    ).to.exist;
+    expect(renderedComponent.find('.interview-twenty-first-musician-page').getElement()).to.exist;
   });
 });

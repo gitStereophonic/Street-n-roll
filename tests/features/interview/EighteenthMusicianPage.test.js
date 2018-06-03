@@ -21,16 +21,12 @@ describe('interview/EighteenthMusicianPage', () => {
   it('renders node with correct input fields values', () => {
     const props = {
       interview: {
-        eighteenthFields: { competition: '', relations: '', whobest: '' },
-        checkPoints: [{}, { competition: 'comp', relations: 'rels', whobest: 'who is the best' }],
+        eighteenthFields: { relations: '', whobest: '' },
+        checkPoints: [{}, { relations: 'rels', whobest: 'who is the best' }],
         currentIndex: 1,
       },
       actions: {},
     };
-    const expectedElementComp = React.createElement('input', {
-      defaultValue: 'comp',
-      id: 'competition',
-    });
     const expectedElementRel = React.createElement('input', {
       defaultValue: 'rels',
       id: 'relations',
@@ -40,9 +36,6 @@ describe('interview/EighteenthMusicianPage', () => {
       id: 'whobest',
     });
     const renderedComponent = shallow(React.createElement(EighteenthMusicianPage, { ...props }));
-    expect(renderedComponent.find('#competition').getElement().props.defaultValue).to.equal(
-      expectedElementComp.props.defaultValue
-    );
     expect(renderedComponent.find('#relations').getElement().props.defaultValue).to.equal(
       expectedElementRel.props.defaultValue
     );
