@@ -1,9 +1,9 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import { expect } from 'chai';
-import { TwentySecondPage } from 'src/features/interview/TwentySecondPage';
+import { TwentyFourthPage } from 'src/features/interview/TwentyFourthPage';
 
-describe('interview/TwentySecondPage', () => {
+describe('interview/TwentyFourthPage', () => {
   it('renders node with correct class name', () => {
     const props = {
       interview: {
@@ -13,8 +13,8 @@ describe('interview/TwentySecondPage', () => {
       },
       actions: {},
     };
-    const renderedComponent = shallow(React.createElement(TwentySecondPage, { ...props }));
+    const renderedComponent = shallow(React.createElement(TwentyFourthPage, { ...props }));
 
-    expect(renderedComponent.find('.interview-twenty-second-page').getElement()).to.exist;
+    expect(renderedComponent.find('.interview-twenty-fourth-page').getElement()).to.exist;
   });
 });

@@ -81,6 +81,12 @@ export function reducer(state, action) {
     case 22:
       cP[state.currentIndex] = state.twentySecondFields;
       break;
+    case 23:
+      cP[state.currentIndex] = state.twentyThirdFields;
+      break;
+    case 24:
+      cP[state.currentIndex] = state.twentyFourthFields;
+      break;
     default:
       break;
   }

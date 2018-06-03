@@ -92,7 +92,12 @@ const aM = {
   story:          { type: Sequelize.TEXT },
   identity:       { type: Sequelize.TEXT },
   names:          { type: Sequelize.STRING },
-  nameslist:      { type: Sequelize.STRING }
+  nameslist:      { type: Sequelize.STRING },
+  problems:       { type: Sequelize.BOOLEAN },
+  problemsExact:  { type: Sequelize.STRING },
+  problemsOther:  { type: Sequelize.STRING },
+  problemdesc:    { type: Sequelize.TEXT },
+  solution:       { type: Sequelize.TEXT }
 };
 
 const aSettings = {
@@ -257,7 +262,12 @@ function startBuildServer() {
                     story:          aTable.story,
                     identity:       aTable.identity,
                     names:          aTable.names,
-                    nameslist:      aTable.nameslist
+                    nameslist:      aTable.nameslist,
+                    problems:       aTable.problems,
+                    problemsExact:  aTable.problemsExact,
+                    problemsOther:  aTable.problemsOther,
+                    problemdesc:    aTable.problemdesc,
+                    solution:       aTable.solution
                   }).then(function() {
                     res.sendStatus(200);
                   });

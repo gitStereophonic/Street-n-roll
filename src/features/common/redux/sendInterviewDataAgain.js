@@ -96,7 +96,12 @@ export function sendInterviewDataAgain(content) {
           story: content[19].story,
           identity: content[20].identity,
           names: content[21].names,
-          nameslist: content[21].nameslist
+          nameslist: content[21].nameslist,
+          problems: content[22].problems === 'yep',
+          problemsExact: content[22].problemsExact,
+          problemsOther: content[22].problemsOther,
+          problemdesc: content[23].problemdesc,
+          solution: content[23].solution,
         };
 
         data.answersTable = table;

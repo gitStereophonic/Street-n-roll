@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 import $ from 'jquery';
 import * as actions from './redux/actions';
 
-export class TwentySecondPage extends Component {
+export class TwentyFourthPage extends Component {
   static propTypes = {
     interview: PropTypes.object.isRequired,
     actions: PropTypes.object.isRequired,
@@ -36,7 +36,7 @@ export class TwentySecondPage extends Component {
   }
 
   checkRequired() {
-    if (this.props.interview.currentIndex !== 22) return;
+    if (this.props.interview.currentIndex !== 24) return;
     const green = this.state.agreement;
 
     const btn = $('#finish-btn').last();
@@ -50,12 +50,12 @@ export class TwentySecondPage extends Component {
   }
 
   handleThanksValueChanged(changeEvent) {
-    this.props.interview.twentySecondFields.thanks = changeEvent.target.value;
+    this.props.interview.twentyFourthFields.thanks = changeEvent.target.value;
     this.checkRequired();
   }
 
   handleHelpValueChanged(changeEvent) {
-    this.props.interview.twentySecondFields.help = changeEvent.target.value;
+    this.props.interview.twentyFourthFields.help = changeEvent.target.value;
     this.checkRequired();
   }
 
@@ -71,10 +71,10 @@ export class TwentySecondPage extends Component {
 
   render() {
     const { checkPoints, currentIndex } = this.props.interview;
-
+console.log(currentIndex);
     return React.createElement(
       'div',
-      { className: 'interview-twenty-second-page' },
+      { className: 'interview-twenty-fourth-page' },
       React.createElement('h1', null, 'Г-СПОДИ Б-ЖЕ ВЫ ДОШЛИ ДО КОНЦА БРАВО Я ВАС ЛЮБЛЮ'),
       React.createElement(
         'div',
@@ -158,4 +158,4 @@ function mapDispatchToProps(dispatch) {
   };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(TwentySecondPage);
+export default connect(mapStateToProps, mapDispatchToProps)(TwentyFourthPage);

@@ -82,13 +82,21 @@ export function reducer(state, action) {
     case 21:
       cP[state.currentIndex] = state.twentyFirstFields;
       break;
+    case 22:
+      cP[state.currentIndex] = state.twentySecondFields;
+      break;
+    case 23:
+      cP[state.currentIndex] = state.twentyThirdFields;
+      break;
+    case 24:
+      cP[state.currentIndex] = state.twentyFourthFields;
+      break;
     default:
       break;
   }
 
   switch (action.type) {
     case INTERVIEW_NEXT_PAGE:
-      console.log(state.checkPoints);
       return {
         ...state,
         checkPoints: cP,
