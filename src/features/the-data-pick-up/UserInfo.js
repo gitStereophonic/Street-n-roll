@@ -90,6 +90,7 @@ export class UserInfo extends Component {
             ? `Другое: ${currentUser.aMain.hobbieOther}`
             : currentUser.aMain.hobbie
         ),
+        this.createTheUserAnswer('Как давно', currentUser.aMain.howlong),
         this.createTheUserAnswer('Как часто', currentUser.aMain.ratherExact),
         currentUser.aMain.rather === 'nope'
           ? this.createTheUserAnswer('Почему прекратили', currentUser.aMain.why)

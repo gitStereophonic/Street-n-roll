@@ -7,9 +7,9 @@ describe('interview/TwentyFirstMusicianPage', () => {
   it('renders node with correct class name', () => {
     const props = {
       interview: {
-        twentyFirstFields: { thanks: '', help: '' },
-        checkPoints: [{ thanks: '', help: '' }],
-        currentIndex: 0,
+        twentyFirstFields: { names: '', nameslist: '' },
+        checkPoints: [{}, { names: '', nameslist: '' }],
+        currentIndex: 1,
       },
       actions: {},
     };
