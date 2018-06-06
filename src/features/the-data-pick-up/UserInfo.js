@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import InfiniteScroll from 'react-infinite-scroll-component';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import * as actions from './redux/actions';
@@ -79,6 +80,24 @@ export class UserInfo extends Component {
         return meetings;
       };
 
+      const createJargon = () => {
+        const other = currentUser.aMain.forwhatOther === '' ? '-' : currentUser.aMain.forwhatOther;
+        const forWhatArray = currentUser.aMain.forwhat
+          .split(',')
+          .filter(item => item !== '')
+          .map(item => (item === 'Другое: ' ? `${item}${other}` : item));
+        const message = forWhatArray.reduce((sum, current) => `${sum}, ${current}`);
+
+        const jargon = [
+          this.createTheUserAnswer('Жаргон', currentUser.aMain.jargon),
+          this.createTheUserAnswer('Условные знаки', currentUser.aMain.specsigns),
+          this.createTheUserAnswer('Опознавательные знаки', currentUser.aMain.idmarks),
+          this.createTheUserAnswer('Для чего это нужно', message),
+        ];
+
+        return jargon;
+      };
+
       showChart = React.createElement(
         'div',
         { className: 'musinfo' },
@@ -96,15 +115,29 @@ export class UserInfo extends Component {
           ? this.createTheUserAnswer('Почему прекратили', currentUser.aMain.why)
           : null,
         this.createTheUserAnswer('Есть ли сообщество', currentUser.aMain.communityExact),
-        createCommunity(currentUser.aMain.community === 'yep'),
+        createCommunity(currentUser.aMain.community),
         this.createTheUserAnswer('Встречи в свободное время', currentUser.aMain.meetingsExact),
-        createMeetings(currentUser.aMain.meetings === 'yep')
+        createMeetings(currentUser.aMain.meetings),
+        this.createTheUserAnswer('Как выбирается место', currentUser.aMain.place),
+        this.createTheUserAnswer('Каким оно должно быть', currentUser.aMain.descplace),
+        this.createTheUserAnswer('Когда лучше играть и почему', currentUser.aMain.time),
+        this.createTheUserAnswer('Что играете', currentUser.aMain.whatplay),
+        this.createTheUserAnswer('Принцип формирования репертуара', currentUser.aMain.whythisplay),
+        this.createTheUserAnswer('Зависит ли от места', currentUser.aMain.placeplay),
+        this.createTheUserAnswer('Как приходите на место', currentUser.aMain.howcome),
+        this.createTheUserAnswer('Как ходите', currentUser.aMain.howleave),
+        this.createTheUserAnswer('Как принимаете первые деньги', currentUser.aMain.firstmoney),
+        this.createTheUserAnswer('Как общаетесь с людьми', currentUser.aMain.talk),
+        this.createTheUserAnswer('Талисманы или приметы', currentUser.aMain.mascot),
+        this.createTheUserAnswer('Опишите их', currentUser.aMain.mascotdesc),
+        createJargon(),
+        this.createTheUserAnswer('Есть ли прозвище', currentUser.aMain.names),
+        this.createTheUserAnswer('Какое', currentUser.aMain.nameslist),
+        this.createTheUserAnswer('Есть ли праздники', currentUser.aMain.celebrations),
+        this.createTheUserAnswer('Какие', currentUser.aMain.whatceleb)
       );
     } else {
-      showChart = React.createElement(
-        'div',
-        { className: 'lisinfo' },
-        aStart,
+      const scrollList = [
         React.createElement('h1', null, 'Вопросы простому прохожему:'),
         this.createTheUserAnswer('Интерес', currentUser.aMain.interest),
         this.createTheUserAnswer('Кто такие музыканты', currentUser.aMain.who),
@@ -112,7 +145,28 @@ export class UserInfo extends Component {
         this.createTheUserAnswer('Какие песни слышали', currentUser.aMain.songs),
         this.createTheUserAnswer('Приметы и поверья', currentUser.aMain.sign),
         this.createTheUserAnswer('Известны ли Вам обычаи', currentUser.aMain.traditions),
-        this.createTheUserAnswer('Личный опыт', currentUser.aMain.experience)
+        this.createTheUserAnswer('Личный опыт', currentUser.aMain.experience),
+      ];
+      showChart = React.createElement(
+        'div',
+        { className: 'lisinfo' },
+        aStart,
+        React.createElement(
+          InfiniteScroll,
+          {
+            dataLength: scrollList.length,
+            loader: React.createElement('h4', null, 'Loading...'),
+            height: 200,
+            endMessage: React.createElement(
+              'p',
+              {
+                className: 'endline',
+              },
+              React.createElement('b', null, '-- End line --')
+            ),
+          },
+          scrollList
+        )
       );
     }
 
@@ -134,4 +188,7 @@ function mapDispatchToProps(dispatch) {
   };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(UserInfo);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(UserInfo);

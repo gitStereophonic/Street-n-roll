@@ -121,11 +121,91 @@ function startBuildServer() {
   const app = express();
   const root = __dirname;
   app.use(express.static(root));
-  app.use(fallback('index.html', { root }));
 
   app.use(express.static(__dirname));
 
   app.use(bodyParser.json());
+
+  // Display Stat 
+  app.get('/getstatdata/:id', (req, res) => {
+    const id = req.params.id;
+
+    const sequelize = new Sequelize('StreetnrollDB', 'sergey.chinkov', 'RRica29081BhA5', {
+      host: 'localhost',
+      dialect: 'sqlite',
+
+      pool: {
+        max: 5,
+        min: 0,
+        idle: 10000
+      },
+
+      storage: path.join(__dirname, 'StreetnrollDB.db'),
+
+      operatorsAliases: false
+    });
+
+    sequelize
+      .authenticate()
+      .then(() => {
+        console.log('Get connection to DB established');
+
+        const answersStart    = sequelize.define('answersStart',    aS, aSettings);
+        const answersListener = sequelize.define('answersListener', aL, aSettings);
+        const answersMusician = sequelize.define('answersMusician', aM, aSettings);
+
+        answersStart.sync().then(() => {
+          if (id < 0) {
+            answersStart.findAll().then((rows) => {
+              let data = [];
+              for (let i = 0; i < rows.length; i++) {
+                const row = rows[i].dataValues;
+                if (row) {
+                  data.push({
+                    id: row.id,
+                    city: row.city,
+                    age: row.age,
+                    everPlayed: row.everPlayed ? 1 : 0
+                  });
+                }
+              }
+              res.send(JSON.stringify(data));
+            });
+          } else {
+            answersStart.findById(id).then((item) => {
+              const aStart = item.dataValues;
+              if (aStart.everPlayed) {
+                answersMusician.sync().then(() => {
+                  answersMusician.findById(id).then((museItem) => {
+                    res.send(JSON.stringify({
+                      aStart: aStart,
+                      aMain: museItem.dataValues
+                    }));
+                    return;
+                  });
+                });
+              } else {
+                answersListener.findById(id).then((listItem) => {
+                  res.send(JSON.stringify({
+                    aStart: aStart,
+                    aMain: listItem.dataValues
+                  }));
+                });
+              }
+            });
+          }
+        });
+      }
+    )
+    .catch(err => {
+        console.error('Connection Error: ', err);
+        res.sendStatus(502);
+      }
+    );
+  });
+  // !Display Stat
+
+  app.use(fallback('index.html', { root }));
 
   app.post('/sendFeedback', (req, res) => {
     const data = req.body;
