@@ -1,0 +1,27 @@
+#!/usr/bin/python3.5
+#coding: utf-8
+
+import shutil
+import os
+import datetime
+import subprocess
+
+subprocess.check_call('git --git-dir=/home/street/Street-n-roll/.git --work-tree=/home/street/Street-n-roll pull', shell=True)
+
+date = datetime.datetime.now()
+filePath = '/home/street/tmp/{}'.format(date)
+print('Directory for database backup: {}'.format(filePath))
+
+shutil.copy("/home/street/Street-n-roll/build/StreetnrollDB.db", "/home/street/tmp/")
+os.mkdir(filePath)
+shutil.copy("/home/street/Street-n-roll/build/StreetnrollDB.db", filePath)
+print('Copied')
+
+subprocess.check_call('npm install --prefix ./Street-n-roll', shell=True)
+subprocess.check_call('npm run build --prefix  ./Street-n-roll/', shell=True)
+
+shutil.copy("{}/StreetnrollDB.db".format(filePath), "/home/street/Street-n-roll/build/")
+print('Restored')
+
+subprocess.check_call('pm2 restart node', shell=True)
+
