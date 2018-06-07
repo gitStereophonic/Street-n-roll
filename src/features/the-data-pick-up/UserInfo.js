@@ -8,7 +8,6 @@ import * as actions from './redux/actions';
 export class UserInfo extends Component {
   static propTypes = {
     theDataPickUp: PropTypes.object.isRequired,
-    // actions: PropTypes.object.isRequired,
   };
 
   constructor(props) {
@@ -98,11 +97,29 @@ export class UserInfo extends Component {
         return jargon;
       };
 
-      showChart = React.createElement(
-        'div',
-        { className: 'musinfo' },
-        aStart,
-        React.createElement('h1', null, 'Вопросы уличному музыканту:'),
+      const createProblems = () => {
+        const problemsArray = [];
+        if (currentUser.aMain.problemsExact === 'Другое: ') {
+          const other = currentUser.aMain.problemsOther === '' ? 'Другое: -' : currentUser.aMain.problemsOther;
+          problemsArray.push(this.createTheUserAnswer('Проблемы'), other);
+        } else {
+          problemsArray.push(this.createTheUserAnswer('Проблемы', currentUser.aMain.problemsExact));
+        }
+
+        if (currentUser.aMain.problems) {
+          problemsArray.push(
+            this.createTheUserAnswer('Как относятся конкуренты друг к другу', currentUser.aMain.relations)
+          );
+          problemsArray.push(this.createTheUserAnswer('Как решается, кто лучше', currentUser.aMain.whobest));
+        } else {
+          problemsArray.push(this.createTheUserAnswer('Опишите случай', currentUser.aMain.problemdesc));
+          problemsArray.push(this.createTheUserAnswer('Как обычно решаете', currentUser.aMain.solution));
+        }
+
+        return problemsArray;
+      };
+
+      const scrollList = [
         this.createTheUserAnswer(
           'Основное занятие или хобби',
           currentUser.aMain.hobbie === 'Другое: '
@@ -134,11 +151,31 @@ export class UserInfo extends Component {
         this.createTheUserAnswer('Есть ли прозвище', currentUser.aMain.names),
         this.createTheUserAnswer('Какое', currentUser.aMain.nameslist),
         this.createTheUserAnswer('Есть ли праздники', currentUser.aMain.celebrations),
-        this.createTheUserAnswer('Какие', currentUser.aMain.whatceleb)
+        this.createTheUserAnswer('Какие', currentUser.aMain.whatceleb),
+        createProblems(),
+        this.createTheUserAnswer('События', currentUser.aMain.events),
+        this.createTheUserAnswer('Реакция', currentUser.aMain.reactions),
+        this.createTheUserAnswer('Конкретный случай', currentUser.aMain.story),
+        this.createTheUserAnswer('Чем отличаются музыканты в Вашем городе', currentUser.aMain.identity),
+      ];
+      showChart = React.createElement(
+        'div',
+        { className: 'musinfo' },
+        aStart,
+        React.createElement('h1', null, 'Вопросы уличному музыканту:'),
+        React.createElement(
+          InfiniteScroll,
+          {
+            dataLength: scrollList.length,
+            loader: React.createElement('h4', null, 'Loading...'),
+            height: 650,
+            endMessage: React.createElement('p', { className: 'endline' }, React.createElement('b', null, '--^--')),
+          },
+          scrollList
+        )
       );
     } else {
       const scrollList = [
-        React.createElement('h1', null, 'Вопросы простому прохожему:'),
         this.createTheUserAnswer('Интерес', currentUser.aMain.interest),
         this.createTheUserAnswer('Кто такие музыканты', currentUser.aMain.who),
         this.createTheUserAnswer('Даете ли деньги и почему', currentUser.aMain.money),
@@ -151,18 +188,19 @@ export class UserInfo extends Component {
         'div',
         { className: 'lisinfo' },
         aStart,
+        React.createElement('h1', null, 'Вопросы простому прохожему:'),
         React.createElement(
           InfiniteScroll,
           {
             dataLength: scrollList.length,
             loader: React.createElement('h4', null, 'Loading...'),
-            height: 200,
+            height: 650,
             endMessage: React.createElement(
               'p',
               {
                 className: 'endline',
               },
-              React.createElement('b', null, '-- End line --')
+              React.createElement('b', null, '--^--')
             ),
           },
           scrollList
