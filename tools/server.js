@@ -174,6 +174,50 @@ function startDevServer() {
     app.post('/api/*', (req, res) => req.pipe(request.post(`${API}${req.originalUrl}`)).pipe(res));
   }
 
+  app.get('/getstatbyquestion/:id/:field/:type', (req, res) => {
+    const id = req.params.id;
+    const field = req.params.field;
+    const type = req.params.type;
+
+    const data = {};
+
+    const sequelize = new Sequelize('StreetnrollDB', 'sergey.chinkov', 'RRica29081BhA5', {
+      host: 'localhost',
+      dialect: 'sqlite',
+
+      pool: {
+        max: 5,
+        min: 0,
+        idle: 10000
+      },
+
+      storage: path.join(__dirname, '../src/StreetnrollDB.db'),
+
+      operatorsAliases: false
+    });
+
+    sequelize.authenticate().then(() => {
+      console.log('Get connection to DB established');
+
+      const answersStart    = sequelize.define('answersStart',    aS, aSettings);
+      const answersListener = sequelize.define('answersListener', aL, aSettings);
+      const answersMusician = sequelize.define('answersMusician', aM, aSettings);
+
+      if (id == 0) {
+        answersStart.sync().then(() => {
+          answersStart.count().then(c => {
+            data.singleValue = c;
+            res.send(JSON.stringify(data));
+          });
+        });
+      } else if (id > 6) {
+        res.send(JSON.stringify(data));
+      } else {
+        res.send(JSON.stringify(data));
+      }
+    });
+  });
+
   app.get('/getstatdata/:id', (req, res) => {
     const id = req.params.id;
 
