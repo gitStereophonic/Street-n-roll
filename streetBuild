@@ -17,8 +17,8 @@ os.mkdir(filePath)
 shutil.copy("/home/street/Street-n-roll/build/StreetnrollDB.db", filePath)
 print('Copied')
 
-subprocess.check_call('npm install --prefix ./Street-n-roll', shell=True)
-subprocess.check_call('npm run build --prefix  ./Street-n-roll/', shell=True)
+subprocess.check_call('npm install', shell=True)
+subprocess.check_call('npm run build', shell=True)
 
 shutil.copy("{}/StreetnrollDB.db".format(filePath), "/home/street/Street-n-roll/build/")
 print('Restored')
