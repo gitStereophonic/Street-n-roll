@@ -8,6 +8,7 @@ import * as actions from './redux/actions';
 export class UserInfo extends Component {
   static propTypes = {
     theDataPickUp: PropTypes.object.isRequired,
+    actions: PropTypes.object.isRequired,
   };
 
   constructor(props) {
@@ -16,11 +17,24 @@ export class UserInfo extends Component {
     this.createTheUserAnswer = this.createTheUserAnswer.bind(this);
   }
 
-  createTheUserAnswer(field, text) {
+  createTheUserAnswer(field, text, id) {
+    const { questions, currentStat } = this.props.theDataPickUp;
+    const { getStatInfo } = this.props.actions;
+
     return React.createElement(
       'p',
       { className: 'answer', key: field },
-      React.createElement('span', { className: 'answer-label' }, `${field}: `),
+      React.createElement(
+        'a',
+        {
+          className: 'answer-label',
+          onClick: () => {
+            getStatInfo({ questionId: id, what: questions[id] });
+            currentStat.what = questions[id];
+          },
+        },
+        `${field}: `
+      ),
       React.createElement('span', { className: 'answer-text' }, text)
     );
   }
@@ -31,16 +45,17 @@ export class UserInfo extends Component {
     let showChart;
     const aStart = [
       React.createElement('h1', { key: 'header' }, ' Общие вопросы:'),
-      this.createTheUserAnswer('Id', currentUser.aStart.id),
-      this.createTheUserAnswer('Город', currentUser.aStart.city),
-      this.createTheUserAnswer('Возраст', currentUser.aStart.age),
-      this.createTheUserAnswer('Пол', currentUser.aStart.gender),
+      this.createTheUserAnswer('Id', currentUser.aStart.id, 0),
+      this.createTheUserAnswer('Город', currentUser.aStart.city, 1),
+      this.createTheUserAnswer('Возраст', currentUser.aStart.age, 2),
+      this.createTheUserAnswer('Пол', currentUser.aStart.gender, 3),
       this.createTheUserAnswer(
         'Образование',
-        currentUser.aStart.edu === 'other' ? `Другое: ${currentUser.aStart.eduOther}` : currentUser.aStart.edu
+        currentUser.aStart.edu === 'other' ? `Другое: ${currentUser.aStart.eduOther}` : currentUser.aStart.edu,
+        4
       ),
-      this.createTheUserAnswer('Род деятельности', currentUser.aStart.job),
-      this.createTheUserAnswer('Играл ли', currentUser.aStart.everPlayed ? 'Да' : 'Нет (пидор)'),
+      this.createTheUserAnswer('Род деятельности', currentUser.aStart.job, 5),
+      this.createTheUserAnswer('Играл ли', currentUser.aStart.everPlayed ? 'Да' : 'Нет (пидор)', 6),
     ];
 
     if (currentUser.aStart.id < 0) {
