@@ -14,7 +14,7 @@ export function getStatInfo(args = { questionId: -1, what: {} }) {
 
     const promise = new Promise((resolve, reject) => {
       const doRequest = $.ajax({
-        url: `/getstatbyquestion/${args.questionId}/${args.what.dbName}/${args.what.chartType}`,
+        url: `/getstatbyquestion/${args.questionId}/${args.what.dbName}/${args.what.chartType}/${args.what.extraField}`,
         type: 'GET',
         success: (response = null) => {
           if (!response) {
@@ -75,6 +75,8 @@ export function reducer(state, action) {
     case THE_DATA_PICK_UP_GET_STAT_INFO_SUCCESS:
       // The request is success
       stat.data = JSON.parse(action.data);
+      console.log('respond from server:');
+      console.log(stat);
       return {
         ...state,
         currentStat: stat,

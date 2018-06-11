@@ -44,12 +44,12 @@ const initialState = {
     {
       dbName: 'age',
       title: 'Возраст',
-      chartType: chartTypes.radar,
+      chartType: chartTypes.pie,
     },
     {
       dbName: 'gender',
       title: 'Пол',
-      chartType: chartTypes.bar,
+      chartType: chartTypes.pie,
     },
     {
       dbName: 'edu',

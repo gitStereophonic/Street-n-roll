@@ -30,6 +30,7 @@ export class Users extends Component {
         )
       );
     }
+
     return React.createElement(
       'div',
       { className: 'the-data-pick-up-users' },

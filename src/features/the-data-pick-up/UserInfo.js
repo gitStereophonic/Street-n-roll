@@ -31,6 +31,7 @@ export class UserInfo extends Component {
           onClick: () => {
             getStatInfo({ questionId: id, what: questions[id] });
             currentStat.what = questions[id];
+            currentStat.id = id;
           },
         },
         `${field}: `
@@ -55,7 +56,7 @@ export class UserInfo extends Component {
         4
       ),
       this.createTheUserAnswer('Род деятельности', currentUser.aStart.job, 5),
-      this.createTheUserAnswer('Играл ли', currentUser.aStart.everPlayed ? 'Да' : 'Нет (пидор)', 6),
+      this.createTheUserAnswer('Играл ли', currentUser.aStart.everPlayed ? 'Да' : 'Нет', 6),
     ];
 
     if (currentUser.aStart.id < 0) {
@@ -191,13 +192,13 @@ export class UserInfo extends Component {
       );
     } else {
       const scrollList = [
-        this.createTheUserAnswer('Интерес', currentUser.aMain.interest),
-        this.createTheUserAnswer('Кто такие музыканты', currentUser.aMain.who),
-        this.createTheUserAnswer('Даете ли деньги и почему', currentUser.aMain.money),
-        this.createTheUserAnswer('Какие песни слышали', currentUser.aMain.songs),
-        this.createTheUserAnswer('Приметы и поверья', currentUser.aMain.sign),
-        this.createTheUserAnswer('Известны ли Вам обычаи', currentUser.aMain.traditions),
-        this.createTheUserAnswer('Личный опыт', currentUser.aMain.experience),
+        this.createTheUserAnswer('Интерес', currentUser.aMain.interest, 7),
+        this.createTheUserAnswer('Кто такие музыканты', currentUser.aMain.who, 8),
+        this.createTheUserAnswer('Даете ли деньги и почему', currentUser.aMain.money, 9),
+        this.createTheUserAnswer('Какие песни слышали', currentUser.aMain.songs, 10),
+        this.createTheUserAnswer('Приметы и поверья', currentUser.aMain.sign, 11),
+        this.createTheUserAnswer('Известны ли Вам обычаи', currentUser.aMain.traditions, 12),
+        this.createTheUserAnswer('Личный опыт', currentUser.aMain.experience, 13),
       ];
       showChart = React.createElement(
         'div',
