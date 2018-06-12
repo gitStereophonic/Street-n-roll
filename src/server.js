@@ -126,6 +126,159 @@ function startBuildServer() {
 
   app.use(bodyParser.json());
 
+  // Get stat by question
+  app.get('/getstatbyquestion/:id/:field/:type/:extra', (req, res) => {
+    const id = req.params.id;
+    const field = req.params.field;
+    const type = req.params.type;
+    const extra = req.params.extra;
+
+    const data = {};
+
+    const sequelize = new Sequelize('StreetnrollDB', 'sergey.chinkov', 'RRica29081BhA5', {
+      host: 'localhost',
+      dialect: 'sqlite',
+
+      pool: {
+        max: 5,
+        min: 0,
+        idle: 10000
+      },
+
+      storage: path.join(__dirname, '../src/StreetnrollDB.db'),
+
+      operatorsAliases: false
+    });
+
+    sequelize.authenticate().then(() => {
+      console.log('Get connection to DB established');
+
+      if (id < 0) {
+        console.log('id < 0')
+      } else if (id < 7) {
+        const answersStart = sequelize.define('answersStart', aS, aSettings);
+        console .log('id < 7');
+
+        answersStart.sync().then(() => {
+          answersStart.findAll().then(items => {
+            if (id == 0) {
+              answersStart.sync().then(() => {
+                answersStart.count().then(c => {
+                  data.singleValue = c;
+                  res.send(JSON.stringify(data));
+                });
+              });
+            } else if (id == 1) {
+              const cityNames = [];
+              const cityCounts = [];
+              for (let i = 0; i < items.length; i += 1) {
+                const c = items[i].dataValues.city.toUpperCase();
+                let check = false;
+                for (let j = 0; j < cityNames.length; j += 1) {
+                  if (cityNames[j] == c) {
+                    check = true;
+                    cityCounts[j] += 1;
+                    break;
+                  }
+                }
+                if (!check) {
+                  cityNames.push(c);
+                  cityCounts.push(1);
+                }
+              }
+              data.chartPie = {
+                values: cityCounts,
+                labels: cityNames
+              };
+              res.send(JSON.stringify(data));
+            } else {
+              switch (type) {
+                case 'pie':
+                  const names = [];
+                  const counts = [];
+                  const extra = [];
+                  for (let i = 0; i < items.length; i += 1) {
+                    let c = '';
+                    switch (field) {
+                      case 'age':
+                        c = items[i].dataValues.age;
+                        break;
+                      case 'edu':
+                        c = items[i].dataValues.edu;
+                        break;
+                      case 'gender':
+                        c = items[i].dataValues.gender;
+                        break;
+                      case 'everPlayed':
+                        c = items[i].dataValues.everPlayed;
+                        break;
+                      default:
+                        break;
+                    }
+                    let check = false;
+                    for (let j = 0; j < names.length; j += 1) {
+                      if (names[j] == c) {
+                        check = true;
+                        counts[j] += 1;
+                        break;
+                      }
+                    }
+                    if (!check) {
+                      names.push(c);
+                      counts.push(1);
+                    }
+                    switch (extra) {
+                      case 'eduOther':
+                        const oth = items[i].dataValues.eduOther;
+                        if (eduOther != '') extra.push(oth);
+                        break;
+                      default:
+                        break;
+                    }
+                  }
+                  data.chartPie = {
+                    values: counts,
+                    labels: names
+                  };
+                  if (extra) {
+                    data.otherList = extra;
+                  }
+                  res.send(JSON.stringify(data));
+                  break;
+                case 'list':
+                  const list = [];
+                  for (let i = 0; i < items.length; i += 1) {
+                    switch (field) {
+                      case 'job':
+                        list.push(items[i].job);
+                        break;
+                      default:
+                        break;
+                    }
+                  }
+                  data.chartList = {
+                    list: list
+                  }
+                  res.send(JSON.stringify(data));
+                  break;
+                default:
+                  break;
+              }
+            }
+          });
+        });
+      } else if (id < 14 ) {
+        const answersListener = sequelize.define('answersListener', aL, aSettings);
+        console.log('id < 14');
+        res.send(JSON.stringify(data));
+      } else {
+        const answersMusician = sequelize.define('answersMusician', aM, aSettings);
+        console.log(' id >= 14');
+        res.send(JSON.stringify(data));
+      }
+    });
+  });
+
   // Display Stat 
   app.get('/getstatdata/:id', (req, res) => {
     const id = req.params.id;
