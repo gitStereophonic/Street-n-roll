@@ -23,7 +23,6 @@ export class Users extends Component {
             className: `userPanel ${everPlayed}`,
             key: startData[i].id,
             onClick: () => {
-              console.log(`There is some shit: id ~ ${startData[i].id}`);
               getUserInfo({ id: startData[i].id });
             },
           },
@@ -31,6 +30,7 @@ export class Users extends Component {
         )
       );
     }
+
     return React.createElement(
       'div',
       { className: 'the-data-pick-up-users' },

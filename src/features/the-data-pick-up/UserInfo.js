@@ -8,6 +8,7 @@ import * as actions from './redux/actions';
 export class UserInfo extends Component {
   static propTypes = {
     theDataPickUp: PropTypes.object.isRequired,
+    actions: PropTypes.object.isRequired,
   };
 
   constructor(props) {
@@ -16,11 +17,25 @@ export class UserInfo extends Component {
     this.createTheUserAnswer = this.createTheUserAnswer.bind(this);
   }
 
-  createTheUserAnswer(field, text) {
+  createTheUserAnswer(field, text, id) {
+    const { questions, currentStat } = this.props.theDataPickUp;
+    const { getStatInfo } = this.props.actions;
+
     return React.createElement(
       'p',
       { className: 'answer', key: field },
-      React.createElement('span', { className: 'answer-label' }, `${field}: `),
+      React.createElement(
+        'a',
+        {
+          className: 'answer-label',
+          onClick: () => {
+            getStatInfo({ questionId: id, what: questions[id] });
+            currentStat.what = questions[id];
+            currentStat.id = id;
+          },
+        },
+        `${field}: `
+      ),
       React.createElement('span', { className: 'answer-text' }, text)
     );
   }
@@ -31,16 +46,17 @@ export class UserInfo extends Component {
     let showChart;
     const aStart = [
       React.createElement('h1', { key: 'header' }, ' Общие вопросы:'),
-      this.createTheUserAnswer('Id', currentUser.aStart.id),
-      this.createTheUserAnswer('Город', currentUser.aStart.city),
-      this.createTheUserAnswer('Возраст', currentUser.aStart.age),
-      this.createTheUserAnswer('Пол', currentUser.aStart.gender),
+      this.createTheUserAnswer('Id', currentUser.aStart.id, 0),
+      this.createTheUserAnswer('Город', currentUser.aStart.city, 1),
+      this.createTheUserAnswer('Возраст', currentUser.aStart.age, 2),
+      this.createTheUserAnswer('Пол', currentUser.aStart.gender, 3),
       this.createTheUserAnswer(
         'Образование',
-        currentUser.aStart.edu === 'other' ? `Другое: ${currentUser.aStart.eduOther}` : currentUser.aStart.edu
+        currentUser.aStart.edu === 'other' ? `Другое: ${currentUser.aStart.eduOther}` : currentUser.aStart.edu,
+        4
       ),
-      this.createTheUserAnswer('Род деятельности', currentUser.aStart.job),
-      this.createTheUserAnswer('Играл ли', currentUser.aStart.everPlayed ? 'Да' : 'Нет (пидор)'),
+      this.createTheUserAnswer('Род деятельности', currentUser.aStart.job, 5),
+      this.createTheUserAnswer('Играл ли', currentUser.aStart.everPlayed ? 'Да' : 'Нет', 6),
     ];
 
     if (currentUser.aStart.id < 0) {
@@ -176,13 +192,13 @@ export class UserInfo extends Component {
       );
     } else {
       const scrollList = [
-        this.createTheUserAnswer('Интерес', currentUser.aMain.interest),
-        this.createTheUserAnswer('Кто такие музыканты', currentUser.aMain.who),
-        this.createTheUserAnswer('Даете ли деньги и почему', currentUser.aMain.money),
-        this.createTheUserAnswer('Какие песни слышали', currentUser.aMain.songs),
-        this.createTheUserAnswer('Приметы и поверья', currentUser.aMain.sign),
-        this.createTheUserAnswer('Известны ли Вам обычаи', currentUser.aMain.traditions),
-        this.createTheUserAnswer('Личный опыт', currentUser.aMain.experience),
+        this.createTheUserAnswer('Интерес', currentUser.aMain.interest, 7),
+        this.createTheUserAnswer('Кто такие музыканты', currentUser.aMain.who, 8),
+        this.createTheUserAnswer('Даете ли деньги и почему', currentUser.aMain.money, 9),
+        this.createTheUserAnswer('Какие песни слышали', currentUser.aMain.songs, 10),
+        this.createTheUserAnswer('Приметы и поверья', currentUser.aMain.sign, 11),
+        this.createTheUserAnswer('Известны ли Вам обычаи', currentUser.aMain.traditions, 12),
+        this.createTheUserAnswer('Личный опыт', currentUser.aMain.experience, 13),
       ];
       showChart = React.createElement(
         'div',

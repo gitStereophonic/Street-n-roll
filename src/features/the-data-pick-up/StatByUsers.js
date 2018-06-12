@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { Users, UserInfo } from './';
+import { Users, UserInfo, QuestionInfo } from './';
 import * as actions from './redux/actions';
 
 export class StatByUsers extends Component {
@@ -16,7 +16,7 @@ export class StatByUsers extends Component {
       'div',
       { className: 'the-data-pick-up-stat-by-users' },
       React.createElement('div', { id: 'users' }, React.createElement(Users)),
-      React.createElement('div', { id: 'allStat' }),
+      React.createElement('div', { id: 'allStat' }, React.createElement(QuestionInfo)),
       React.createElement('div', { id: 'userInfo' }, React.createElement(UserInfo))
     );
   }
@@ -36,4 +36,7 @@ function mapDispatchToProps(dispatch) {
   };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(StatByUsers);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(StatByUsers);
