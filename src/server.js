@@ -145,7 +145,7 @@ function startBuildServer() {
         idle: 10000
       },
 
-      storage: path.join(__dirname, '../src/StreetnrollDB.db'),
+      storage: path.join(__dirname, 'StreetnrollDB.db'),
 
       operatorsAliases: false
     });
