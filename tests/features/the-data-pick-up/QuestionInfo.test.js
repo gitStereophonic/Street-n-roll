@@ -6,15 +6,21 @@ import { QuestionInfo } from 'src/features/the-data-pick-up/QuestionInfo';
 describe('the-data-pick-up/QuestionInfo', () => {
   it('renders node with correct class name', () => {
     const props = {
-      theDataPickUp: {},
+      theDataPickUp: {
+        currentStat: {
+          id: 1,
+          what: {
+            title: 'test title',
+          },
+          data: {
+            singleValue: 10,
+          },
+        },
+      },
       actions: {},
     };
-    const renderedComponent = shallow(
-      <QuestionInfo {...props} />
-    );
+    const renderedComponent = shallow(React.createElement(QuestionInfo, { ...props }));
 
-    expect(
-      renderedComponent.find('.the-data-pick-up-question-info').getElement()
-    ).to.exist;
+    expect(renderedComponent.find('.the-data-pick-up-question-info').getElement()).to.exist;
   });
 });

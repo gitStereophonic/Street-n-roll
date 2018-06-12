@@ -47,10 +47,12 @@ export class QuestionInfo extends Component {
       if (!currentStat.data.otherList) return null;
 
       for (let i = 0; i < currentStat.data.otherList.length; i += 1) {
-        other.push(React.createElement('p', { className: 'answer-from-all', key: `other ${i}` }, currentStat.data.otherList[i]));
+        other.push(
+          React.createElement('p', { className: 'answer-from-all', key: `other ${i}` }, currentStat.data.otherList[i])
+        );
       }
 
-      result.push(React.createElement('h1', {key: 'otherTitle'}, currentStat.what.extraTitle));
+      result.push(React.createElement('h1', { key: 'otherTitle' }, currentStat.what.extraTitle));
       result.push(
         React.createElement(
           InfiniteScroll,
