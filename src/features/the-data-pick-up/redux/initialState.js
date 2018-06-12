@@ -67,7 +67,7 @@ const initialState = {
     {
       dbName: 'everPlayed',
       title: 'Играли ли когда-нибудь на улице',
-      chartType: chartTypes.bar,
+      chartType: chartTypes.pie,
     },
     {
       dbName: 'interest',
