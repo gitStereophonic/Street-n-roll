@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { Doughnut } from 'react-chartjs-2';
+import { Doughnut, Radar } from 'react-chartjs-2';
 import * as actions from './redux/actions';
 
 function generateColors(a = 1, count = 0) {
@@ -97,6 +97,39 @@ export class QuestionInfo extends Component {
         case 'bar':
           break;
         case 'radar':
+          if (currentStat.data.chartRadar) {
+            const dataCh = {
+              labels: currentStat.data.chartRadar.labels,
+              datasets: [
+                {
+                  data: currentStat.data.chartRadar.values,
+                  backbackgroundColor: 'rgba(10, 50, 255, 0.2)',
+                  borderColor: 'rgba(10, 50, 255, 1)',
+                  borderWidth: 3,
+                },
+              ],
+            };
+
+            showChart = React.createElement(
+              'div',
+              { className: 'chart-radar' },
+              React.createElement('h1', null, currentStat.what.title),
+              React.createElement(Radar, {
+                data: dataCh,
+                options: {
+                  animation: {
+                    animateScale: true,
+                  },
+                  legend: {
+                    display: true,
+                  },
+                  tooltips: {
+                    position: 'nearest',
+                  },
+                },
+              })
+            );
+          }
           break;
         case 'polar area':
           break;
