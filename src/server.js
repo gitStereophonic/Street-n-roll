@@ -157,7 +157,6 @@ function startBuildServer() {
         console.log('id < 0')
       } else if (id < 7) {
         const answersStart = sequelize.define('answersStart', aS, aSettings);
-        console .log('id < 7');
 
         answersStart.sync().then(() => {
           answersStart.findAll().then(items => {
@@ -270,7 +269,45 @@ function startBuildServer() {
       } else if (id < 14 ) {
         const answersListener = sequelize.define('answersListener', aL, aSettings);
         console.log('id < 14');
-        res.send(JSON.stringify(data));
+
+        answersListener.sync().then(() => {
+          answersListener.findAll().then((items) => {
+            switch (type) {
+              case 'radar':
+                const names = [];
+                const counts = [];
+                for (let i = 0; i < items.length; i += 1) {
+                  let c = 0;
+                  switch (field) {
+                    case 'interest':
+                      console.log('КУДА НАДО!');
+                      c = items[i].dataValues.interest;
+                      if (names.length < 7) {
+                        for (let k = names.length; k < 7; k += 1) {
+                          console.log('what is going on??');
+                          names.push(`${k}`);
+                          counts.push(0);
+                        }
+                      }
+                      if (c < 7) {
+                        counts[c] += 1;
+                      }
+                      break;
+                    default:
+                      break;
+                  }
+                }
+                data.chartRadar = {
+                  values: counts,
+                  labels: names
+                };
+                res.send(JSON.stringify(data));
+                return;
+              default:
+                break;
+            }
+          });
+        });
       } else {
         const answersMusician = sequelize.define('answersMusician', aM, aSettings);
         console.log(' id >= 14');
