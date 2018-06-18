@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { Doughnut, Radar } from 'react-chartjs-2';
+import { Doughnut, Radar, HorizontalBar } from 'react-chartjs-2';
 import * as actions from './redux/actions';
 
 function generateColors(a = 1, count = 0) {
@@ -102,6 +102,7 @@ export class QuestionInfo extends Component {
               labels: currentStat.data.chartRadar.labels,
               datasets: [
                 {
+                  label: 'От 0 до 6',
                   data: currentStat.data.chartRadar.values,
                   backbackgroundColor: 'rgba(10, 50, 255, 0.2)',
                   borderColor: 'rgba(10, 50, 255, 1)',
@@ -174,11 +175,46 @@ export class QuestionInfo extends Component {
         case 'list':
           if (currentStat.data.chartList) {
             const dataCh = [];
+            const extraCh = [];
             for (let i = 0; i < currentStat.data.chartList.list.length; i += 1) {
               dataCh.push(
                 React.createElement('p', { className: 'answer-from-all', key: i }, currentStat.data.chartList.list[i])
               );
             }
+
+            if (currentStat.data.extraBar) {
+              const dataBar = {
+                labels: currentStat.data.extraBar.labels,
+                datasets: [
+                  {
+                    data: currentStat.data.extraBar.values,
+                    backgroundColor: generateColors(0.2, currentStat.data.extraBar.labels.length),
+                    borderColor: generateColors(1, currentStat.data.extraBar.labels.length),
+                    borderWidth: 3,
+                  },
+                ],
+              };
+
+              extraCh.push(React.createElement('h1', { key: 'extraTitle' }, currentStat.what.extraTitle));
+              extraCh.push(
+                React.createElement(HorizontalBar, {
+                  key: 'extraBar',
+                  data: dataBar,
+                  options: {
+                    animation: {
+                      animateScale: true,
+                    },
+                    legend: {
+                      display: false,
+                    },
+                    tooltips: {
+                      position: 'nearest',
+                    },
+                  },
+                })
+              );
+            }
+
             showChart = React.createElement(
               'div',
               { className: 'chart-list' },
@@ -197,7 +233,8 @@ export class QuestionInfo extends Component {
                     React.createElement('b', null, '--^--')
                   ),
                 },
-                dataCh
+                dataCh,
+                extraCh
               )
             );
           }

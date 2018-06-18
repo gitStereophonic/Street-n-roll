@@ -256,7 +256,7 @@ function startDevServer() {
                         c = items[i].dataValues.gender;
                         break;
                       case 'everPlayed':
-                        c = items[i].dataValues.everPlayed;
+                        c = items[i].dataValues.everPlayed ? 'Да' : 'Нет';
                         break;
                       default:
                         break;
@@ -327,11 +327,9 @@ function startDevServer() {
                   let c = 0;
                   switch (field) {
                     case 'interest':
-                      console.log('КУДА НАДО!');
                       c = items[i].dataValues.interest;
                       if (names.length < 7) {
                         for (let k = names.length; k < 7; k += 1) {
-                          console.log('what is going on??');
                           names.push(`${k}`);
                           counts.push(0);
                         }
@@ -347,6 +345,40 @@ function startDevServer() {
                 data.chartRadar = {
                   values: counts,
                   labels: names
+                };
+                res.send(JSON.stringify(data));
+                return;
+              case 'list':
+                const list = [];
+                switch (field) {
+                  case 'who':
+                    for (let i = 0; i < items.length; i += 1) {
+                      list.push(items[i].dataValues.who);
+                    }
+                    break;
+                  case 'money':
+                    let yes = 0;
+                    let no = 0;
+                    for (let i = 0; i < items.length; i += 1) {
+                      const str = items[i].dataValues.money;
+                      list.push(str);
+                      const s = ` ${str.toLowerCase()} `.replace(/,.!?/g, ' ');
+                      if (s.includes(' да ')) {
+                        yes += 1;
+                      } else if (s.includes(' нет ')) {
+                        no += 1;
+                      }
+                    }
+                    data.extraBar = {
+                      labels: ['Да', 'Нет'],
+                      values: [yes, no]
+                    }
+                    break;
+                  default:
+                    break;
+                }
+                data.chartList = {
+                  list: list
                 };
                 res.send(JSON.stringify(data));
                 return;
