@@ -106,6 +106,14 @@ const initialState = {
       title: 'Личный опыт',
       chartType: chartTypes.list,
     },
+    {
+      dbName: 'hobbie',
+      title: 'Основное занятие или хобби',
+      extraField: 'hobbieOther',
+      extraTitle: 'Другое:',
+      chartType: chartTypes.pie,
+      extraChart: chartTypes.list,
+    }
   ],
 
   getDataPending: false,
