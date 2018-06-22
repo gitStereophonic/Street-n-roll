@@ -217,8 +217,8 @@ function startDevServer() {
             } else if (id == 1) {
               const cityNames = [];
               const cityCounts = [];
-              for (let i = 0; i < items.length; i += 1) {
-                const c = items[i].dataValues.city.toUpperCase();
+              for (let item of items) {
+                const c = item.dataValues.city.toUpperCase();
                 let check = false;
                 for (let j = 0; j < cityNames.length; j += 1) {
                   if (cityNames[j] == c) {
@@ -243,20 +243,20 @@ function startDevServer() {
                   const names = [];
                   const counts = [];
                   const extra = [];
-                  for (let i = 0; i < items.length; i += 1) {
+                  for (let item of items) {
                     let c = '';
                     switch (field) {
                       case 'age':
-                        c = items[i].dataValues.age;
+                        c = item.dataValues.age;
                         break;
                       case 'edu':
-                        c = items[i].dataValues.edu;
+                        c = item.dataValues.edu;
                         break;
                       case 'gender':
-                        c = items[i].dataValues.gender;
+                        c = item.dataValues.gender;
                         break;
                       case 'everPlayed':
-                        c = items[i].dataValues.everPlayed;
+                        c = item.dataValues.everPlayed ? 'Да' : 'Нет';
                         break;
                       default:
                         break;
@@ -273,13 +273,9 @@ function startDevServer() {
                       names.push(c);
                       counts.push(1);
                     }
-                    switch (extra) {
-                      case 'eduOther':
-                        const oth = items[i].dataValues.eduOther;
-                        if (eduOther != '') extra.push(oth);
-                        break;
-                      default:
-                        break;
+                    if (extra === 'eduOther') {
+                      const oth = item.dataValues.eduOther;
+                      if (eduOther != '') extra.push(oth);
                     }
                   }
                   data.chartPie = {
@@ -293,13 +289,9 @@ function startDevServer() {
                   break;
                 case 'list':
                   const list = [];
-                  for (let i = 0; i < items.length; i += 1) {
-                    switch (field) {
-                      case 'job':
-                        list.push(items[i].job);
-                        break;
-                      default:
-                        break;
+                  for (let item of items) {
+                    if (field === 'job') {
+                      list.push(item.job);
                     }
                   }
                   data.chartList = {
@@ -323,30 +315,85 @@ function startDevServer() {
               case 'radar':
                 const names = [];
                 const counts = [];
-                for (let i = 0; i < items.length; i += 1) {
+                for (let item of items) {
                   let c = 0;
-                  switch (field) {
-                    case 'interest':
-                      console.log('КУДА НАДО!');
-                      c = items[i].dataValues.interest;
-                      if (names.length < 7) {
-                        for (let k = names.length; k < 7; k += 1) {
-                          console.log('what is going on??');
-                          names.push(`${k}`);
-                          counts.push(0);
-                        }
+                  if (field === 'interest') {
+                    c = item.dataValues.interest;
+                    if (names.length < 7) {
+                      for (let k = names.length; k < 7; k += 1) {
+                        names.push(`${k}`);
+                        counts.push(0);
                       }
-                      if (c < 7) {
-                        counts[c] += 1;
-                      }
-                      break;
-                    default:
-                      break;
+                    }
+                    if (c < 7) {
+                      counts[c] += 1;
+                    }
                   }
                 }
                 data.chartRadar = {
                   values: counts,
                   labels: names
+                };
+                res.send(JSON.stringify(data));
+                return;
+              case 'list':
+                const list = [];
+                switch (field) {
+                  case 'who':
+                    for (let item of items) {
+                      const v = item.dataValues.who;
+                      if (v !== '') list.push(v);
+                    }
+                    break;
+                  case 'money':
+                    let yes = 0;
+                    let no = 0;
+                    for (let item of items) {
+                      const str = item.dataValues.money;
+                      if (str !== '') {
+                        list.push(str);
+                        const s = ` ${str.toLowerCase()} `.replace(/,.!?/g, ' ');
+                        if (s.includes(' да ')) {
+                          yes += 1;
+                        } else if (s.includes(' нет ')) {
+                          no += 1;
+                        }
+                      }
+                    }
+                    data.extraBar = {
+                      labels: ['Да', 'Нет'],
+                      values: [yes, no]
+                    }
+                    break;
+                  case 'songs':
+                    for (let item of items) {
+                      const v = item.dataValues.songs;
+                      if (v !== '') list.push(v);
+                    }
+                    break;
+                  case 'sign':
+                    for (let item of items) {
+                      const v = item.dataValues.sign;
+                      if (v !== '') list.push(v);
+                    }
+                    break;
+                  case 'traditions':
+                    for (let item of items) {
+                      const v = item.dataValues.traditions;
+                      if (v !== '') list.push(v);
+                    }
+                    break;
+                  case 'experience':
+                    for (let item of items) {
+                      const v = item.dataValues.experience;
+                      if (v !== '') list.push(v);
+                    }
+                    break;
+                  default:
+                    break;
+                }
+                data.chartList = {
+                  list: list
                 };
                 res.send(JSON.stringify(data));
                 return;
