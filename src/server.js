@@ -195,7 +195,7 @@ function startBuildServer() {
                 case 'pie':
                   const names = [];
                   const counts = [];
-                  const extra = [];
+                  const extras = [];
                   for (let item of items) {
                     let c = '';
                     switch (field) {
@@ -228,7 +228,7 @@ function startBuildServer() {
                     }
                     if (extra === 'eduOther') {
                       const oth = item.dataValues.eduOther;
-                      if (eduOther != '') extra.push(oth);
+                      if (oth != '') extras.push(oth);
                     }
                   }
                   data.chartPie = {
@@ -236,7 +236,7 @@ function startBuildServer() {
                     labels: names
                   };
                   if (extra) {
-                    data.otherList = extra;
+                    data.otherList = extras;
                   }
                   res.send(JSON.stringify(data));
                   break;

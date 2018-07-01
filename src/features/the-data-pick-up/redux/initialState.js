@@ -113,6 +113,177 @@ const initialState = {
       extraTitle: 'Другое:',
       chartType: chartTypes.pie,
       extraChart: chartTypes.list,
+    },
+    {
+      dbName: 'howlong',
+      title: 'Как давно?',
+      chartType: chartTypes.pie,
+    },
+    {
+      dbName: 'rather',
+      title: 'Как часто?',
+      chartType: chartTypes.pie,
+    },
+    {
+      dbName: 'why',
+      title: 'Почему прекратили?',
+      chartType: chartTypes.list,
+    },
+    {
+      dbName: 'community',
+      title: 'Есть ли сообщество?',
+      chartType: chartTypes.pie,
+    },
+    {
+      dbName: 'official',
+      title: 'Официальное?',
+      extraField: 'oficcialOther',
+      extraTitle: 'Другое:',
+      chartType: chartTypes.pie,
+      extraChart: chartTypes.list,
+    },
+    {
+      dbName: 'wocom',
+      title: 'Может ли не состоять?',
+      chartType: chartTypes.list,
+    },
+    {
+      dbName: 'howjoin',
+      title: 'Как вступить?',
+      chartType: chartTypes.list,
+    },
+    {
+      dbName: 'cookies',
+      title: 'Какие плюшки с этого?',
+      chartType: chartTypes.list,
+    },
+    {
+      dbName: 'meetings',
+      title: 'Встречаетесь в свободное время?',
+      chartType: chartTypes.pie,
+    },
+    {
+      dbName: 'reasons',
+      title: 'По каким поводам?',
+      chartType: chartTypes.list,
+    },
+    {
+      dbName: 'where',
+      title: 'Где?',
+      chartType: chartTypes.list,
+    },
+    {
+      dbName: 'whywhere',
+      title: 'Почему именно там?',
+      chartType: chartTypes.list,
+    },
+    {
+      dbName: 'meetingtime',
+      title: 'Когда?',
+      chartType: chartTypes.radar,
+    },
+    {
+      dbName: 'place',
+      title: 'Как выбирается место?',
+      chartType: chartTypes.list,
+    },
+    {
+      dbName: 'descplace',
+      title: 'Каким оно должно быть?',
+      chartType: chartTypes.list,
+    },
+    {
+      dbName: 'time',
+      title: 'Когда лучше играть и почему?',
+      chartType: chartTypes.list,
+    },
+    {
+      dbName: 'whatplay',
+      title: 'Что играете?',
+      chartType: chartTypes.list,
+    },
+    {
+      dbName: 'whythisplay',
+      title: 'Принцип формирования репертуара',
+      chartType: chartTypes.list,
+    },
+    {
+      dbName: 'placeplay',
+      title: 'Зависит ли от места?',
+      chartType: chartTypes.list,
+    },
+    {
+      dbName: 'howcome',
+      title: 'Как приходите на место?',
+      chartType: chartTypes.list,
+    },
+    {
+      dbName: 'howleave',
+      title: 'Как уходите?',
+      chartType: chartTypes.list,
+    },
+    {
+      dbName: 'firstmoney',
+      title: 'Как принимаете первые деньги?',
+      chartType: chartTypes.list,
+    },
+    {
+      dbName: 'talk',
+      title: 'Как общаетесь с людьми?',
+      chartType: chartTypes.list,
+    },
+    {
+      dbName: 'mascot',
+      title: 'Есть талисманы или приметы?',
+      chartType: chartTypes.pie,
+    },
+    {
+      dbName: 'mascotdesc',
+      title: 'Опишите свои талисманы или приметы',
+      chartType: chartTypes.list,
+    },
+    {
+      dbName: 'jargon',
+      title: 'Жаргон',
+      chartType: chartTypes.list,
+    },
+    {
+      dbName: 'specsigns',
+      title: 'Условные знаки',
+      chartType: chartTypes.list,
+    },
+    {
+      dbName: 'idmarks',
+      title: 'Опознавательные знаки',
+      chartType: chartTypes.list,
+    },
+    {
+      dbName: 'forwhat',
+      title: 'Для чего это нужно?',
+      extraField: 'forwhatOther',
+      extraTitle: 'Другое:',
+      chartType: chartTypes.radar,
+      extraChart: chartTypes.list,
+    },
+    {
+      dbName: 'names',
+      title: 'Есть ли у Вас прозвище?',
+      chartType: chartTypes.pie,
+    },
+    {
+      dbName: 'nameslist',
+      title: 'Если есть, то какое?',
+      chartType: chartTypes.list,
+    },
+    {
+      dbName: 'celebrations',
+      title: 'Есть ли праздники?',
+      chartType: chartTypes.pie,
+    },
+    {
+      dbName: 'whatceleb',
+      title: 'Какие праздники?',
+      chartType: chartTypes.list,
     }
   ],
 

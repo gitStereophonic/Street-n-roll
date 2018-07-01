@@ -242,7 +242,7 @@ function startDevServer() {
                 case 'pie':
                   const names = [];
                   const counts = [];
-                  const extra = [];
+                  const extras = [];
                   for (let item of items) {
                     let c = '';
                     switch (field) {
@@ -275,7 +275,7 @@ function startDevServer() {
                     }
                     if (extra === 'eduOther') {
                       const oth = item.dataValues.eduOther;
-                      if (eduOther != '') extra.push(oth);
+                      if (oth != '') extras.push(oth);
                     }
                   }
                   data.chartPie = {
@@ -283,7 +283,7 @@ function startDevServer() {
                     labels: names
                   };
                   if (extra) {
-                    data.otherList = extra;
+                    data.otherList = extras;
                   }
                   res.send(JSON.stringify(data));
                   break;
@@ -307,7 +307,6 @@ function startDevServer() {
         });
       } else if (id < 14 ) {
         const answersListener = sequelize.define('answersListener', aL, aSettings);
-        console.log('id < 14');
 
         answersListener.sync().then(() => {
           answersListener.findAll().then((items) => {
@@ -315,9 +314,11 @@ function startDevServer() {
               case 'radar':
                 const names = [];
                 const counts = [];
+                let label = '';
                 for (let item of items) {
                   let c = 0;
                   if (field === 'interest') {
+                    label = 'От 0 до 6';
                     c = item.dataValues.interest;
                     if (names.length < 7) {
                       for (let k = names.length; k < 7; k += 1) {
@@ -332,7 +333,8 @@ function startDevServer() {
                 }
                 data.chartRadar = {
                   values: counts,
-                  labels: names
+                  labels: names,
+                  label: label
                 };
                 res.send(JSON.stringify(data));
                 return;
@@ -405,7 +407,239 @@ function startDevServer() {
       } else {
         const answersMusician = sequelize.define('answersMusician', aM, aSettings);
         console.log(' id >= 14');
-        res.send(JSON.stringify(data));
+
+        answersMusician.sync().then(() => {
+          answersMusician.findAll().then((items) => {
+            switch (type) {
+              case 'pie':
+                const names = [];
+                const counts = [];
+                const extras = [];
+                for (let item of items) {
+                  let c = '';
+                  switch (field) {
+                    case 'hobbie':
+                      c = item.dataValues.hobbie;
+                      break;
+                    case 'howlong':
+                      c = item.dataValues.howlong;
+                      break;
+                    case 'rather':
+                      c = item.dataValues.ratherExact;
+                      break;
+                    case 'community':
+                      c = item.dataValues.communityExact;
+                      break;
+                    case 'official':
+                      c = item.dataValues.official;
+                      break;
+                    case 'meetings':
+                      c = item.dataValues.meetingsExact;
+                      break;
+                    case 'mascot':
+                      c = item.dataValues.mascot;
+                      break;
+                    case 'names':
+                      c = item.dataValues.names;
+                      break;
+                    case 'celebrations':
+                      c = item.dataValues.celebrations;
+                      break;
+                    default:
+                      break;
+                  }
+
+                  let check = false;
+                  for (let j = 0; j < names.length; j += 1) {
+                    if (names[j] == c) {
+                      check = true;
+                      counts[j] += 1;
+                      break;
+                    }
+                  }
+                  if (!check && c !== '') {
+                    names.push(c);
+                    counts.push(1);
+                  }
+
+                  let oth = '';
+                  switch (extra) {
+                    case 'hobbieOther':
+                      oth = item.dataValues.hobbieOther;
+                      break;
+                    case 'officialOther':
+                      oth = item.dataValues.officialOther;
+                      break;
+                    default:
+                      break;
+                  }
+                  if (oth !== '') extras.push(oth);
+                }
+
+                data.chartPie = {
+                  values: counts,
+                  labels: names
+                };
+                if (extra) {
+                  data.otherList = extras;
+                }
+                res.send(JSON.stringify(data));
+                break;
+              case 'list':
+                const list = [];
+                for (let item of items) {
+                  let c = '';
+                  switch (field) {
+                    case 'why':
+                      c = item.dataValues.why;
+                      break;
+                    case 'wocom':
+                      c = item.dataValues.wocom;
+                      break;
+                    case 'howjoin':
+                      c = item.dataValues.howjoin;
+                      break;
+                    case 'cookies':
+                      c = item.dataValues.cookies;
+                      break;
+                    case 'reasons':
+                      c = item.dataValues.reasons;
+                      break;
+                    case 'where':
+                      c = item.dataValues.where;
+                      break;
+                    case 'whywhere':
+                      c = item.dataValues.whywhere;
+                      break;
+                    case 'place':
+                      c = item.dataValues.place;
+                      break;
+                    case 'descplace':
+                      c = item.dataValues.descplace;
+                      break;
+                    case 'time':
+                      c = item.dataValues.time;
+                      break;
+                    case 'whatplay':
+                      c = item.dataValues.whatplay;
+                      break;
+                    case 'whythisplay':
+                      c = item.dataValues.whythisplay;
+                      break;
+                    case 'placeplay':
+                      c = itrm.dataValues.placeplay;
+                      break;
+                    case 'howcome':
+                      c = item.dataValues.howcome;
+                      break;
+                    case 'howleave':
+                      c = item.dataValues.howleave;
+                      break;
+                    case 'firstmoney':
+                      c = item.dataValues.firstmoney;
+                      break;
+                    case 'talk':
+                      c = item.dataValues.talk;
+                      break;
+                    case 'mascotdesc':
+                      c = item.dataValues.mascotdesc;
+                      break;
+                    case 'jargon':
+                      c = item.dataValues.jargon;
+                      break;
+                    case 'specsigns':
+                      c = item.dataValues.specsigns;
+                      break;
+                    case 'idmarks':
+                      c = item.dataValues.idmarks;
+                      break;
+                    case 'nameslist':
+                      c = item.dataValues.nameslist;
+                      break;
+                    case 'whatceleb':
+                      c = item.dataValues.whatceleb;
+                      break;
+                    default:
+                      break;
+                  }
+                  if (c !== '') list.push(c);
+                }
+
+                data.chartList = {
+                  list: list
+                };
+                res.send(JSON.stringify(data));
+                break;
+              case 'radar':
+                const namesRad = [];
+                const countsRad = [];
+                const extrasRadar = [];
+                let labelRad = '';
+                const mT = ['Утром', 'Днем', 'Вечером', 'Ночью', 'По ситуации'];
+                const iMrks = ['Для удобства', 'Чтобы понимали только свои', 'Другое: '];
+                switch (field) {
+                  case 'meetingtime':
+                    labelRad = 'Общее количество отмеченных значений';
+                    for (let m of mT) {
+                      namesRad.push(m);
+                      countsRad.push(0);
+                    }
+                    for (let item of items) {
+                      const c = item.dataValues.meetingtime.split(',');
+                      for (let ci of c) {
+                        if (ci !== '') {
+                          for (let i = 0; i < namesRad.length; i += 1) {
+                            if (ci === namesRad[i]) countsRad[i] += 1;
+                          }
+                        }
+                      }
+                    }
+                    break;
+                  case 'forwhat':
+                    labelRad = 'Общее количество отмеченных значений';
+                    for (let m of iMrks) {
+                      namesRad.push(m);
+                      countsRad.push(0);
+                    }
+                    for (let item of items) {
+                      const c = item.dataValues.forwhat.split(',');
+                      for (let ci of c) {
+                        if (ci !== '') {
+                          for (let i = 0; i < namesRad.length; i += 1) {
+                            if (ci === namesRad[i]) countsRad[i] += 1;
+                          }
+                        }
+                      }
+                      let oth = '';
+                      switch (extra) {
+                        case 'forwhatOther':
+                          oth = item.dataValues.forwhatOther;
+                          break;
+                        default:
+                          break;
+                      }
+                      if (oth !== '') extrasRadar.push(oth);
+                    }
+                    break;
+                  default:
+                    break;
+                }
+
+                data.chartRadar = {
+                  values: countsRad,
+                  labels: namesRad,
+                  label: labelRad
+                };
+                if (extra) {
+                  data.otherList = extrasRadar;
+                }
+                res.send(JSON.stringify(data));
+                break;
+              default:
+                break;
+            }
+          });
+        });
       }
     });
   });
