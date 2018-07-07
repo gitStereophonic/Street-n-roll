@@ -284,7 +284,55 @@ const initialState = {
       dbName: 'whatceleb',
       title: 'Какие праздники?',
       chartType: chartTypes.list,
-    }
+    },
+    {
+      dbName: 'problems',
+      title: 'С какими проблемами сталкивались?',
+      extraField: 'problemsOther',
+      extraTitle: 'Другое:',
+      chartType: chartTypes.radar,
+      extraChart: chartTypes.list,
+    },
+    {
+      dbName: 'relations',
+      title: 'Как относятся конкуренты друг к другу?',
+      chartType: chartTypes.list,
+    },
+    {
+      dbName: 'whobest',
+      title: 'Как решается, кто лучше?',
+      chartType: chartTypes.list,
+    },
+    {
+      dbName: 'problemdesc',
+      title: 'Опишите случай',
+      chartType: chartTypes.list,
+    },
+    {
+      dbName: 'solution',
+      title: 'Как обычно решаете?',
+      chartType: chartTypes.list,
+    },
+    {
+      dbName: 'events',
+      title: 'События',
+      chartType: chartTypes.list,
+    },
+    {
+      dbName: 'reactions',
+      title: 'Реакция на события',
+      chartType: chartTypes.list,
+    },
+    {
+      dbName: 'story',
+      title: 'Конкретный случай',
+      chartType: chartTypes.list,
+    },
+    {
+      dbName: 'identity',
+      title: 'Чем отличаются музыканты в Вашем городе?',
+      chartType: chartTypes.list,
+    },
   ],
 
   getDataPending: false,

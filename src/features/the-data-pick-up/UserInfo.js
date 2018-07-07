@@ -117,19 +117,19 @@ export class UserInfo extends Component {
         const problemsArray = [];
         if (currentUser.aMain.problemsExact === 'Другое: ') {
           const other = currentUser.aMain.problemsOther === '' ? 'Другое: -' : currentUser.aMain.problemsOther;
-          problemsArray.push(this.createTheUserAnswer('Проблемы'), other);
+          problemsArray.push(this.createTheUserAnswer('Проблемы'), other, 48);
         } else {
-          problemsArray.push(this.createTheUserAnswer('Проблемы', currentUser.aMain.problemsExact));
+          problemsArray.push(this.createTheUserAnswer('Проблемы', currentUser.aMain.problemsExact, 48));
         }
 
         if (currentUser.aMain.problems) {
           problemsArray.push(
-            this.createTheUserAnswer('Как относятся конкуренты друг к другу', currentUser.aMain.relations)
+            this.createTheUserAnswer('Как относятся конкуренты друг к другу', currentUser.aMain.relations, 49)
           );
-          problemsArray.push(this.createTheUserAnswer('Как решается, кто лучше', currentUser.aMain.whobest));
+          problemsArray.push(this.createTheUserAnswer('Как решается, кто лучше', currentUser.aMain.whobest, 50));
         } else {
-          problemsArray.push(this.createTheUserAnswer('Опишите случай', currentUser.aMain.problemdesc));
-          problemsArray.push(this.createTheUserAnswer('Как обычно решаете', currentUser.aMain.solution));
+          problemsArray.push(this.createTheUserAnswer('Опишите случай', currentUser.aMain.problemdesc, 51));
+          problemsArray.push(this.createTheUserAnswer('Как обычно решаете', currentUser.aMain.solution, 52));
         }
 
         return problemsArray;
@@ -170,10 +170,10 @@ export class UserInfo extends Component {
         this.createTheUserAnswer('Есть ли праздники', currentUser.aMain.celebrations, 46),
         this.createTheUserAnswer('Какие', currentUser.aMain.whatceleb, 47),
         createProblems(),
-        this.createTheUserAnswer('События', currentUser.aMain.events),
-        this.createTheUserAnswer('Реакция', currentUser.aMain.reactions),
-        this.createTheUserAnswer('Конкретный случай', currentUser.aMain.story),
-        this.createTheUserAnswer('Чем отличаются музыканты в Вашем городе', currentUser.aMain.identity),
+        this.createTheUserAnswer('События', currentUser.aMain.events, 53),
+        this.createTheUserAnswer('Реакция', currentUser.aMain.reactions, 54),
+        this.createTheUserAnswer('Конкретный случай', currentUser.aMain.story, 55),
+        this.createTheUserAnswer('Чем отличаются музыканты в Вашем городе', currentUser.aMain.identity, 56),
       ];
       showChart = React.createElement(
         'div',

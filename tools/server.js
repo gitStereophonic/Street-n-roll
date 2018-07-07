@@ -559,6 +559,30 @@ function startDevServer() {
                     case 'whatceleb':
                       c = item.dataValues.whatceleb;
                       break;
+                    case 'relations':
+                      c = item.dataValues.relations;
+                      break;
+                    case 'whobest':
+                      c = item.dataValues.whobest;
+                      break;
+                    case 'problemdesc':
+                      c = item.dataValues.problemdesc;
+                      break;
+                    case 'solution':
+                      c = item.dataValues.solution;
+                      break;
+                    case 'events':
+                      c = item.dataValues.events;
+                      break;
+                    case 'reactions':
+                      c = item.dataValues.reactions;
+                      break;
+                    case 'story':
+                      c = item.dataValues.story;
+                      break;
+                    case 'identity':
+                      c = item.dataValues.identity;
+                      break;
                     default:
                       break;
                   }
@@ -576,7 +600,9 @@ function startDevServer() {
                 const extrasRadar = [];
                 let labelRad = '';
                 const mT = ['Утром', 'Днем', 'Вечером', 'Ночью', 'По ситуации'];
-                const iMrks = ['Для удобства', 'Чтобы понимали только свои', 'Другое: '];
+                const iMrks = ['Для удобства', 'Чтобы понимали только свои', 'Другое'];
+                const prArr = ['Столкновения со стражами порядка', 'Конфликты с прохожими',
+                  'Профессиональная конкуренция', 'У меня не было проблем', 'Другое'];
                 switch (field) {
                   case 'meetingtime':
                     labelRad = 'Общее количество отмеченных значений';
@@ -605,20 +631,42 @@ function startDevServer() {
                       const c = item.dataValues.forwhat.split(',');
                       for (let ci of c) {
                         if (ci !== '') {
+                          if (ci.split(':').length === 2) ci = iMrks[iMrks.length - 1];
                           for (let i = 0; i < namesRad.length; i += 1) {
                             if (ci === namesRad[i]) countsRad[i] += 1;
                           }
                         }
                       }
-                      let oth = '';
-                      switch (extra) {
-                        case 'forwhatOther':
-                          oth = item.dataValues.forwhatOther;
-                          break;
-                        default:
-                          break;
+                      if (extra === 'forwhatOther') {
+                        const oth = item.dataValues.forwhatOther;
+                        extrasRadar.push(oth);
                       }
-                      if (oth !== '') extrasRadar.push(oth);
+                    }
+                    break;
+                  case 'problems':
+                    labelRad = 'Выбранные значения';
+                    for (let m of prArr) {
+                      namesRad.push(m);
+                      countsRad.push(0);
+                    }
+                    for (let item of items) {
+                      let c = item.dataValues.problemsExact;
+                      if (c !== '') {
+                        if (c.split(':').length === 2) c = prArr[prArr.length - 1];
+                        if (c === 'Все перечисленное') {
+                          for (let i = 0; i < 3; i ++) {
+                            countsRad[i] += 1;
+                          }
+                        } else {
+                          for (let i = 0; i < namesRad.length; i += 1) {
+                            if (c === namesRad[i]) countsRad[i] += 1;
+                          }
+                        }
+                      }
+                      if (extra === 'problemsOther') {
+                        const oth = item.dataValues.problemsOther;
+                        extrasRadar.push(oth);
+                      }
                     }
                     break;
                   default:
