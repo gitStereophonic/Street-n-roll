@@ -102,7 +102,7 @@ export class QuestionInfo extends Component {
               labels: currentStat.data.chartRadar.labels,
               datasets: [
                 {
-                  label: 'От 0 до 6',
+                  label: currentStat.data.chartRadar.label,
                   data: currentStat.data.chartRadar.values,
                   backbackgroundColor: 'rgba(10, 50, 255, 0.2)',
                   borderColor: 'rgba(10, 50, 255, 1)',
@@ -128,7 +128,8 @@ export class QuestionInfo extends Component {
                     position: 'nearest',
                   },
                 },
-              })
+              }),
+              this.createOthers()
             );
           }
           break;

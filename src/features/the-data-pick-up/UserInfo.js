@@ -70,10 +70,10 @@ export class UserInfo extends Component {
             ? `Другое: ${currentUser.aMain.officialOther}`
             : currentUser.aMain.official;
         const community = [
-          this.createTheUserAnswer('Официальное', official),
-          this.createTheUserAnswer('Может ли не состоять', currentUser.aMain.wocom),
-          this.createTheUserAnswer('Как вступить', currentUser.aMain.howjoin),
-          this.createTheUserAnswer('Какие плюшки с этого', currentUser.aMain.cookies),
+          this.createTheUserAnswer('Официальное', official, 19),
+          this.createTheUserAnswer('Может ли не состоять', currentUser.aMain.wocom, 20),
+          this.createTheUserAnswer('Как вступить', currentUser.aMain.howjoin, 21),
+          this.createTheUserAnswer('Какие плюшки с этого', currentUser.aMain.cookies, 22),
         ];
 
         return community;
@@ -86,10 +86,10 @@ export class UserInfo extends Component {
         const message = meetingTimeArray.reduce((sum, current) => `${sum}, ${current}`);
 
         const meetings = [
-          this.createTheUserAnswer('По каким поводам', currentUser.aMain.reasons),
-          this.createTheUserAnswer('Где', currentUser.aMain.where),
-          this.createTheUserAnswer('Почему именно там', currentUser.aMain.whywhere),
-          this.createTheUserAnswer('Когда', message),
+          this.createTheUserAnswer('По каким поводам', currentUser.aMain.reasons, 24),
+          this.createTheUserAnswer('Где', currentUser.aMain.where, 25),
+          this.createTheUserAnswer('Почему именно там', currentUser.aMain.whywhere, 26),
+          this.createTheUserAnswer('Когда', message, 27),
         ];
 
         return meetings;
@@ -104,10 +104,10 @@ export class UserInfo extends Component {
         const message = forWhatArray.reduce((sum, current) => `${sum}, ${current}`);
 
         const jargon = [
-          this.createTheUserAnswer('Жаргон', currentUser.aMain.jargon),
-          this.createTheUserAnswer('Условные знаки', currentUser.aMain.specsigns),
-          this.createTheUserAnswer('Опознавательные знаки', currentUser.aMain.idmarks),
-          this.createTheUserAnswer('Для чего это нужно', message),
+          this.createTheUserAnswer('Жаргон', currentUser.aMain.jargon, 40),
+          this.createTheUserAnswer('Условные знаки', currentUser.aMain.specsigns, 41),
+          this.createTheUserAnswer('Опознавательные знаки', currentUser.aMain.idmarks, 42),
+          this.createTheUserAnswer('Для чего это нужно', message, 43),
         ];
 
         return jargon;
@@ -117,19 +117,19 @@ export class UserInfo extends Component {
         const problemsArray = [];
         if (currentUser.aMain.problemsExact === 'Другое: ') {
           const other = currentUser.aMain.problemsOther === '' ? 'Другое: -' : currentUser.aMain.problemsOther;
-          problemsArray.push(this.createTheUserAnswer('Проблемы'), other);
+          problemsArray.push(this.createTheUserAnswer('Проблемы'), other, 48);
         } else {
-          problemsArray.push(this.createTheUserAnswer('Проблемы', currentUser.aMain.problemsExact));
+          problemsArray.push(this.createTheUserAnswer('Проблемы', currentUser.aMain.problemsExact, 48));
         }
 
         if (currentUser.aMain.problems) {
           problemsArray.push(
-            this.createTheUserAnswer('Как относятся конкуренты друг к другу', currentUser.aMain.relations)
+            this.createTheUserAnswer('Как относятся конкуренты друг к другу', currentUser.aMain.relations, 49)
           );
-          problemsArray.push(this.createTheUserAnswer('Как решается, кто лучше', currentUser.aMain.whobest));
+          problemsArray.push(this.createTheUserAnswer('Как решается, кто лучше', currentUser.aMain.whobest, 50));
         } else {
-          problemsArray.push(this.createTheUserAnswer('Опишите случай', currentUser.aMain.problemdesc));
-          problemsArray.push(this.createTheUserAnswer('Как обычно решаете', currentUser.aMain.solution));
+          problemsArray.push(this.createTheUserAnswer('Опишите случай', currentUser.aMain.problemdesc, 51));
+          problemsArray.push(this.createTheUserAnswer('Как обычно решаете', currentUser.aMain.solution, 52));
         }
 
         return problemsArray;
@@ -140,39 +140,40 @@ export class UserInfo extends Component {
           'Основное занятие или хобби',
           currentUser.aMain.hobbie === 'Другое: '
             ? `Другое: ${currentUser.aMain.hobbieOther}`
-            : currentUser.aMain.hobbie
+            : currentUser.aMain.hobbie,
+          14
         ),
-        this.createTheUserAnswer('Как давно', currentUser.aMain.howlong),
-        this.createTheUserAnswer('Как часто', currentUser.aMain.ratherExact),
-        currentUser.aMain.rather === 'nope'
-          ? this.createTheUserAnswer('Почему прекратили', currentUser.aMain.why)
+        this.createTheUserAnswer('Как давно', currentUser.aMain.howlong, 15),
+        this.createTheUserAnswer('Как часто', currentUser.aMain.ratherExact, 16),
+        currentUser.aMain.rather === false
+          ? this.createTheUserAnswer('Почему прекратили', currentUser.aMain.why, 17)
           : null,
-        this.createTheUserAnswer('Есть ли сообщество', currentUser.aMain.communityExact),
+        this.createTheUserAnswer('Есть ли сообщество', currentUser.aMain.communityExact, 18),
         createCommunity(currentUser.aMain.community),
-        this.createTheUserAnswer('Встречи в свободное время', currentUser.aMain.meetingsExact),
+        this.createTheUserAnswer('Встречи в свободное время', currentUser.aMain.meetingsExact, 23),
         createMeetings(currentUser.aMain.meetings),
-        this.createTheUserAnswer('Как выбирается место', currentUser.aMain.place),
-        this.createTheUserAnswer('Каким оно должно быть', currentUser.aMain.descplace),
-        this.createTheUserAnswer('Когда лучше играть и почему', currentUser.aMain.time),
-        this.createTheUserAnswer('Что играете', currentUser.aMain.whatplay),
-        this.createTheUserAnswer('Принцип формирования репертуара', currentUser.aMain.whythisplay),
-        this.createTheUserAnswer('Зависит ли от места', currentUser.aMain.placeplay),
-        this.createTheUserAnswer('Как приходите на место', currentUser.aMain.howcome),
-        this.createTheUserAnswer('Как ходите', currentUser.aMain.howleave),
-        this.createTheUserAnswer('Как принимаете первые деньги', currentUser.aMain.firstmoney),
-        this.createTheUserAnswer('Как общаетесь с людьми', currentUser.aMain.talk),
-        this.createTheUserAnswer('Талисманы или приметы', currentUser.aMain.mascot),
-        this.createTheUserAnswer('Опишите их', currentUser.aMain.mascotdesc),
+        this.createTheUserAnswer('Как выбирается место', currentUser.aMain.place, 28),
+        this.createTheUserAnswer('Каким оно должно быть', currentUser.aMain.descplace, 29),
+        this.createTheUserAnswer('Когда лучше играть и почему', currentUser.aMain.time, 30),
+        this.createTheUserAnswer('Что играете', currentUser.aMain.whatplay, 31),
+        this.createTheUserAnswer('Принцип формирования репертуара', currentUser.aMain.whythisplay, 32),
+        this.createTheUserAnswer('Зависит ли от места', currentUser.aMain.placeplay, 33),
+        this.createTheUserAnswer('Как приходите на место', currentUser.aMain.howcome, 34),
+        this.createTheUserAnswer('Как уходите', currentUser.aMain.howleave, 35),
+        this.createTheUserAnswer('Как принимаете первые деньги', currentUser.aMain.firstmoney, 36),
+        this.createTheUserAnswer('Как общаетесь с людьми', currentUser.aMain.talk, 37),
+        this.createTheUserAnswer('Талисманы или приметы', currentUser.aMain.mascot, 38),
+        this.createTheUserAnswer('Опишите их', currentUser.aMain.mascotdesc, 39),
         createJargon(),
-        this.createTheUserAnswer('Есть ли прозвище', currentUser.aMain.names),
-        this.createTheUserAnswer('Какое', currentUser.aMain.nameslist),
-        this.createTheUserAnswer('Есть ли праздники', currentUser.aMain.celebrations),
-        this.createTheUserAnswer('Какие', currentUser.aMain.whatceleb),
+        this.createTheUserAnswer('Есть ли прозвище', currentUser.aMain.names, 44),
+        this.createTheUserAnswer('Какое', currentUser.aMain.nameslist, 45),
+        this.createTheUserAnswer('Есть ли праздники', currentUser.aMain.celebrations, 46),
+        this.createTheUserAnswer('Какие', currentUser.aMain.whatceleb, 47),
         createProblems(),
-        this.createTheUserAnswer('События', currentUser.aMain.events),
-        this.createTheUserAnswer('Реакция', currentUser.aMain.reactions),
-        this.createTheUserAnswer('Конкретный случай', currentUser.aMain.story),
-        this.createTheUserAnswer('Чем отличаются музыканты в Вашем городе', currentUser.aMain.identity),
+        this.createTheUserAnswer('События', currentUser.aMain.events, 53),
+        this.createTheUserAnswer('Реакция', currentUser.aMain.reactions, 54),
+        this.createTheUserAnswer('Конкретный случай', currentUser.aMain.story, 55),
+        this.createTheUserAnswer('Чем отличаются музыканты в Вашем городе', currentUser.aMain.identity, 56),
       ];
       showChart = React.createElement(
         'div',
