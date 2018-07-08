@@ -406,7 +406,6 @@ function startDevServer() {
         });
       } else {
         const answersMusician = sequelize.define('answersMusician', aM, aSettings);
-        console.log(' id >= 14');
 
         answersMusician.sync().then(() => {
           answersMusician.findAll().then((items) => {
