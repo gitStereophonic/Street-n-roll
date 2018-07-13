@@ -10,11 +10,13 @@ import initialState from './initialState';
 import { reducer as getDataReducer } from './getData';
 import { reducer as getUserInfoReducer } from './getUserInfo';
 import { reducer as getStatInfoReducer } from './getStatInfo';
+import { reducer as getAllInfoReducer } from './getAllInfo';
 
 const reducers = [
   getDataReducer,
   getUserInfoReducer,
   getStatInfoReducer,
+  getAllInfoReducer,
 ];
 
 export default function reducer(state = initialState, action) {
