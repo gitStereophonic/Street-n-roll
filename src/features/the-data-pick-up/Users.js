@@ -11,8 +11,8 @@ export class Users extends Component {
   };
 
   render() {
-    const { getUserInfo } = this.props.actions;
-    const { startData } = this.props.theDataPickUp;
+    const { getUserInfo, getAllInfo } = this.props.actions;
+    const { startData, components } = this.props.theDataPickUp;
     const usersToRender = [];
     for (let i = 0; i < startData.length; i += 1) {
       const everPlayed = startData[i].everPlayed === 1 ? 'player' : 'non-player';
@@ -34,7 +34,17 @@ export class Users extends Component {
     return React.createElement(
       'div',
       { className: 'the-data-pick-up-users' },
-      React.createElement('p', { className: 'statPanel' }, 'Summary'),
+      React.createElement(
+        'p',
+        {
+          className: 'statPanel',
+          onClick: () => {
+            this.props.theDataPickUp.currentComponent = components.sum;
+            getAllInfo();
+          },
+        },
+        'Summary'
+      ),
       usersToRender
     );
   }
@@ -54,4 +64,7 @@ function mapDispatchToProps(dispatch) {
   };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Users);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Users);
