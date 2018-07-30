@@ -1,16 +1,10 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { Pages } from './';
 import * as actions from './redux/actions';
 
 export class StatByQuestions extends Component {
-  static propTypes = {
-    theDataPickUp: PropTypes.object.isRequired,
-    actions: PropTypes.object.isRequired,
-  };
-
   render() {
     return React.createElement(
       'div',
