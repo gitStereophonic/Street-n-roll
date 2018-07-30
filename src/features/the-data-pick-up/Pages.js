@@ -12,8 +12,27 @@ export class Pages extends Component {
 
   render() {
     const { getData } = this.props.actions;
-    const { components } = this.props.theDataPickUp;
+    const { components, allPagesData } = this.props.theDataPickUp;
     const pagesToRender = [];
+    console.log(allPagesData);
+    if (allPagesData.pages) {
+      for (let i = 0; i < allPagesData.pages.length; i += 1) {
+        pagesToRender.push(
+          React.createElement(
+            'p',
+            {
+              className: 'pageP',
+              key: `pages${i}`,
+              onClick: () => {
+                console.log(i + 1);
+              },
+            },
+            `Page #${i + 1}`
+          )
+        );
+      }
+    }
+
     return React.createElement(
       'div',
       { className: 'the-data-pick-up-pages' },
