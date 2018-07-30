@@ -334,6 +334,7 @@ const initialState = {
       chartType: chartTypes.list,
     },
   ],
+  allPagesData: {},
 
   getDataPending: false,
   getDataError: null,

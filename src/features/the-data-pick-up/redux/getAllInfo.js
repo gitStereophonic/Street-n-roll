@@ -1,3 +1,4 @@
+import $ from 'jquery';
 import {
   THE_DATA_PICK_UP_GET_ALL_INFO_BEGIN,
   THE_DATA_PICK_UP_GET_ALL_INFO_SUCCESS,
@@ -5,29 +6,47 @@ import {
   THE_DATA_PICK_UP_GET_ALL_INFO_DISMISS_ERROR,
 } from './constants';
 
-export function getAllInfo(args = {}) {
-  return (dispatch) => {
+export function getAllInfo(args = { pagesCount: 23 }) {
+  return (dispatch = null) => {
     dispatch({
       type: THE_DATA_PICK_UP_GET_ALL_INFO_BEGIN,
     });
 
     const promise = new Promise((resolve, reject) => {
-      const doRequest = args.error ? Promise.reject(new Error()) : Promise.resolve();
+      const doRequest = $.ajax({
+        url: `/getstatbypages/${args.pagesCount}`,
+        type: 'GET',
+        success: (response = null) => {
+          if (!response) {
+            console.log("Error! I've got the invalid data from DB. Halp!");
+          } else {
+            const data = JSON.parse(response);
+            if (!data) {
+              console.log("Error! I can't parse response. Halp!");
+            }
+          }
+        },
+        error: (response = null) => {
+          console.log('Error! Problems with request. Halp!');
+          console.log(response);
+        },
+      });
+
       doRequest.then(
-        (res) => {
+        (res = null) => {
           dispatch({
             type: THE_DATA_PICK_UP_GET_ALL_INFO_SUCCESS,
             data: res,
           });
           resolve(res);
         },
-        (err) => {
+        (err = null) => {
           dispatch({
             type: THE_DATA_PICK_UP_GET_ALL_INFO_FAILURE,
             data: { error: err },
           });
           reject(err);
-        },
+        }
       );
     });
 
@@ -55,6 +74,7 @@ export function reducer(state, action) {
       // The request is success
       return {
         ...state,
+        allPagesData: JSON.parse(action.data),
         getAllInfoPending: false,
         getAllInfoError: null,
       };
