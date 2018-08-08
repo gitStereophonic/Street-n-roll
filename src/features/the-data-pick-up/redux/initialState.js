@@ -334,7 +334,8 @@ const initialState = {
       chartType: chartTypes.list,
     },
   ],
-  allPagesData: {},
+  currentPage: {},
+  pagesCount: 0,
 
   getDataPending: false,
   getDataError: null,
@@ -344,6 +345,8 @@ const initialState = {
   getStatInfoError: null,
   getAllInfoPending: false,
   getAllInfoError: null,
+  getPageInfoPending: false,
+  getPageInfoError: null,
 };
 
 export default initialState;

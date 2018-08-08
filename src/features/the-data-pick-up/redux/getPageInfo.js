@@ -1,20 +1,20 @@
 import $ from 'jquery';
 import {
-  THE_DATA_PICK_UP_GET_ALL_INFO_BEGIN,
-  THE_DATA_PICK_UP_GET_ALL_INFO_SUCCESS,
-  THE_DATA_PICK_UP_GET_ALL_INFO_FAILURE,
-  THE_DATA_PICK_UP_GET_ALL_INFO_DISMISS_ERROR,
+  THE_DATA_PICK_UP_GET_PAGE_INFO_BEGIN,
+  THE_DATA_PICK_UP_GET_PAGE_INFO_SUCCESS,
+  THE_DATA_PICK_UP_GET_PAGE_INFO_FAILURE,
+  THE_DATA_PICK_UP_GET_PAGE_INFO_DISMISS_ERROR,
 } from './constants';
 
-export function getAllInfo() {
-  return (dispatch = null) => {
+export function getPageInfo(args = { pageNum: 0 }) {
+  return (dispatch) => {
     dispatch({
-      type: THE_DATA_PICK_UP_GET_ALL_INFO_BEGIN,
+      type: THE_DATA_PICK_UP_GET_PAGE_INFO_BEGIN,
     });
 
     const promise = new Promise((resolve, reject) => {
       const doRequest = $.ajax({
-        url: '/getpages',
+        url: `/getstatbypages/${args.pageNum}`,
         type: 'GET',
         success: (response = null) => {
           if (!response) {
@@ -33,20 +33,20 @@ export function getAllInfo() {
       });
 
       doRequest.then(
-        (res = null) => {
+        (res) => {
           dispatch({
-            type: THE_DATA_PICK_UP_GET_ALL_INFO_SUCCESS,
+            type: THE_DATA_PICK_UP_GET_PAGE_INFO_SUCCESS,
             data: res,
           });
           resolve(res);
         },
-        (err = null) => {
+        (err) => {
           dispatch({
-            type: THE_DATA_PICK_UP_GET_ALL_INFO_FAILURE,
+            type: THE_DATA_PICK_UP_GET_PAGE_INFO_FAILURE,
             data: { error: err },
           });
           reject(err);
-        }
+        },
       );
     });
 
@@ -54,44 +54,44 @@ export function getAllInfo() {
   };
 }
 
-export function dismissGetAllInfoError() {
+export function dismissGetPageInfoError() {
   return {
-    type: THE_DATA_PICK_UP_GET_ALL_INFO_DISMISS_ERROR,
+    type: THE_DATA_PICK_UP_GET_PAGE_INFO_DISMISS_ERROR,
   };
 }
 
 export function reducer(state, action) {
   switch (action.type) {
-    case THE_DATA_PICK_UP_GET_ALL_INFO_BEGIN:
+    case THE_DATA_PICK_UP_GET_PAGE_INFO_BEGIN:
       // Just after a request is sent
       return {
         ...state,
-        getAllInfoPending: true,
-        getAllInfoError: null,
+        getPageInfoPending: true,
+        getPageInfoError: null,
       };
 
-    case THE_DATA_PICK_UP_GET_ALL_INFO_SUCCESS:
+    case THE_DATA_PICK_UP_GET_PAGE_INFO_SUCCESS:
       // The request is success
       return {
         ...state,
-        pagesCount: JSON.parse(action.data),
-        getAllInfoPending: false,
-        getAllInfoError: null,
+        currentPage: JSON.parse(action.data),
+        getPageInfoPending: false,
+        getPageInfoError: null,
       };
 
-    case THE_DATA_PICK_UP_GET_ALL_INFO_FAILURE:
+    case THE_DATA_PICK_UP_GET_PAGE_INFO_FAILURE:
       // The request is failed
       return {
         ...state,
-        getAllInfoPending: false,
-        getAllInfoError: action.data.error,
+        getPageInfoPending: false,
+        getPageInfoError: action.data.error,
       };
 
-    case THE_DATA_PICK_UP_GET_ALL_INFO_DISMISS_ERROR:
+    case THE_DATA_PICK_UP_GET_PAGE_INFO_DISMISS_ERROR:
       // Dismiss the request failure error
       return {
         ...state,
-        getAllInfoError: null,
+        getPageInfoError: null,
       };
 
     default:
