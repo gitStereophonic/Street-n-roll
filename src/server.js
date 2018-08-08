@@ -151,7 +151,7 @@ function startBuildServer() {
     });
 
     sequelize.authenticate().then(() => {
-      console.log('Get connection to DB established');
+      console.log('Get connection at "getstatbyquestion" to DB established');
 
       if (id < 0) {
         console.log('id < 0')
@@ -260,9 +260,8 @@ function startBuildServer() {
         });
       } else if (id < 14 ) {
         const answersListener = sequelize.define('answersListener', aL, aSettings);
-        console.log('id < 14');
 
-        answersListener.sync().then(() => {
+        answersListener.sync()then(() => {
           answersListener.findAll().then((items) => {
             switch (type) {
               case 'radar':
@@ -793,7 +792,6 @@ function startBuildServer() {
               thanks:     aStart.thanks,
               help:       aStart.help
             }).then(function () {
-              console.log('start writen');
               if (dataBase === 'answersListener') {
                 answersListener.sync().then(function() {
                   answersListener.create({
