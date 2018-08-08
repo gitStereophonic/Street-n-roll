@@ -11,12 +11,12 @@ export class Pages extends Component {
   };
 
   render() {
-    const { getData } = this.props.actions;
-    const { components, allPagesData } = this.props.theDataPickUp;
+    const { getData, getPageInfo } = this.props.actions;
+    const { components, pagesCount } = this.props.theDataPickUp;
     const pagesToRender = [];
-    console.log(allPagesData);
-    if (allPagesData.pages) {
-      for (let i = 0; i < allPagesData.pages.length; i += 1) {
+    console.log(pagesCount);
+    if (pagesCount) {
+      for (let i = 0; i < pagesCount; i += 1) {
         pagesToRender.push(
           React.createElement(
             'p',
@@ -24,6 +24,7 @@ export class Pages extends Component {
               className: 'pageP',
               key: `pages${i}`,
               onClick: () => {
+                getPageInfo({ pageNum: i + 1 });
                 console.log(i + 1);
               },
             },

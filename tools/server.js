@@ -174,6 +174,199 @@ function startDevServer() {
     app.post('/api/*', (req, res) => req.pipe(request.post(`${API}${req.originalUrl}`)).pipe(res));
   }
 
+  app.get('/getpages', (req, res) => {
+    // do smth
+    res.send(JSON.stringify(23));
+  });
+
+  app.get('/getstatbypages/:page', (req, res) => {
+    const pageNumber = req.params.page;
+
+    const data = {
+      questions: []
+    };
+
+    const sequelize = new Sequelize('StreetnrollDB', 'sergey.chinkov', 'RRica29081BhA5', {
+      host: 'localhost',
+      dialect: 'sqlite',
+
+      pool: {
+        max: 5,
+        min: 0,
+        idle: 10000
+      },
+
+      storage: path.join(__dirname, '../src/StreetnrollDB.db'),
+
+      operatorsAliases: false
+    });
+
+    const baseData = [
+      [
+        { question: 'Ваш город', fieldName: 'city', dataType: 'pie' },
+        { question: 'Ваш возраст', fieldName: 'age', dataType: 'pie' },
+        { question: 'Ваш пол', fieldName: 'gender', dataType: 'pie' },
+        { question: 'Ваше образование', fieldName: 'edu', dataType: 'pie', textExtra: 'Другое: ', fieldExtraName: 'eduOther', dataExtraType: 'list' },
+        { question: 'Ваш род занятий', fieldName: 'job', dataType: 'list' },
+        { question: 'Играли ли Вы на улице', fieldName: 'everPlayed', dataType: 'pie' }
+      ],
+      [
+        { question: '', fieldName: '', dataType: ''}
+      ]
+    ];
+
+    const countingAllTheAssholes = (array = []) => {
+      const names = [];
+      const count = [];
+      for (let item of array) {
+        let isHere = false;
+        for (let i = 0; i < names.length; i += 1) {
+          if (item === names[i]) {
+            count[i] += 1;
+            isHere = true;
+            break;
+          }
+        }
+        if (!isHere) {
+          names.push(item);
+          count.push(1);
+        }
+      }
+
+      return {
+        values: count,
+        labels: names
+      };
+    };
+
+    const getArrayByField = (items = [], field = '') => {
+      const ret = [];
+      switch (field) {
+        case 'city':
+          for (let item of items) {
+            ret.push(item.dataValues.city);
+          }
+          break;
+        case 'age':
+          for (let item of items) {
+            ret.push(item.dataValues.age);
+          }
+          break;
+        case 'gender':
+          for (let item of items) {
+            ret.push(item.dataValues.gender);
+          }
+          break;
+        case 'edu':
+          for (let item of items) {
+            ret.push(item.dataValues.edu);
+          }
+          break;
+        case 'eduOther':
+          for (let item of items) {
+            ret.push(item.dataValues.eduOther);
+          }
+          break;
+        case 'job':
+          for (let item of items) {
+            ret.push(item.dataValues.job);
+          }
+          break;
+        case 'everPlayed':
+          for (let item of items) {
+            ret.push(item.dataValues.everPlayed);
+          }
+          break;
+        default:
+          break;
+      }
+
+      return ret;
+    };
+
+    const getPageQuestionsData = () => {
+      const pageRes = [];
+
+      for (let q of baseData[pageNumber - 1]) {
+        const dt = {
+          qText: q.question,
+          qDataType: q.dataType,
+          qData: null,
+          qExtraText: null,
+          qExtraType: null,
+          qExtraData: null
+        };
+        const arr = getArrayByField(items, q.fieldName);
+        switch (q.dataType) {
+          case 'pie':
+            dt.qData = countingAllTheAssholes(arr);
+            break;
+          case 'list':
+            dt.qData = { list: arr };
+            break;
+          default:
+            break;
+        }
+        if (q.fieldExtraName) {
+          const extraArr = getArrayByField(items, q.fieldExtraName);
+          let cnt = 0;
+          for (let eE of extraArr) {
+            console.log('eE');
+            if (eE !== '' && eE != null) {
+              extraArr[cnt] = eE;
+              cnt += 1;
+            }
+          }
+          extraArr.length = cnt;
+          dt.qExtraText = q.textExtra;
+          dt.qExtraType = q.dataExtraType;
+          dt.qExtraData = { list: extraArr };
+        }
+        pageRes.push(dt);
+      }
+      return pageRes;
+    }
+
+    sequelize.authenticate().then(() => {
+      console.log('Get connection at "getstatbypages" to DB established');
+
+      const answersStart = sequelize.define('answersStart', aS, aSettings); 
+
+      /**
+       * Format:
+       * {
+       *    qText: "Question text",
+       *    qDataType: pie/list/bar,
+       *    qData: { chart format } 
+       * }
+       */
+      if (pageNumber === 1) {
+        answersStart.sync().then(() => {
+          answersStart.findAll().then(items => {
+            data.questions = getPageQuestionsData();
+            console.log('Questions:');
+            console.log(data.questions);
+
+            res.send(JSON.stringify(data));
+          });
+        });
+      } else if (pageNumber > 1 && pageNumber < 8) {
+        answersListener.sync().then(() => {
+          answersListener.findAll().then(items => {
+            data.questions = getPageQuestionsData();
+
+            res.send(JSON.stringify(data));
+          });
+        });
+      } else if (pageNumber >= 8 && pageNumber < 24) {
+
+      } else {
+        console.log('Page number is over limit');
+        res.sendStatus(418);
+      }
+    });
+  });
+
   app.get('/getstatbyquestion/:id/:field/:type/:extra', (req, res) => {
     const id = req.params.id;
     const field = req.params.field;
@@ -198,10 +391,10 @@ function startDevServer() {
     });
 
     sequelize.authenticate().then(() => {
-      console.log('Get connection to DB established');
+      console.log('Get connection at "getstatbyquestion" to DB established');
 
       if (id < 0) {
-        console.log('id < 0')
+        console.log('id < 0');
       } else if (id < 7) {
         const answersStart = sequelize.define('answersStart', aS, aSettings);
 
@@ -724,8 +917,6 @@ function startDevServer() {
               let data = [];
               for (let i = 0; i < rows.length; i++) {
                 const row = rows[i].dataValues;
-                console.log('ROW: ======//======');
-                console.log(row);
                 if (row) {
                   data.push({
                     id: row.id,
@@ -974,10 +1165,6 @@ function startBuildServer() {
     const aStart = req.body.answersStart;
     const aTable = req.body.answersTable;
 
-    console.log(dataBase);
-    console.log(aStart);
-    console.log(aTable);
-
     const sequelize = new Sequelize('StreetnrollDB', 'sergey.chinkov@yandex.ru', 'RRica29081BhA5', {
       host: 'localhost',
       dialect: 'sqlite',
@@ -1018,7 +1205,6 @@ function startBuildServer() {
               thanks:     aStart.thanks,
               help:       aStart.help
             }).then(function () {
-              console.log('start writen');
               if (dataBase === 'answersListener') {
                 answersListener.sync().then(function() {
                   answersListener.create({
