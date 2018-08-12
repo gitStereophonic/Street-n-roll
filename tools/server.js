@@ -284,10 +284,10 @@ function startDevServer() {
       return ret;
     };
 
-    const getPageQuestionsData = () => {
+    const getPageQuestionsData = (items = []) => {
       const pageRes = [];
 
-      for (let q of baseData[pageNumber - 1]) {
+      for (let q of baseData[pageNumber]) {
         const dt = {
           qText: q.question,
           qDataType: q.dataType,
@@ -311,7 +311,6 @@ function startDevServer() {
           const extraArr = getArrayByField(items, q.fieldExtraName);
           let cnt = 0;
           for (let eE of extraArr) {
-            console.log('eE');
             if (eE !== '' && eE != null) {
               extraArr[cnt] = eE;
               cnt += 1;
@@ -328,32 +327,30 @@ function startDevServer() {
     }
 
     sequelize.authenticate().then(() => {
-      console.log('Get connection at "getstatbypages" to DB established');
-
-      const answersStart = sequelize.define('answersStart', aS, aSettings); 
+      console.log('Connection to DB established at "getstatbypages"');
 
       /**
-       * Format:
+       * Res data structure:
        * {
        *    qText: "Question text",
        *    qDataType: pie/list/bar,
        *    qData: { chart format } 
        * }
        */
-      if (pageNumber === 1) {
+      if (pageNumber == 0) {
+        const answersStart = sequelize.define('answersStart', aS, aSettings);
         answersStart.sync().then(() => {
           answersStart.findAll().then(items => {
-            data.questions = getPageQuestionsData();
-            console.log('Questions:');
-            console.log(data.questions);
+            data.questions = getPageQuestionsData(items);
 
             res.send(JSON.stringify(data));
           });
         });
-      } else if (pageNumber > 1 && pageNumber < 8) {
+      } else if (pageNumber > 0 && pageNumber < 8) {
+        const answersListener = sequelize.define('answersListener', aL, aSettings);
         answersListener.sync().then(() => {
           answersListener.findAll().then(items => {
-            data.questions = getPageQuestionsData();
+            data.questions = getPageQuestionsData(items);
 
             res.send(JSON.stringify(data));
           });
@@ -361,7 +358,7 @@ function startDevServer() {
       } else if (pageNumber >= 8 && pageNumber < 24) {
 
       } else {
-        console.log('Page number is over limit');
+        console.log(`The page number (${pageNumber}) is over the limit`);
         res.sendStatus(418);
       }
     });
@@ -391,7 +388,7 @@ function startDevServer() {
     });
 
     sequelize.authenticate().then(() => {
-      console.log('Get connection at "getstatbyquestion" to DB established');
+      console.log('Connection to DB established at "getstatbyquestion"');
 
       if (id < 0) {
         console.log('id < 0');
