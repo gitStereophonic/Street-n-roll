@@ -2,7 +2,7 @@
   "name": "street-n-roll",
   "version": "0.0.1",
   "private": true,
-  "description": "street-n-roll created by Rekit.",
+  "description": "Street-n-roll created by Rekit.",
   "keywords": [
     "rekit"
   ],
@@ -89,6 +89,7 @@
     "react-infinite-scroll-component": "^4.1.0",
     "react-slick": "^0.23.1",
     "sequelize": "^4.37.10",
+    "slick-carousel": "^1.8.1",
     "sqlite3": "^4.0.2",
     "update": "^0.7.4"
   }
