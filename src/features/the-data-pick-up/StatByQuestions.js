@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { Pages } from './';
+import { Pages, PageInfo } from './';
 import * as actions from './redux/actions';
 
 export class StatByQuestions extends Component {
@@ -9,7 +9,8 @@ export class StatByQuestions extends Component {
     return React.createElement(
       'div',
       { className: 'the-data-pick-up-stat-by-questions' },
-      React.createElement('div', { id: 'pages' }, React.createElement(Pages))
+      React.createElement('div', { id: 'pages' }, React.createElement(Pages)),
+      React.createElement('div', { id: 'questionInfo' }, React.createElement(PageInfo))
     );
   }
 }

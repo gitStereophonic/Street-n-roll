@@ -5,3 +5,4 @@ export { default as UserInfo } from './UserInfo';
 export { default as QuestionInfo } from './QuestionInfo';
 export { default as StatByQuestions } from './StatByQuestions';
 export { default as Pages } from './Pages';
+export { default as PageInfo } from './PageInfo';

@@ -22,10 +22,10 @@ export class Pages extends Component {
             'p',
             {
               className: 'pageP',
-              key: `pages${i}`,
+              key: `page${i}`,
               onClick: () => {
-                getPageInfo({ pageNum: i + 1 });
-                console.log(i + 1);
+                getPageInfo({ pageNum: i });
+                console.log(i);
               },
             },
             `Page #${i + 1}`
