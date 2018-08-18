@@ -18,7 +18,6 @@ const rekitStudioMiddleWare = require('rekit-studio/middleware');
 const request = require('request');
 const pkgJson = require('../package.json');
 const getConfig = require('../webpack-config');
-const fs = require('fs');
 const Sequelize = require('sequelize');
 const nodemailer = require('nodemailer');
 const { ArgumentParser } = require('argparse');
@@ -45,89 +44,89 @@ const srcPath = path.join(__dirname, '../src');
 const manifestPath = path.join(__dirname, '../.tmp/dev-vendors-manifest.json');
 
 const aS = {
-  id:         { type: Sequelize.INTEGER, primaryKey: true },
-  city:       { type: Sequelize.STRING },
-  age:        { type: Sequelize.STRING },
-  gender:     { type: Sequelize.STRING },
-  edu:        { type: Sequelize.STRING },
-  eduOther:   { type: Sequelize.STRING },
-  job:        { type: Sequelize.STRING },
+  id: { type: Sequelize.INTEGER, primaryKey: true },
+  city: { type: Sequelize.STRING },
+  age: { type: Sequelize.STRING },
+  gender: { type: Sequelize.STRING },
+  edu: { type: Sequelize.STRING },
+  eduOther: { type: Sequelize.STRING },
+  job: { type: Sequelize.STRING },
   everPlayed: { type: Sequelize.BOOLEAN },
-  thanks:     { type: Sequelize.TEXT },
-  help:       { type: Sequelize.TEXT }
+  thanks: { type: Sequelize.TEXT },
+  help: { type: Sequelize.TEXT }
 };
 
 const aL = {
-  id:         { type: Sequelize.INTEGER, primaryKey: true },
-  interest:   { type: Sequelize.INTEGER },
-  who:        { type: Sequelize.STRING },
-  money:      { type: Sequelize.STRING },
-  songs:      { type: Sequelize.TEXT },
-  sign:       { type: Sequelize.TEXT },
+  id: { type: Sequelize.INTEGER, primaryKey: true },
+  interest: { type: Sequelize.INTEGER },
+  who: { type: Sequelize.STRING },
+  money: { type: Sequelize.STRING },
+  songs: { type: Sequelize.TEXT },
+  sign: { type: Sequelize.TEXT },
   traditions: { type: Sequelize.TEXT },
   experience: { type: Sequelize.TEXT }
 };
 
 const aM = {
-  id:             { type: Sequelize.INTEGER, primaryKey: true },
-  hobbie:         { type: Sequelize.STRING },
-  hobbieOther:    { type: Sequelize.STRING },
-  howlong:        { type: Sequelize.STRING },
-  rather:         { type: Sequelize.BOOLEAN },
-  ratherExact:    { type: Sequelize.STRING },
-  why:            { type: Sequelize.STRING },
-  community:      { type: Sequelize.BOOLEAN },
+  id: { type: Sequelize.INTEGER, primaryKey: true },
+  hobbie: { type: Sequelize.STRING },
+  hobbieOther: { type: Sequelize.STRING },
+  howlong: { type: Sequelize.STRING },
+  rather: { type: Sequelize.BOOLEAN },
+  ratherExact: { type: Sequelize.STRING },
+  why: { type: Sequelize.STRING },
+  community: { type: Sequelize.BOOLEAN },
   communityExact: { type: Sequelize.STRING },
-  official:       { type: Sequelize.STRING },
-  officialOther:  { type: Sequelize.STRING },
-  wocom:          { type: Sequelize.STRING },
-  howjoin:        { type: Sequelize.TEXT },
-  cookies:        { type: Sequelize.TEXT },
-  meetings:       { type: Sequelize.BOOLEAN },
-  meetingsExact:  { type: Sequelize.STRING },
-  reasons:        { type: Sequelize.TEXT },
-  where:          { type: Sequelize.TEXT },
-  whywhere:       { type: Sequelize.TEXT },
-  meetingtime:    { type: Sequelize.STRING },
-  place:          { type: Sequelize.TEXT },
-  descplace:      { type: Sequelize.TEXT },
-  time:           { type: Sequelize.TEXT },
-  whatplay:       { type: Sequelize.TEXT },
-  whythisplay:    { type: Sequelize.TEXT },
-  placeplay:      { type: Sequelize.STRING },
-  howcome:        { type: Sequelize.TEXT },
-  howleave:       { type: Sequelize.TEXT },
-  firstmoney:     { type: Sequelize.STRING },
-  talk:           { type: Sequelize.TEXT },
-  mascot:         { type: Sequelize.STRING },
-  mascotdesc:     { type: Sequelize.TEXT },
-  jargon:         { type: Sequelize.TEXT },
-  specsigns:      { type: Sequelize.TEXT },
-  idmarks:        { type: Sequelize.TEXT },
-  forwhat:        { type: Sequelize.STRING },
-  forwhatOther:   { type: Sequelize.STRING },
-  celebrations:   { type: Sequelize.STRING },
-  whatceleb:      { type: Sequelize.TEXT },
-  relations:      { type: Sequelize.TEXT },
-  whobest:        { type: Sequelize.TEXT },
-  events:         { type: Sequelize.TEXT },
-  reactions:      { type: Sequelize.TEXT },
-  story:          { type: Sequelize.TEXT },
-  identity:       { type: Sequelize.TEXT },
-  names:          { type: Sequelize.STRING },
-  nameslist:      { type: Sequelize.STRING },
-  problems:       { type: Sequelize.BOOLEAN },
-  problemsExact:  { type: Sequelize.STRING },
-  problemsOther:  { type: Sequelize.STRING },
-  problemdesc:    { type: Sequelize.TEXT },
-  solution:       { type: Sequelize.TEXT }
+  official: { type: Sequelize.STRING },
+  officialOther: { type: Sequelize.STRING },
+  wocom: { type: Sequelize.STRING },
+  howjoin: { type: Sequelize.TEXT },
+  cookies: { type: Sequelize.TEXT },
+  meetings: { type: Sequelize.BOOLEAN },
+  meetingsExact: { type: Sequelize.STRING },
+  reasons: { type: Sequelize.TEXT },
+  where: { type: Sequelize.TEXT },
+  whywhere: { type: Sequelize.TEXT },
+  meetingtime: { type: Sequelize.STRING },
+  place: { type: Sequelize.TEXT },
+  descplace: { type: Sequelize.TEXT },
+  time: { type: Sequelize.TEXT },
+  whatplay: { type: Sequelize.TEXT },
+  whythisplay: { type: Sequelize.TEXT },
+  placeplay: { type: Sequelize.STRING },
+  howcome: { type: Sequelize.TEXT },
+  howleave: { type: Sequelize.TEXT },
+  firstmoney: { type: Sequelize.STRING },
+  talk: { type: Sequelize.TEXT },
+  mascot: { type: Sequelize.STRING },
+  mascotdesc: { type: Sequelize.TEXT },
+  jargon: { type: Sequelize.TEXT },
+  specsigns: { type: Sequelize.TEXT },
+  idmarks: { type: Sequelize.TEXT },
+  forwhat: { type: Sequelize.STRING },
+  forwhatOther: { type: Sequelize.STRING },
+  celebrations: { type: Sequelize.STRING },
+  whatceleb: { type: Sequelize.TEXT },
+  relations: { type: Sequelize.TEXT },
+  whobest: { type: Sequelize.TEXT },
+  events: { type: Sequelize.TEXT },
+  reactions: { type: Sequelize.TEXT },
+  story: { type: Sequelize.TEXT },
+  identity: { type: Sequelize.TEXT },
+  names: { type: Sequelize.STRING },
+  nameslist: { type: Sequelize.STRING },
+  problems: { type: Sequelize.BOOLEAN },
+  problemsExact: { type: Sequelize.STRING },
+  problemsOther: { type: Sequelize.STRING },
+  problemdesc: { type: Sequelize.TEXT },
+  solution: { type: Sequelize.TEXT }
 };
 
 const aSettings = {
   createdAt: false,
   updatedAt: false,
   freezeTableName: true
-}
+};
 
 const smtpConfig = {
   service: 'gmail',
@@ -183,6 +182,7 @@ function startDevServer() {
     const pageNumber = req.params.page;
 
     const data = {
+      id: pageNumber,
       questions: []
     };
 
@@ -211,24 +211,24 @@ function startDevServer() {
         { question: 'Играли ли Вы на улице', fieldName: 'everPlayed', dataType: 'pie' }
       ],
       [
-        { question: '', fieldName: '', dataType: ''}
+        { question: '', fieldName: '', dataType: '' }
       ]
     ];
 
     const countingAllTheAssholes = (array = []) => {
       const names = [];
       const count = [];
-      for (let item of array) {
+      for (let item = 0; item < array.length; item += 1) {
         let isHere = false;
         for (let i = 0; i < names.length; i += 1) {
-          if (item === names[i]) {
+          if (array[item] === names[i]) {
             count[i] += 1;
             isHere = true;
             break;
           }
         }
         if (!isHere) {
-          names.push(item);
+          names.push(array[item]);
           count.push(1);
         }
       }
@@ -243,38 +243,38 @@ function startDevServer() {
       const ret = [];
       switch (field) {
         case 'city':
-          for (let item of items) {
-            ret.push(item.dataValues.city);
+          for (let i = 0; i < items.length; i += 1) {
+            ret.push(items[i].dataValues.city);
           }
           break;
         case 'age':
-          for (let item of items) {
-            ret.push(item.dataValues.age);
+          for (let i = 0; i < items.length; i += 1) {
+            ret.push(items[i].dataValues.age);
           }
           break;
         case 'gender':
-          for (let item of items) {
-            ret.push(item.dataValues.gender);
+          for (let i = 0; i < items.length; i += 1) {
+            ret.push(items[i].dataValues.gender);
           }
           break;
         case 'edu':
-          for (let item of items) {
-            ret.push(item.dataValues.edu);
+          for (let i = 0; i < items.length; i += 1) {
+            ret.push(items[i].dataValues.edu);
           }
           break;
         case 'eduOther':
-          for (let item of items) {
-            ret.push(item.dataValues.eduOther);
+          for (let i = 0; i < items.length; i += 1) {
+            ret.push(items[i].dataValues.eduOther);
           }
           break;
         case 'job':
-          for (let item of items) {
-            ret.push(item.dataValues.job);
+          for (let i = 0; i < items.length; i += 1) {
+            ret.push(items[i].dataValues.job);
           }
           break;
         case 'everPlayed':
-          for (let item of items) {
-            ret.push(item.dataValues.everPlayed);
+          for (let i = 0; i < items.length; i += 1) {
+            ret.push(items[i].dataValues.everPlayed);
           }
           break;
         default:
@@ -287,7 +287,8 @@ function startDevServer() {
     const getPageQuestionsData = (items = []) => {
       const pageRes = [];
 
-      for (let q of baseData[pageNumber]) {
+      for (let i = 0; i < baseData[pageNumber].length; i += 1) {
+        const q = baseData[pageNumber][i];
         const dt = {
           qText: q.question,
           qDataType: q.dataType,
@@ -310,7 +311,8 @@ function startDevServer() {
         if (q.fieldExtraName) {
           const extraArr = getArrayByField(items, q.fieldExtraName);
           let cnt = 0;
-          for (let eE of extraArr) {
+          for (let j = 0; j < extraArr.length; j += 1) {
+            const eE = extraArr[j];
             if (eE !== '' && eE != null) {
               extraArr[cnt] = eE;
               cnt += 1;
@@ -324,23 +326,26 @@ function startDevServer() {
         pageRes.push(dt);
       }
       return pageRes;
-    }
+    };
 
     sequelize.authenticate().then(() => {
       console.log('Connection to DB established at "getstatbypages"');
 
       /**
-       * Res data structure:
+       * Res data structure (data.questions[i]):
        * {
        *    qText: "Question text",
        *    qDataType: pie/list/bar,
-       *    qData: { chart format } 
+       *    qData: { chart format },
+       *    qExtraText: "Extra question text",
+       *    qExtraType: pie/list/bar,
+       *    qExtraData: { list }
        * }
        */
-      if (pageNumber == 0) {
+      if (pageNumber === 0) {
         const answersStart = sequelize.define('answersStart', aS, aSettings);
         answersStart.sync().then(() => {
-          answersStart.findAll().then(items => {
+          answersStart.findAll().then((items = []) => {
             data.questions = getPageQuestionsData(items);
 
             res.send(JSON.stringify(data));
@@ -349,14 +354,14 @@ function startDevServer() {
       } else if (pageNumber > 0 && pageNumber < 8) {
         const answersListener = sequelize.define('answersListener', aL, aSettings);
         answersListener.sync().then(() => {
-          answersListener.findAll().then(items => {
+          answersListener.findAll().then((items = []) => {
             data.questions = getPageQuestionsData(items);
 
             res.send(JSON.stringify(data));
           });
         });
       } else if (pageNumber >= 8 && pageNumber < 24) {
-
+        console.log('pageNumber >= 8 && pageNumber < 24');
       } else {
         console.log(`The page number (${pageNumber}) is over the limit`);
         res.sendStatus(418);
@@ -365,10 +370,7 @@ function startDevServer() {
   });
 
   app.get('/getstatbyquestion/:id/:field/:type/:extra', (req, res) => {
-    const id = req.params.id;
-    const field = req.params.field;
-    const type = req.params.type;
-    const extra = req.params.extra;
+    const { id, field, type, extra } = req.params;
 
     const data = {};
 
@@ -396,22 +398,22 @@ function startDevServer() {
         const answersStart = sequelize.define('answersStart', aS, aSettings);
 
         answersStart.sync().then(() => {
-          answersStart.findAll().then(items => {
-            if (id == 0) {
+          answersStart.findAll().then((items = []) => {
+            if (id === 0) {
               answersStart.sync().then(() => {
-                answersStart.count().then(c => {
+                answersStart.count().then((c = 0) => {
                   data.singleValue = c;
                   res.send(JSON.stringify(data));
                 });
               });
-            } else if (id == 1) {
+            } else if (id === 1) {
               const cityNames = [];
               const cityCounts = [];
-              for (let item of items) {
-                const c = item.dataValues.city.toUpperCase();
+              for (let item = 0; item < items.length; items += 1) {
+                const c = items[item].dataValues.city.toUpperCase();
                 let check = false;
                 for (let j = 0; j < cityNames.length; j += 1) {
-                  if (cityNames[j] == c) {
+                  if (cityNames[j] === c) {
                     check = true;
                     cityCounts[j] += 1;
                     break;
@@ -429,31 +431,31 @@ function startDevServer() {
               res.send(JSON.stringify(data));
             } else {
               switch (type) {
-                case 'pie':
+                case 'pie': {
                   const names = [];
                   const counts = [];
                   const extras = [];
-                  for (let item of items) {
+                  for (let i = 0; i < items.length; i += 1) {
                     let c = '';
                     switch (field) {
                       case 'age':
-                        c = item.dataValues.age;
+                        c = items[i].dataValues.age;
                         break;
                       case 'edu':
-                        c = item.dataValues.edu;
+                        c = items[i].dataValues.edu;
                         break;
                       case 'gender':
-                        c = item.dataValues.gender;
+                        c = items[i].dataValues.gender;
                         break;
                       case 'everPlayed':
-                        c = item.dataValues.everPlayed ? 'Да' : 'Нет';
+                        c = items[i].dataValues.everPlayed ? 'Да' : 'Нет';
                         break;
                       default:
                         break;
                     }
                     let check = false;
                     for (let j = 0; j < names.length; j += 1) {
-                      if (names[j] == c) {
+                      if (names[j] === c) {
                         check = true;
                         counts[j] += 1;
                         break;
@@ -464,8 +466,8 @@ function startDevServer() {
                       counts.push(1);
                     }
                     if (extra === 'eduOther') {
-                      const oth = item.dataValues.eduOther;
-                      if (oth != '') extras.push(oth);
+                      const oth = items[i].dataValues.eduOther;
+                      if (oth !== '') extras.push(oth);
                     }
                   }
                   data.chartPie = {
@@ -477,39 +479,41 @@ function startDevServer() {
                   }
                   res.send(JSON.stringify(data));
                   break;
-                case 'list':
+                }
+                case 'list': {
                   const list = [];
-                  for (let item of items) {
+                  for (let i = 0; i < items.length; i += 1) {
                     if (field === 'job') {
-                      list.push(item.job);
+                      list.push(items[i].job);
                     }
                   }
                   data.chartList = {
-                    list: list
-                  }
+                    list
+                  };
                   res.send(JSON.stringify(data));
                   break;
+                }
                 default:
                   break;
               }
             }
           });
         });
-      } else if (id < 14 ) {
+      } else if (id < 14) {
         const answersListener = sequelize.define('answersListener', aL, aSettings);
 
         answersListener.sync().then(() => {
-          answersListener.findAll().then((items) => {
+          answersListener.findAll().then((items = []) => {
             switch (type) {
-              case 'radar':
+              case 'radar': {
                 const names = [];
                 const counts = [];
                 let label = '';
-                for (let item of items) {
+                for (let i = 0; i < items.length; i += 1) {
                   let c = 0;
                   if (field === 'interest') {
                     label = 'От 0 до 6';
-                    c = item.dataValues.interest;
+                    c = items[i].dataValues.interest;
                     if (names.length < 7) {
                       for (let k = names.length; k < 7; k += 1) {
                         names.push(`${k}`);
@@ -524,24 +528,25 @@ function startDevServer() {
                 data.chartRadar = {
                   values: counts,
                   labels: names,
-                  label: label
+                  label
                 };
                 res.send(JSON.stringify(data));
                 return;
-              case 'list':
+              }
+              case 'list': {
                 const list = [];
                 switch (field) {
                   case 'who':
-                    for (let item of items) {
-                      const v = item.dataValues.who;
+                    for (let i = 0; i < items.length; i += 1) {
+                      const v = items[i].dataValues.who;
                       if (v !== '') list.push(v);
                     }
                     break;
-                  case 'money':
+                  case 'money': {
                     let yes = 0;
                     let no = 0;
-                    for (let item of items) {
-                      const str = item.dataValues.money;
+                    for (let i = 0; i < items.length; i += 1) {
+                      const str = items[i].dataValues.money;
                       if (str !== '') {
                         list.push(str);
                         const s = ` ${str.toLowerCase()} `.replace(/,.!?/g, ' ');
@@ -555,29 +560,30 @@ function startDevServer() {
                     data.extraBar = {
                       labels: ['Да', 'Нет'],
                       values: [yes, no]
-                    }
+                    };
                     break;
+                  }
                   case 'songs':
-                    for (let item of items) {
-                      const v = item.dataValues.songs;
+                    for (let i = 0; i < items.length; i += 1) {
+                      const v = items[i].dataValues.songs;
                       if (v !== '') list.push(v);
                     }
                     break;
                   case 'sign':
-                    for (let item of items) {
-                      const v = item.dataValues.sign;
+                    for (let i = 0; i < items.length; i += 1) {
+                      const v = items[i].dataValues.sign;
                       if (v !== '') list.push(v);
                     }
                     break;
                   case 'traditions':
-                    for (let item of items) {
-                      const v = item.dataValues.traditions;
+                    for (let i = 0; i < items.length; i += 1) {
+                      const v = items[i].dataValues.traditions;
                       if (v !== '') list.push(v);
                     }
                     break;
                   case 'experience':
-                    for (let item of items) {
-                      const v = item.dataValues.experience;
+                    for (let i = 0; i < items.length; i += 1) {
+                      const v = items[i].dataValues.experience;
                       if (v !== '') list.push(v);
                     }
                     break;
@@ -585,10 +591,11 @@ function startDevServer() {
                     break;
                 }
                 data.chartList = {
-                  list: list
+                  list
                 };
                 res.send(JSON.stringify(data));
-                return;
+                break;
+              }
               default:
                 break;
             }
@@ -598,41 +605,41 @@ function startDevServer() {
         const answersMusician = sequelize.define('answersMusician', aM, aSettings);
 
         answersMusician.sync().then(() => {
-          answersMusician.findAll().then((items) => {
+          answersMusician.findAll().then((items = []) => {
             switch (type) {
-              case 'pie':
+              case 'pie': {
                 const names = [];
                 const counts = [];
                 const extras = [];
-                for (let item of items) {
+                for (let i = 0; i < items.length; i += 1) {
                   let c = '';
                   switch (field) {
                     case 'hobbie':
-                      c = item.dataValues.hobbie;
+                      c = items[i].dataValues.hobbie;
                       break;
                     case 'howlong':
-                      c = item.dataValues.howlong;
+                      c = items[i].dataValues.howlong;
                       break;
                     case 'rather':
-                      c = item.dataValues.ratherExact;
+                      c = items[i].dataValues.ratherExact;
                       break;
                     case 'community':
-                      c = item.dataValues.communityExact;
+                      c = items[i].dataValues.communityExact;
                       break;
                     case 'official':
-                      c = item.dataValues.official;
+                      c = items[i].dataValues.official;
                       break;
                     case 'meetings':
-                      c = item.dataValues.meetingsExact;
+                      c = items[i].dataValues.meetingsExact;
                       break;
                     case 'mascot':
-                      c = item.dataValues.mascot;
+                      c = items[i].dataValues.mascot;
                       break;
                     case 'names':
-                      c = item.dataValues.names;
+                      c = items[i].dataValues.names;
                       break;
                     case 'celebrations':
-                      c = item.dataValues.celebrations;
+                      c = items[i].dataValues.celebrations;
                       break;
                     default:
                       break;
@@ -640,7 +647,7 @@ function startDevServer() {
 
                   let check = false;
                   for (let j = 0; j < names.length; j += 1) {
-                    if (names[j] == c) {
+                    if (names[j] === c) {
                       check = true;
                       counts[j] += 1;
                       break;
@@ -654,10 +661,10 @@ function startDevServer() {
                   let oth = '';
                   switch (extra) {
                     case 'hobbieOther':
-                      oth = item.dataValues.hobbieOther;
+                      oth = items[i].dataValues.hobbieOther;
                       break;
                     case 'officialOther':
-                      oth = item.dataValues.officialOther;
+                      oth = items[i].dataValues.officialOther;
                       break;
                     default:
                       break;
@@ -674,103 +681,104 @@ function startDevServer() {
                 }
                 res.send(JSON.stringify(data));
                 break;
-              case 'list':
+              }
+              case 'list': {
                 const list = [];
-                for (let item of items) {
+                for (let i = 0; i < items.length; i += 1) {
                   let c = '';
                   switch (field) {
                     case 'why':
-                      c = item.dataValues.why;
+                      c = items[i].dataValues.why;
                       break;
                     case 'wocom':
-                      c = item.dataValues.wocom;
+                      c = items[i].dataValues.wocom;
                       break;
                     case 'howjoin':
-                      c = item.dataValues.howjoin;
+                      c = items[i].dataValues.howjoin;
                       break;
                     case 'cookies':
-                      c = item.dataValues.cookies;
+                      c = items[i].dataValues.cookies;
                       break;
                     case 'reasons':
-                      c = item.dataValues.reasons;
+                      c = items[i].dataValues.reasons;
                       break;
                     case 'where':
-                      c = item.dataValues.where;
+                      c = items[i].dataValues.where;
                       break;
                     case 'whywhere':
-                      c = item.dataValues.whywhere;
+                      c = items[i].dataValues.whywhere;
                       break;
                     case 'place':
-                      c = item.dataValues.place;
+                      c = items[i].dataValues.place;
                       break;
                     case 'descplace':
-                      c = item.dataValues.descplace;
+                      c = items[i].dataValues.descplace;
                       break;
                     case 'time':
-                      c = item.dataValues.time;
+                      c = items[i].dataValues.time;
                       break;
                     case 'whatplay':
-                      c = item.dataValues.whatplay;
+                      c = items[i].dataValues.whatplay;
                       break;
                     case 'whythisplay':
-                      c = item.dataValues.whythisplay;
+                      c = items[i].dataValues.whythisplay;
                       break;
                     case 'placeplay':
-                      c = itrm.dataValues.placeplay;
+                      c = items[i].dataValues.placeplay;
                       break;
                     case 'howcome':
-                      c = item.dataValues.howcome;
+                      c = items[i].dataValues.howcome;
                       break;
                     case 'howleave':
-                      c = item.dataValues.howleave;
+                      c = items[i].dataValues.howleave;
                       break;
                     case 'firstmoney':
-                      c = item.dataValues.firstmoney;
+                      c = items[i].dataValues.firstmoney;
                       break;
                     case 'talk':
-                      c = item.dataValues.talk;
+                      c = items[i].dataValues.talk;
                       break;
                     case 'mascotdesc':
-                      c = item.dataValues.mascotdesc;
+                      c = items[i].dataValues.mascotdesc;
                       break;
                     case 'jargon':
-                      c = item.dataValues.jargon;
+                      c = items[i].dataValues.jargon;
                       break;
                     case 'specsigns':
-                      c = item.dataValues.specsigns;
+                      c = items[i].dataValues.specsigns;
                       break;
                     case 'idmarks':
-                      c = item.dataValues.idmarks;
+                      c = items[i].dataValues.idmarks;
                       break;
                     case 'nameslist':
-                      c = item.dataValues.nameslist;
+                      c = items[i].dataValues.nameslist;
                       break;
                     case 'whatceleb':
-                      c = item.dataValues.whatceleb;
+                      c = items[i].dataValues.whatceleb;
                       break;
                     case 'relations':
-                      c = item.dataValues.relations;
+                      c = items[i].dataValues.relations;
                       break;
                     case 'whobest':
-                      c = item.dataValues.whobest;
+                      c = items[i].dataValues.whobest;
                       break;
                     case 'problemdesc':
-                      c = item.dataValues.problemdesc;
+                      c = items[i].dataValues.problemdesc;
                       break;
                     case 'solution':
-                      c = item.dataValues.solution;
+                      c = items[i].dataValues.solution;
                       break;
                     case 'events':
-                      c = item.dataValues.events;
+                      c = items[i].dataValues.events;
                       break;
                     case 'reactions':
-                      c = item.dataValues.reactions;
+                      c = items[i].dataValues.reactions;
                       break;
                     case 'story':
-                      c = item.dataValues.story;
+                      c = items[i].dataValues.story;
                       break;
                     case 'identity':
-                      c = item.dataValues.identity;
+                      c = items[i].dataValues.identity;
                       break;
                     default:
                       break;
@@ -779,11 +787,12 @@ function startDevServer() {
                 }
 
                 data.chartList = {
-                  list: list
+                  list
                 };
                 res.send(JSON.stringify(data));
                 break;
-              case 'radar':
+              }
+              case 'radar': {
                 const namesRad = [];
                 const countsRad = [];
                 const extrasRadar = [];
@@ -795,16 +804,16 @@ function startDevServer() {
                 switch (field) {
                   case 'meetingtime':
                     labelRad = 'Общее количество отмеченных значений';
-                    for (let m of mT) {
-                      namesRad.push(m);
+                    for (let m = 0; m < mT.length; m += 1) {
+                      namesRad.push(mT[m]);
                       countsRad.push(0);
                     }
-                    for (let item of items) {
-                      const c = item.dataValues.meetingtime.split(',');
-                      for (let ci of c) {
-                        if (ci !== '') {
-                          for (let i = 0; i < namesRad.length; i += 1) {
-                            if (ci === namesRad[i]) countsRad[i] += 1;
+                    for (let i = 0; i < items.length; i += 1) {
+                      const c = items[i].dataValues.meetingtime.split(',');
+                      for (let ci = 0; ci < c.length; ci += 1) {
+                        if (c[ci] !== '') {
+                          for (let j = 0; j < namesRad.length; j += 1) {
+                            if (c[ci] === namesRad[j]) countsRad[j] += 1;
                           }
                         }
                       }
@@ -812,48 +821,48 @@ function startDevServer() {
                     break;
                   case 'forwhat':
                     labelRad = 'Общее количество отмеченных значений';
-                    for (let m of iMrks) {
-                      namesRad.push(m);
+                    for (let m = 0; m < iMrks.length; m += 1) {
+                      namesRad.push(iMrks[m]);
                       countsRad.push(0);
                     }
-                    for (let item of items) {
-                      const c = item.dataValues.forwhat.split(',');
-                      for (let ci of c) {
-                        if (ci !== '') {
-                          if (ci.split(':').length === 2) ci = iMrks[iMrks.length - 1];
-                          for (let i = 0; i < namesRad.length; i += 1) {
-                            if (ci === namesRad[i]) countsRad[i] += 1;
+                    for (let i = 0; i < items.length; i += 1) {
+                      const c = items[i].dataValues.forwhat.split(',');
+                      for (let ci = 0; ci < c.length; ci += 1) {
+                        if (c[ci] !== '') {
+                          if (c[ci].split(':').length === 2) c[ci] = iMrks[iMrks.length - 1];
+                          for (let j = 0; j < namesRad.length; j += 1) {
+                            if (c[ci] === namesRad[j]) countsRad[j] += 1;
                           }
                         }
                       }
                       if (extra === 'forwhatOther') {
-                        const oth = item.dataValues.forwhatOther;
+                        const oth = items[i].dataValues.forwhatOther;
                         extrasRadar.push(oth);
                       }
                     }
                     break;
                   case 'problems':
                     labelRad = 'Выбранные значения';
-                    for (let m of prArr) {
-                      namesRad.push(m);
+                    for (let m = 0; m < prArr.length; m += 1) {
+                      namesRad.push(prArr[m]);
                       countsRad.push(0);
                     }
-                    for (let item of items) {
-                      let c = item.dataValues.problemsExact;
+                    for (let i = 0; i < items.length; i += 1) {
+                      let c = items[i].dataValues.problemsExact;
                       if (c !== '') {
                         if (c.split(':').length === 2) c = prArr[prArr.length - 1];
                         if (c === 'Все перечисленное') {
-                          for (let i = 0; i < 3; i ++) {
-                            countsRad[i] += 1;
+                          for (let j = 0; j < 3; j += 1) {
+                            countsRad[j] += 1;
                           }
                         } else {
-                          for (let i = 0; i < namesRad.length; i += 1) {
-                            if (c === namesRad[i]) countsRad[i] += 1;
+                          for (let j = 0; j < namesRad.length; j += 1) {
+                            if (c === namesRad[j]) countsRad[j] += 1;
                           }
                         }
                       }
                       if (extra === 'problemsOther') {
-                        const oth = item.dataValues.problemsOther;
+                        const oth = items[i].dataValues.problemsOther;
                         extrasRadar.push(oth);
                       }
                     }
@@ -872,6 +881,7 @@ function startDevServer() {
                 }
                 res.send(JSON.stringify(data));
                 break;
+              }
               default:
                 break;
             }
@@ -882,7 +892,7 @@ function startDevServer() {
   });
 
   app.get('/getstatdata/:id', (req, res) => {
-    const id = req.params.id;
+    const { id } = req.params;
 
     const sequelize = new Sequelize('StreetnrollDB', 'sergey.chinkov', 'RRica29081BhA5', {
       host: 'localhost',
@@ -904,15 +914,15 @@ function startDevServer() {
       .then(() => {
         console.log('Get connection to DB established');
 
-        const answersStart    = sequelize.define('answersStart',    aS, aSettings);
+        const answersStart = sequelize.define('answersStart', aS, aSettings);
         const answersListener = sequelize.define('answersListener', aL, aSettings);
         const answersMusician = sequelize.define('answersMusician', aM, aSettings);
 
         answersStart.sync().then(() => {
           if (id < 0) {
-            answersStart.findAll().then((rows) => {
-              let data = [];
-              for (let i = 0; i < rows.length; i++) {
+            answersStart.findAll().then((rows = []) => {
+              const data = [];
+              for (let i = 0; i < rows.length; i += 1) {
                 const row = rows[i].dataValues;
                 if (row) {
                   data.push({
@@ -930,18 +940,17 @@ function startDevServer() {
               const aStart = item.dataValues;
               if (aStart.everPlayed) {
                 answersMusician.sync().then(() => {
-                  answersMusician.findById(id).then((museItem) => {
+                  answersMusician.findById(id).then((museItem = null) => {
                     res.send(JSON.stringify({
-                      aStart: aStart,
+                      aStart,
                       aMain: museItem.dataValues
                     }));
-                    return;
                   });
                 });
               } else {
-                answersListener.findById(id).then((listItem) => {
+                answersListener.findById(id).then((listItem = null) => {
                   res.send(JSON.stringify({
-                    aStart: aStart,
+                    aStart,
                     aMain: listItem.dataValues
                   }));
                 });
@@ -949,13 +958,11 @@ function startDevServer() {
             });
           }
         });
-      }
-    )
-    .catch(err => {
+      })
+      .catch((err = null) => {
         console.error('Connection Error: ', err);
         res.sendStatus(502);
-      }
-    );
+      });
   });
 
   // History api fallback
@@ -977,17 +984,19 @@ function startDevServer() {
         + '<p>' + data.help + '</p>'
     };
 
-    transporter.sendMail(mailOptions, function(error, info) {
-      if(error) {
+    transporter.sendMail(mailOptions, (error, info) => {
+      if (error) {
+        res.sendStatus(418);
         return console.log(error);
       }
 
-      console.log('Message sent: ' + info.response);
+      res.send(200);
+      return console.log('Message sent: ' + info.response);
     });
   });
 
   app.post('/send', (req, res) => {
-    const dataBase = req.body.dataBase;
+    const { dataBase } = req.body;
     const aStart = req.body.answersStart;
     const aTable = req.body.answersTable;
 
@@ -1017,91 +1026,91 @@ function startDevServer() {
 
         const answersMusician = sequelize.define(dataBase, aM, aSettings);
 
-        answersStart.sync().then(function () {
-          answersStart.findAll().then(function(rows) {
+        answersStart.sync().then(() => {
+          answersStart.findAll().then((rows = []) => {
             answersStart.create({
-              id:         rows.length,
-              city:       aStart.city,
-              age:        aStart.age,
-              gender:     aStart.gender,
-              edu:        aStart.edu,
-              eduOther:   aStart.eduOther,
-              job:        aStart.job,
+              id: rows.length,
+              city: aStart.city,
+              age: aStart.age,
+              gender: aStart.gender,
+              edu: aStart.edu,
+              eduOther: aStart.eduOther,
+              job: aStart.job,
               everPlayed: aStart.everPlayed,
-              thanks:     aStart.thanks,
-              help:       aStart.help
-            }).then(function () {
+              thanks: aStart.thanks,
+              help: aStart.help
+            }).then(() => {
               if (dataBase === 'answersListener') {
-                answersListener.sync().then(function() {
+                answersListener.sync().then(() => {
                   answersListener.create({
-                    id:         rows.length,
-                    interest:   aTable.interest,
-                    who:        aTable.who,
-                    money:      aTable.money,
-                    songs:      aTable.songs,
-                    sign:       aTable.sign,
+                    id: rows.length,
+                    interest: aTable.interest,
+                    who: aTable.who,
+                    money: aTable.money,
+                    songs: aTable.songs,
+                    sign: aTable.sign,
                     traditions: aTable.traditions,
                     experience: aTable.experience
-                  }).then(function() {
+                  }).then(() => {
                     res.sendStatus(200);
                   });
                 });
               } else if (dataBase === 'answersMusician') {
-                answersMusician.sync().then(function() {
+                answersMusician.sync().then(() => {
                   answersMusician.create({
-                    id:             rows.length,
-                    hobbie:         aTable.hobbie,
-                    hobbieOther:    aTable.hobbieOther,
-                    howlong:        aTable.howlong,
-                    rather:         aTable.rather,
-                    ratherExact:    aTable.ratherExact,
-                    why:            aTable.why,
-                    community:      aTable.community,
+                    id: rows.length,
+                    hobbie: aTable.hobbie,
+                    hobbieOther: aTable.hobbieOther,
+                    howlong: aTable.howlong,
+                    rather: aTable.rather,
+                    ratherExact: aTable.ratherExact,
+                    why: aTable.why,
+                    community: aTable.community,
                     communityExact: aTable.communityExact,
-                    official:       aTable.official,
-                    officialOther:  aTable.officialOther,
-                    wocom:          aTable.wocom,
-                    howjoin:        aTable.howjoin,
-                    cookies:        aTable.cookies,
-                    meetings:       aTable.meetings,
-                    meetingsExact:  aTable.meetingsExact,
-                    reasons:        aTable.reasons,
-                    where:          aTable.where,
-                    whywhere:       aTable.whywhere,
-                    meetingtime:    aTable.meetingtime,
-                    place:          aTable.place,
-                    descplace:      aTable.descplace,
-                    time:           aTable.time,
-                    whatplay:       aTable.whatplay,
-                    whythisplay:    aTable.whythisplay,
-                    placeplay:      aTable.placeplay,
-                    howcome:        aTable.howcome,
-                    howleave:       aTable.howleave,
-                    firstmoney:     aTable.firstmoney,
-                    talk:           aTable.talk,
-                    mascot:         aTable.mascot,
-                    mascotdesc:     aTable.mascotdesc,
-                    jargon:         aTable.jargon,
-                    specsigns:      aTable.specsigns,
-                    idmarks:        aTable.idmarks,
-                    forwhat:        aTable.forwhat,
-                    forwhatOther:   aTable.forwhatOther,
-                    celebrations:   aTable.celebrations,
-                    whatceleb:      aTable.whatceleb,
-                    relations:      aTable.relations,
-                    whobest:        aTable.whobest,
-                    events:         aTable.events,
-                    reactions:      aTable.reactions,
-                    story:          aTable.story,
-                    identity:       aTable.identity,
-                    names:          aTable.names,
-                    nameslist:      aTable.nameslist,
-                    problems:       aTable.problems,
-                    problemsExact:  aTable.problemsExact,
-                    problemsOther:  aTable.problemsOther,
-                    problemdesc:    aTable.problemdesc,
-                    solution:       aTable.solution
-                  }).then(function() {
+                    official: aTable.official,
+                    officialOther: aTable.officialOther,
+                    wocom: aTable.wocom,
+                    howjoin: aTable.howjoin,
+                    cookies: aTable.cookies,
+                    meetings: aTable.meetings,
+                    meetingsExact: aTable.meetingsExact,
+                    reasons: aTable.reasons,
+                    where: aTable.where,
+                    whywhere: aTable.whywhere,
+                    meetingtime: aTable.meetingtime,
+                    place: aTable.place,
+                    descplace: aTable.descplace,
+                    time: aTable.time,
+                    whatplay: aTable.whatplay,
+                    whythisplay: aTable.whythisplay,
+                    placeplay: aTable.placeplay,
+                    howcome: aTable.howcome,
+                    howleave: aTable.howleave,
+                    firstmoney: aTable.firstmoney,
+                    talk: aTable.talk,
+                    mascot: aTable.mascot,
+                    mascotdesc: aTable.mascotdesc,
+                    jargon: aTable.jargon,
+                    specsigns: aTable.specsigns,
+                    idmarks: aTable.idmarks,
+                    forwhat: aTable.forwhat,
+                    forwhatOther: aTable.forwhatOther,
+                    celebrations: aTable.celebrations,
+                    whatceleb: aTable.whatceleb,
+                    relations: aTable.relations,
+                    whobest: aTable.whobest,
+                    events: aTable.events,
+                    reactions: aTable.reactions,
+                    story: aTable.story,
+                    identity: aTable.identity,
+                    names: aTable.names,
+                    nameslist: aTable.nameslist,
+                    problems: aTable.problems,
+                    problemsExact: aTable.problemsExact,
+                    problemsOther: aTable.problemsOther,
+                    problemdesc: aTable.problemdesc,
+                    solution: aTable.solution
+                  }).then(() => {
                     res.sendStatus(200);
                   });
                 });
@@ -1112,7 +1121,7 @@ function startDevServer() {
           });
         });
       })
-      .catch(err => {
+      .catch((err = null) => {
         console.error('Connection Error: ', err);
         res.sendStatus(502);
       });
@@ -1155,10 +1164,13 @@ function startBuildServer() {
       subject: 'Test feedback from Street\'n\'roll build server',
       text: data.thanks + '\n' + data.help
     };
+
+    console.log(mailOptions);
+    res.send(200);
   });
 
   app.post('/send', (req, res) => {
-    const dataBase = req.body.dataBase;
+    const { dataBase } = req.body;
     const aStart = req.body.answersStart;
     const aTable = req.body.answersTable;
 
@@ -1188,91 +1200,91 @@ function startBuildServer() {
 
         const answersMusician = sequelize.define(dataBase, aM, aSettings);
 
-        answersStart.sync().then(function () {
-          answersStart.findAll().then(function(rows) {
+        answersStart.sync().then(() => {
+          answersStart.findAll().then((rows = []) => {
             answersStart.create({
-              id:         rows.length,
-              city:       aStart.city,
-              age:        aStart.age,
-              gender:     aStart.gender,
-              edu:        aStart.edu,
-              eduOther:   aStart.eduOther,
-              job:        aStart.job,
+              id: rows.length,
+              city: aStart.city,
+              age: aStart.age,
+              gender: aStart.gender,
+              edu: aStart.edu,
+              eduOther: aStart.eduOther,
+              job: aStart.job,
               everPlayed: aStart.everPlayed,
-              thanks:     aStart.thanks,
-              help:       aStart.help
-            }).then(function () {
+              thanks: aStart.thanks,
+              help: aStart.help
+            }).then(() => {
               if (dataBase === 'answersListener') {
-                answersListener.sync().then(function() {
+                answersListener.sync().then(() => {
                   answersListener.create({
-                    id:         rows.length,
-                    interest:   aTable.interest,
-                    who:        aTable.who,
-                    money:      aTable.money,
-                    songs:      aTable.songs,
-                    sign:       aTable.sign,
+                    id: rows.length,
+                    interest: aTable.interest,
+                    who: aTable.who,
+                    money: aTable.money,
+                    songs: aTable.songs,
+                    sign: aTable.sign,
                     traditions: aTable.traditions,
                     experience: aTable.experience
-                  }).then(function() {
+                  }).then(() => {
                     res.sendStatus(200);
                   });
                 });
               } else if (dataBase === 'answersMusician') {
-                answersMusician.sync().then(function() {
+                answersMusician.sync().then(() => {
                   answersMusician.create({
-                    id:             rows.length,
-                    hobbie:         aTable.hobbie,
-                    hobbieOther:    aTable.hobbieOther,
-                    howlong:        aTable.howlong,
-                    rather:         aTable.rather,
-                    ratherExact:    aTable.ratherExact,
-                    why:            aTable.why,
-                    community:      aTable.community,
+                    id: rows.length,
+                    hobbie: aTable.hobbie,
+                    hobbieOther: aTable.hobbieOther,
+                    howlong: aTable.howlong,
+                    rather: aTable.rather,
+                    ratherExact: aTable.ratherExact,
+                    why: aTable.why,
+                    community: aTable.community,
                     communityExact: aTable.communityExact,
-                    official:       aTable.official,
-                    officialOther:  aTable.officialOther,
-                    wocom:          aTable.wocom,
-                    howjoin:        aTable.howjoin,
-                    cookies:        aTable.cookies,
-                    meetings:       aTable.meetings,
-                    meetingsExact:  aTable.meetingsExact,
-                    reasons:        aTable.reasons,
-                    where:          aTable.where,
-                    whywhere:       aTable.whywhere,
-                    meetingtime:    aTable.meetingtime,
-                    place:          aTable.place,
-                    descplace:      aTable.descplace,
-                    time:           aTable.time,
-                    whatplay:       aTable.whatplay,
-                    whythisplay:    aTable.whythisplay,
-                    placeplay:      aTable.placeplay,
-                    howcome:        aTable.howcome,
-                    howleave:       aTable.howleave,
-                    firstmoney:     aTable.firstmoney,
-                    talk:           aTable.talk,
-                    mascot:         aTable.mascot,
-                    mascotdesc:     aTable.mascotdesc,
-                    jargon:         aTable.jargon,
-                    specsigns:      aTable.specsigns,
-                    idmarks:        aTable.idmarks,
-                    forwhat:        aTable.forwhat,
-                    forwhatOther:   aTable.forwhatOther,
-                    celebrations:   aTable.celebrations,
-                    whatceleb:      aTable.whatceleb,
-                    relations:      aTable.relations,
-                    whobest:        aTable.whobest,
-                    events:         aTable.events,
-                    reactions:      aTable.reactions,
-                    story:          aTable.story,
-                    identity:       aTable.identity,
-                    names:          aTable.names,
-                    nameslist:      aTable.nameslist,
-                    problems:       aTable.problems,
-                    problemsExact:  aTable.problemsExact,
-                    problemsOther:  aTable.problemsOther,
-                    problemdesc:    aTable.problemdesc,
-                    solution:       aTable.solution
-                  }).then(function() {
+                    official: aTable.official,
+                    officialOther: aTable.officialOther,
+                    wocom: aTable.wocom,
+                    howjoin: aTable.howjoin,
+                    cookies: aTable.cookies,
+                    meetings: aTable.meetings,
+                    meetingsExact: aTable.meetingsExact,
+                    reasons: aTable.reasons,
+                    where: aTable.where,
+                    whywhere: aTable.whywhere,
+                    meetingtime: aTable.meetingtime,
+                    place: aTable.place,
+                    descplace: aTable.descplace,
+                    time: aTable.time,
+                    whatplay: aTable.whatplay,
+                    whythisplay: aTable.whythisplay,
+                    placeplay: aTable.placeplay,
+                    howcome: aTable.howcome,
+                    howleave: aTable.howleave,
+                    firstmoney: aTable.firstmoney,
+                    talk: aTable.talk,
+                    mascot: aTable.mascot,
+                    mascotdesc: aTable.mascotdesc,
+                    jargon: aTable.jargon,
+                    specsigns: aTable.specsigns,
+                    idmarks: aTable.idmarks,
+                    forwhat: aTable.forwhat,
+                    forwhatOther: aTable.forwhatOther,
+                    celebrations: aTable.celebrations,
+                    whatceleb: aTable.whatceleb,
+                    relations: aTable.relations,
+                    whobest: aTable.whobest,
+                    events: aTable.events,
+                    reactions: aTable.reactions,
+                    story: aTable.story,
+                    identity: aTable.identity,
+                    names: aTable.names,
+                    nameslist: aTable.nameslist,
+                    problems: aTable.problems,
+                    problemsExact: aTable.problemsExact,
+                    problemsOther: aTable.problemsOther,
+                    problemdesc: aTable.problemdesc,
+                    solution: aTable.solution
+                  }).then(() => {
                     res.sendStatus(200);
                   });
                 });
@@ -1283,7 +1295,7 @@ function startBuildServer() {
           });
         });
       })
-      .catch(err => {
+      .catch((err = null) => {
         console.error('Connection Error: ', err);
         res.sendStatus(502);
       });
