@@ -62,7 +62,10 @@ export class PageInfo extends Component {
             showChart.push(
               React.createElement(
                 'div',
-                { className: 'chart-radar' },
+                {
+                  className: 'chart-radar',
+                  key: `page-${currentPage.id}-chart-${i}`
+                },
                 React.createElement('h1', null, question.qText),
                 React.createElement(Doughnut, {
                   data: dataCh,
