@@ -179,7 +179,7 @@ function startDevServer() {
   });
 
   app.get('/getstatbypages/:page', (req, res) => {
-    const pageNumber = req.params.page;
+    const pageNumber = parseInt(req.params.page, 10);
 
     const data = {
       id: pageNumber,
@@ -370,7 +370,8 @@ function startDevServer() {
   });
 
   app.get('/getstatbyquestion/:id/:field/:type/:extra', (req, res) => {
-    const { id, field, type, extra } = req.params;
+    const id = parseInt(req.params.id, 10);
+    const { field, type, extra } = req.params;
 
     const data = {};
 
@@ -409,7 +410,7 @@ function startDevServer() {
             } else if (id === 1) {
               const cityNames = [];
               const cityCounts = [];
-              for (let item = 0; item < items.length; items += 1) {
+              for (let item = 0; item < items.length; item += 1) {
                 const c = items[item].dataValues.city.toUpperCase();
                 let check = false;
                 for (let j = 0; j < cityNames.length; j += 1) {
