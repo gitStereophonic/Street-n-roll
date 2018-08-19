@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Slider from 'react-slick';
+// import InfiniteScroll from 'react-infinite-scroll-component';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import { Doughnut, /* Radar, HorizontalBar */ } from 'react-chartjs-2';
 import * as actions from './redux/actions';
 
 function generateColors(a = 1, count = 0) {
@@ -29,24 +31,78 @@ function generateColors(a = 1, count = 0) {
 export class PageInfo extends Component {
   static propTypes = {
     theDataPickUp: PropTypes.object.isRequired,
-    actions: PropTypes.object.isRequired,
   };
 
   render() {
+    const { currentPage } = this.props.theDataPickUp;
+
+    console.log(`CurrentPage->Id: ${currentPage.id}`);
+
+    let showChart;
+    if (currentPage.id < 0) {
+      showChart = React.createElement('p', { className: 'no-info' }, 'No info');
+    } else {
+      showChart = [];
+      for (let i = 0; i < currentPage.questions.length; i += 1) {
+        const question = currentPage.questions[i];
+        let dataCh = null;
+        switch (question.qDataType) {
+          case 'pie':
+            dataCh = {
+              labels: question.qData.labels,
+              datasets: [
+                {
+                  data: question.qData.values,
+                  backgroundColor: generateColors(0.2, question.qData.labels.length),
+                  borderColor: generateColors(1, question.qData.labels.length),
+                  borderWidth: 3,
+                },
+              ],
+            };
+            showChart.push(
+              React.createElement(
+                'div',
+                { className: 'chart-radar' },
+                React.createElement('h1', null, question.qText),
+                React.createElement(Doughnut, {
+                  data: dataCh,
+                  options: {
+                    animation: {
+                      animateScale: true,
+                    },
+                    legend: {
+                      display: true,
+                    },
+                    tooltips: {
+                      position: 'nearest',
+                    },
+                  },
+                })
+              )
+            );
+            break;
+          default:
+            break;
+        }
+      }
+    }
+
     return React.createElement(
       'div',
       { className: 'the-data-pick-up-page-info' },
       React.createElement(
         Slider,
         {
+          id: 'the-slider',
           dots: true,
           infinite: true,
-          speed: 500,
+          speed: 300,
           slidesToShow: 1,
           slidesToScroll: 1,
+          width: '100%',
+          height: '100%'
         },
-        React.createElement('div', { className: 'remove-this-shit' }, 'Pizdec'),
-        React.createElement('div', { className: 'remove-this-shit' }, 'Pizdec')
+        showChart
       )
     );
   }
