@@ -334,7 +334,9 @@ const initialState = {
       chartType: chartTypes.list,
     },
   ],
-  currentPage: {},
+  currentPage: {
+    id: -1,
+  },
   pagesCount: 0,
 
   getDataPending: false,

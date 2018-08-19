@@ -36,7 +36,7 @@ export class DataPickUp extends Component {
       React.createElement(
         'header',
         { className: 'app-header' },
-        React.createElement('h1', { className: 'app-title' }, "Welcome to Street'n'roll data pick up service for Olga")
+        React.createElement('h1', { className: 'app-title' }, "Welcome to Street'n'roll data pick up service")
       ),
       React.createElement('button', { className: 'startPickUp', onClick: this.start }, 'HEY BRO'),
       React.createElement('div', { id: 'mainField' }, currentComponent)
