@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Slider from 'react-slick';
-// import InfiniteScroll from 'react-infinite-scroll-component';
+import InfiniteScroll from 'react-infinite-scroll-component';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { Doughnut, /* Radar, HorizontalBar */ } from 'react-chartjs-2';
@@ -46,6 +46,7 @@ export class PageInfo extends Component {
       for (let i = 0; i < currentPage.questions.length; i += 1) {
         const question = currentPage.questions[i];
         let dataCh = null;
+        // let extraCh = null;
         switch (question.qDataType) {
           case 'pie':
             dataCh = {
@@ -81,6 +82,46 @@ export class PageInfo extends Component {
                     },
                   },
                 })
+              )
+            );
+            break;
+          case 'list':
+            if (question.qData.list) {
+              dataCh = [];
+              // extraCh = [];
+              for (let i = 0; i < question.qData.list.length; i += 1) {
+                dataCh.push(
+                  React.createElement(
+                    'p',
+                    { className: 'list-elem', key: i },
+                    question.qData.list[i]
+                  ));
+              }
+            }
+            showChart.push(
+              React.createElement(
+                'div',
+                {
+                  className: 'chart-list',
+                  key: `page-${currentPage.id}-chart-${i}`
+                },
+                React.createElement('h1', null, question.qText),
+                React.createElement(
+                  InfiniteScroll,
+                  {
+                    dataLength: dataCh.length,
+                    loader: React.createElement('h4', null, 'Loading...'),
+                    height: 950,
+                    endMessage: React.createElement(
+                      'p',
+                      {
+                        className: 'endline'
+                      },
+                      React.createElement('b', null, '--^--')
+                    )
+                  },
+                  dataCh
+                )
               )
             );
             break;

@@ -7,9 +7,8 @@
     padding: 10px;
   }
 
-  .slick-active {
-    
-    height: 100%;
+  .slick-slider {
+    margin-left: 30px;
   }
 
   .no-info {
@@ -22,11 +21,35 @@
     opacity: 0.3;
   }
 
-  .slick-prev, .slick-next {
-    width: 30px;
-    height: 60px;
-    background: #acc;
-    border: 1px solid;
+  .slick-prev::before, .slick-next::before {
+    color: #555;
+    font-size: 28px;
     border-radius: 5px;
+  }
+
+  .slick-prev {
+    left: 0;
+  }
+
+  .slick-next {
+    right: 0;
+  }
+
+  .slick-dots {
+    bottom: -50px;
+
+    .slick-active botton  {
+      font-size: 250px;
+    }
+  }
+
+  .list-elem {
+    padding-left: 20px;
+    padding-top: 5px;
+    font: 100% sans-serif;
+  }
+
+  .endline {
+    text-align: center;
   }
 }
