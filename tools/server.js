@@ -215,12 +215,20 @@ function startDevServer() {
       [
         { question: 'Интересует ли вас уличная музыка и ее исполнители?', fieldName: 'interest', dataType: 'radar', fixedLabels: [0, 1, 2, 3, 4, 5, 6] },
         { question: 'Кто такие, на Ваш взгляд, уличные музыканты?', fieldName: 'who', dataType: 'list' },
-        { question: 'Даете ли Вы деньги музыкантам и почему?', fieldName: 'money', dataType: 'list' },
-        { question: 'Какие песни Вам доводилось слышать в исполнении менестрелей?', fieldName: 'songs', dataType: 'list' },
+        { question: 'Даете ли Вы деньги музыкантам и почему?', fieldName: 'money', dataType: 'list' }
+      ],
+      [
+        { question: 'Какие песни Вам доводилось слышать в исполнении менестрелей?', fieldName: 'songs', dataType: 'list' }
+      ],
+      [
         { question: 'Есть ли у Вас приметы и поверья, связанные с уличными музыкантами?', fieldName: 'sign', dataType: 'list' },
-        { question: 'Известны ли Вам обычаи, распространенные среди музыкантов?', fieldName: 'traditions', dataType: 'list' },
-        { question: 'Были ли в Вашей жизни примечательные случаи, связанные с уличными музыкантами?', fieldName: 'experience', dataType: 'list' },
-        { question: '', fieldName: '', dataType: '' },
+        { question: 'Известны ли Вам обычаи, распространенные среди музыкантов?', fieldName: 'traditions', dataType: 'list' }
+      ],
+      [
+        { question: 'Были ли в Вашей жизни примечательные случаи, связанные с уличными музыкантами?', fieldName: 'experience', dataType: 'list' }
+      ],
+      [
+        { question: '', fieldName: '', dataType: '' }
       ]
     ];
 
