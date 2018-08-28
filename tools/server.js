@@ -207,10 +207,17 @@ function startDevServer() {
         { question: 'Ваш возраст', fieldName: 'age', dataType: 'pie' },
         { question: 'Ваш пол', fieldName: 'gender', dataType: 'pie' },
         { question: 'Ваше образование', fieldName: 'edu', dataType: 'pie', textExtra: 'Другое: ', fieldExtraName: 'eduOther', dataExtraType: 'list' },
-        { question: 'Ваш род занятий', fieldName: 'job', dataType: 'list' },
+        { question: 'Ваш род занятий', fieldName: 'job', dataType: 'list' }
+      ],
+      [
         { question: 'Играли ли Вы на улице', fieldName: 'everPlayed', dataType: 'pie' }
       ],
       [
+        { question: 'Интересует ли вас уличная музыка и ее исполнители?', fieldName: 'interest', dataType: 'radar', fixedLabels: [0, 1, 2, 3, 4, 5, 6] },
+        { question: 'Кто такие, на Ваш взгляд, уличные музыканты?', fieldName: 'who', dataType: 'list' },
+        { question: 'Даете ли Вы деньги музыкантам и почему?', fieldName: 'money', dataType: 'list' },
+        { question: '', fieldName: '', dataType: '' },
+        { question: '', fieldName: '', dataType: '' },
         { question: '', fieldName: '', dataType: '' }
       ]
     ];
@@ -236,6 +243,26 @@ function startDevServer() {
       return {
         values: count,
         labels: names
+      };
+    };
+
+    const countingFixedAssholes = (array = [], fixedLabels = null) => {
+      const count = [];
+      for (let i = 0; i < fixedLabels.length; i += 1) {
+        count.push(0);
+      }
+      for (let item = 0; item < array.length; item += 1) {
+        for (let i = 0; i < fixedLabels.length; i += 1) {
+          if (array[item] === fixedLabels[i]) {
+            count[i] += 1;
+            break;
+          }
+        }
+      }
+
+      return {
+        values: count,
+        labels: fixedLabels
       };
     };
 
@@ -274,7 +301,22 @@ function startDevServer() {
           break;
         case 'everPlayed':
           for (let i = 0; i < items.length; i += 1) {
-            ret.push(items[i].dataValues.everPlayed);
+            ret.push(items[i].dataValues.everPlayed ? 'Да' : 'Нет');
+          }
+          break;
+        case 'interest':
+          for (let i = 0; i < items.length; i += 1) {
+            ret.push(items[i].dataValues.interest);
+          }
+          break;
+        case 'who':
+          for (let i = 0; i < items.length; i += 1) {
+            ret.push(items[i].dataValues.who);
+          }
+          break;
+        case 'money':
+          for (let i = 0; i < items.length; i += 1) {
+            ret.push(items[i].dataValues.money);
           }
           break;
         default:
@@ -301,6 +343,9 @@ function startDevServer() {
         switch (q.dataType) {
           case 'pie':
             dt.qData = countingAllTheAssholes(arr);
+            break;
+          case 'radar':
+            dt.qData = countingFixedAssholes(arr, q.fixedLabels);
             break;
           case 'list':
             dt.qData = { list: arr };
@@ -342,7 +387,7 @@ function startDevServer() {
        *    qExtraData: { list }
        * }
        */
-      if (pageNumber === 0) {
+      if (pageNumber < 2 && pageNumber > -1) {
         const answersStart = sequelize.define('answersStart', aS, aSettings);
         answersStart.sync().then(() => {
           answersStart.findAll().then((items = []) => {
@@ -351,7 +396,7 @@ function startDevServer() {
             res.send(JSON.stringify(data));
           });
         });
-      } else if (pageNumber > 0 && pageNumber < 8) {
+      } else if (pageNumber > 1 && pageNumber < 8) {
         const answersListener = sequelize.define('answersListener', aL, aSettings);
         answersListener.sync().then(() => {
           answersListener.findAll().then((items = []) => {
