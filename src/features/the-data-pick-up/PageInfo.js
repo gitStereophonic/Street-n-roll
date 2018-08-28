@@ -4,7 +4,7 @@ import Slider from 'react-slick';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { Doughnut, /* Radar, HorizontalBar */ } from 'react-chartjs-2';
+import { Doughnut, Radar, /* HorizontalBar */ } from 'react-chartjs-2';
 import * as actions from './redux/actions';
 
 function generateColors(a = 1, count = 0) {
@@ -64,7 +64,7 @@ export class PageInfo extends Component {
               React.createElement(
                 'div',
                 {
-                  className: 'chart-radar',
+                  className: 'chart-pie',
                   key: `page-${currentPage.id}-chart-${i}`
                 },
                 React.createElement('h1', null, question.qText),
@@ -76,6 +76,43 @@ export class PageInfo extends Component {
                     },
                     legend: {
                       display: true,
+                    },
+                    tooltips: {
+                      position: 'nearest',
+                    },
+                  },
+                })
+              )
+            );
+            break;
+          case 'radar':
+            dataCh = {
+              labels: question.qData.labels,
+              datasets: [
+                {
+                  data: question.qData.values,
+                  backgroundColor: generateColors(0.2, question.qData.labels.length),
+                  borderColor: generateColors(1, question.qData.labels.length),
+                  borderWidth: 3,
+                },
+              ],
+            };
+            showChart.push(
+              React.createElement(
+                'div',
+                {
+                  className: 'chart-radar',
+                  key: `page-${currentPage.id}-chart-${i}`
+                },
+                React.createElement('h1', null, question.qText),
+                React.createElement(Radar, {
+                  data: dataCh,
+                  options: {
+                    animation: {
+                      animateScale: true,
+                    },
+                    legend: {
+                      display: false,
                     },
                     tooltips: {
                       position: 'nearest',
