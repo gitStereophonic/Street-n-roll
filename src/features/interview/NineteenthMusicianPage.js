@@ -100,6 +100,7 @@ export class NineteenthMusicianPage extends Component {
         'div',
         { className: 'qstn' },
         React.createElement('span', null, React.createElement('h3', null, 'Опишите конкретный случай')),
+        React.createElement('p', null, 'Я знаю, что вам уже надоело описывать конкретный случай, но это важно'),
         React.createElement('textarea', {
           id: 'story',
           onChange: this.handleStoryValueChanged,

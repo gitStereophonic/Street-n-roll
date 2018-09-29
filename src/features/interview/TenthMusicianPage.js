@@ -77,7 +77,7 @@ export class TenthMusicianPage extends Component {
     return React.createElement(
       'div',
       { className: 'interview-tenth-musician-page' },
-      React.createElement('h1', null, 'Сообщество'),
+      React.createElement('h1', null, 'Ура, сообщество'),
       React.createElement('p', null, 'Сообщества это круто'),
       React.createElement(
         'div',

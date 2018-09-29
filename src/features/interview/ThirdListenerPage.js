@@ -67,7 +67,7 @@ export class ThirdListenerPage extends Component {
         React.createElement(
           'span',
           null,
-          React.createElement('h3', null, 'Насколько интересует Вас уличная музыка и ее исполнители?')
+          React.createElement('h3', null, 'Интересует ли Вас уличная музыка и ее исполнители?')
         ),
         'Шли бы все эти дармоеды работать!',
         React.createElement('input', {

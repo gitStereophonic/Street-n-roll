@@ -82,6 +82,7 @@ export class FifteenthMusicianPage extends Component {
       'div',
       { className: 'interview-fifteenth-musician-page' },
       React.createElement('h1', null, 'Обычаи'),
+      React.createElement('p', null, 'Детали и особенности поведения на стриту'),
       React.createElement('img', {
         className: 'page-head-img',
         src: '../../images/fifth_img.jpg',
@@ -175,7 +176,16 @@ export class FifteenthMusicianPage extends Component {
             onChange: this.handleMascotOptionChange,
             defaultChecked: checkPoints[currentIndex].mascot === 'Нет',
           }),
-          'Нет'
+          'Нет',
+          React.createElement('br'),
+          React.createElement('input', {
+            type: 'radio',
+            name: 'mascot',
+            value: 'Это чё за вопросы стремные?',
+            onChange: this.handleMascotOptionChange,
+            defaultChecked: checkPoints[currentIndex].mascot === 'Это чё за вопросы стремные?',
+          }),
+          'Это чё за вопросы стремные?'
         )
       ),
       React.createElement(
@@ -185,7 +195,6 @@ export class FifteenthMusicianPage extends Component {
           'span',
           null,
           React.createElement('h3', null, 'Если да, опишите их?'),
-          React.createElement('h3', { className: 'must-fill' }, ' *')
         ),
         React.createElement('textarea', {
           id: 'mascotdesc',

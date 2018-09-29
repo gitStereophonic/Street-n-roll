@@ -189,7 +189,7 @@ export class SeventhMusicianPage extends Component {
         React.createElement(
           'span',
           null,
-          React.createElement('h3', null, 'Как часто Вы играете на улицах?'),
+          React.createElement('h3', null, 'Как часто?'),
           React.createElement('h3', { className: 'must-fill' }, ' *')
         ),
         React.createElement(

@@ -65,7 +65,7 @@ export class SecondPage extends Component {
         React.createElement(
           'span',
           null,
-          React.createElement('h3', null, 'Играли ли Вы когда-нибудь на улице?'),
+          React.createElement('h3', null, 'Случалось ли Вам играть на улице?'),
           React.createElement('h3', { className: 'must-fill' }, ' *')
         ),
         React.createElement(
