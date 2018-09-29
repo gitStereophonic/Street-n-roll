@@ -228,7 +228,8 @@ function startDevServer() {
         { question: 'Были ли в Вашей жизни примечательные случаи, связанные с уличными музыкантами?', fieldName: 'experience', dataType: 'list' }
       ],
       [
-        { question: '', fieldName: '', dataType: '' }
+        { question: 'Уличная музыка - это Ваше основное занятие или хобби?', fieldName: 'hobbie', dataType: 'pie', textExtra: 'Другое: ', fieldExtraName: 'hobbieOther', dataExtraType: 'list' },
+        { question: 'Как давно?', fieldName: 'howlong', dataType: 'pie' }
       ]
     ];
 
@@ -349,6 +350,16 @@ function startDevServer() {
             ret.push(items[i].dataValues.experience);
           }
           break;
+        case 'hobbie':
+          for (let i = 0; i < items.length; i += 1) {
+            ret.push(items[i].dataValues.hobbie);
+          }
+          break;
+        case 'howlong':
+          for (let i = 0; i < items.length; i += 1) {
+            ret.push(items[i].dataValues.howlong);
+          }
+          break;
         default:
           break;
       }
@@ -426,7 +437,7 @@ function startDevServer() {
             res.send(JSON.stringify(data));
           });
         });
-      } else if (pageNumber > 1 && pageNumber < 8) {
+      } else if (pageNumber > 1 && pageNumber < 6) {
         const answersListener = sequelize.define('answersListener', aL, aSettings);
         answersListener.sync().then(() => {
           answersListener.findAll().then((items = []) => {
@@ -435,8 +446,16 @@ function startDevServer() {
             res.send(JSON.stringify(data));
           });
         });
-      } else if (pageNumber >= 8 && pageNumber < 24) {
-        console.log('pageNumber >= 8 && pageNumber < 24');
+      } else if (pageNumber >= 6 && pageNumber < 24) {
+        console.log('pageNumber >= 6 && pageNumber < 24');
+        const answersMusician = sequelize.define('answersMusician', aM, aSettings);
+        answersMusician.sync().then(() => {
+          answersMusician.findAll().then((items = []) => {
+            data.questions = getPageQuestionsData(items);
+
+            res.send(JSON.stringify(data));
+          });
+        });
       } else {
         console.log(`The page number (${pageNumber}) is over the limit`);
         res.sendStatus(418);
