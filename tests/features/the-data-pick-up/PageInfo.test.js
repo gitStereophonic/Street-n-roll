@@ -1,20 +1,20 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import { expect } from 'chai';
-// import { StatByUsers } from 'src/features/the-data-pick-up/StatByUsers';
+//import { PageInfo } from 'src/features/the-data-pick-up/PageInfo';
 
-describe('the-data-pick-up/StatByUsers', () => {
+describe('the-data-pick-up/PageInfo', () => {
   it('renders node with correct class name', () => {
     const props = {
       theDataPickUp: {},
       actions: {},
     };
     // const renderedComponent = shallow(
-    //   <StatByUsers {...props} />
+      // <PageInfo {...props} />
     // );
 
     // expect(
-    //   renderedComponent.find('.the-data-pick-up-stat-by-users').getElement()
+    //   renderedComponent.find('.the-data-pick-up-page-info').getElement()
     // ).to.exist;
   });
 });

@@ -7,7 +7,7 @@ import {
 } from './constants';
 
 export function getUserInfo(args = { id: 0 }) {
-  return (dispatch) => {
+  return (dispatch = null) => {
     dispatch({
       type: THE_DATA_PICK_UP_GET_USER_INFO_BEGIN,
     });
@@ -16,38 +16,37 @@ export function getUserInfo(args = { id: 0 }) {
       const doRequest = $.ajax({
         url: `/getstatdata/${args.id}`,
         type: 'GET',
-        success: (response) => {
+        success: (response = null) => {
           if (!response) {
-            console.log('Error! I\'ve got the invalid data from DB. Halp!');
+            console.log("Error! I've got the invalid data from DB. Halp!");
           } else {
             const data = JSON.parse(response);
             if (!data) {
-              console.log('Error! I can\'t parse response. Halp!');
+              console.log("Error! I can't parse response. Halp!");
             }
           }
         },
-        error: (response) => {
+        error: (response = null) => {
           console.log('Error! Problems with request. Halp!');
           console.log(response);
-        }
+        },
       });
 
-
       doRequest.then(
-        (res) => {
+        (res = null) => {
           dispatch({
             type: THE_DATA_PICK_UP_GET_USER_INFO_SUCCESS,
             data: res,
           });
           resolve(res);
         },
-        (err) => {
+        (err = null) => {
           dispatch({
             type: THE_DATA_PICK_UP_GET_USER_INFO_FAILURE,
             data: { error: err },
           });
           reject(err);
-        },
+        }
       );
     });
 

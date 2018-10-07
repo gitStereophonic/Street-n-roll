@@ -1,5 +1,5 @@
 import React from 'react';
-import { StatByUsers } from './../';
+import { StatByUsers, StatByQuestions } from './../';
 
 const chartTypes = {
   line: 'line',
@@ -15,7 +15,7 @@ const chartTypes = {
 const initialState = {
   components: {
     users: React.createElement('div', { className: 'usersStat' }, React.createElement(StatByUsers)),
-    sum: React.createElement('div', { className: 'summaryStat' }, React.createElement('h1', null, 'ALL BTCHS!')),
+    sum: React.createElement('div', { className: 'summaryStat' }, React.createElement(StatByQuestions)),
   },
   currentComponent: React.createElement('div', { className: 'usersStat' }, React.createElement(StatByUsers)),
   startData: [],
@@ -334,6 +334,10 @@ const initialState = {
       chartType: chartTypes.list,
     },
   ],
+  currentPage: {
+    id: -1,
+  },
+  pagesCount: 0,
 
   getDataPending: false,
   getDataError: null,
@@ -341,6 +345,10 @@ const initialState = {
   getUserInfoError: null,
   getStatInfoPending: false,
   getStatInfoError: null,
+  getAllInfoPending: false,
+  getAllInfoError: null,
+  getPageInfoPending: false,
+  getPageInfoError: null,
 };
 
 export default initialState;

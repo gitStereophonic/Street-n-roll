@@ -4,48 +4,51 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import * as actions from './redux/actions';
 
-export class Users extends Component {
+export class Pages extends Component {
   static propTypes = {
     theDataPickUp: PropTypes.object.isRequired,
     actions: PropTypes.object.isRequired,
   };
 
   render() {
-    const { getUserInfo, getAllInfo } = this.props.actions;
-    const { startData, components } = this.props.theDataPickUp;
-    const usersToRender = [];
-    for (let i = 0; i < startData.length; i += 1) {
-      const everPlayed = startData[i].everPlayed === 1 ? 'player' : 'non-player';
-      usersToRender.push(
-        React.createElement(
-          'p',
-          {
-            className: `userPanel ${everPlayed}`,
-            key: startData[i].id,
-            onClick: () => {
-              getUserInfo({ id: startData[i].id });
+    const { getData, getPageInfo } = this.props.actions;
+    const { components, pagesCount } = this.props.theDataPickUp;
+    const pagesToRender = [];
+    console.log(pagesCount);
+    if (pagesCount) {
+      for (let i = 0; i < pagesCount; i += 1) {
+        pagesToRender.push(
+          React.createElement(
+            'p',
+            {
+              className: 'pageP',
+              key: `page${i}`,
+              onClick: () => {
+                getPageInfo({ pageNum: i });
+                console.log(i);
+              },
             },
-          },
-          `${startData[i].id} : ${startData[i].city} : ${startData[i].age}`
-        )
-      );
+            `Page #${i + 1}`
+          )
+        );
+      }
     }
 
     return React.createElement(
       'div',
-      { className: 'the-data-pick-up-users' },
+      { className: 'the-data-pick-up-pages' },
       React.createElement(
         'p',
         {
           className: 'statPanel',
           onClick: () => {
-            this.props.theDataPickUp.currentComponent = components.sum;
-            getAllInfo();
+            this.props.theDataPickUp.currentComponent = components.users;
+            getData();
           },
         },
-        'Summary'
+        'Respondents'
       ),
-      usersToRender
+      pagesToRender
     );
   }
 }
@@ -67,4 +70,4 @@ function mapDispatchToProps(dispatch) {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(Users);
+)(Pages);

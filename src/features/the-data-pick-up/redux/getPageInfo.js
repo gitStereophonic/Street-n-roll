@@ -1,20 +1,20 @@
 import $ from 'jquery';
 import {
-  THE_DATA_PICK_UP_GET_DATA_BEGIN,
-  THE_DATA_PICK_UP_GET_DATA_SUCCESS,
-  THE_DATA_PICK_UP_GET_DATA_FAILURE,
-  THE_DATA_PICK_UP_GET_DATA_DISMISS_ERROR,
+  THE_DATA_PICK_UP_GET_PAGE_INFO_BEGIN,
+  THE_DATA_PICK_UP_GET_PAGE_INFO_SUCCESS,
+  THE_DATA_PICK_UP_GET_PAGE_INFO_FAILURE,
+  THE_DATA_PICK_UP_GET_PAGE_INFO_DISMISS_ERROR,
 } from './constants';
 
-export function getData() {
-  return (dispatch = null) => {
+export function getPageInfo(args = { pageNum: 0 }) {
+  return (dispatch) => {
     dispatch({
-      type: THE_DATA_PICK_UP_GET_DATA_BEGIN,
+      type: THE_DATA_PICK_UP_GET_PAGE_INFO_BEGIN,
     });
 
     const promise = new Promise((resolve, reject) => {
       const doRequest = $.ajax({
-        url: '/getstatdata/-1',
+        url: `/getstatbypages/${args.pageNum}`,
         type: 'GET',
         success: (response = null) => {
           if (!response) {
@@ -33,20 +33,20 @@ export function getData() {
       });
 
       doRequest.then(
-        (res = null) => {
+        (res) => {
           dispatch({
-            type: THE_DATA_PICK_UP_GET_DATA_SUCCESS,
+            type: THE_DATA_PICK_UP_GET_PAGE_INFO_SUCCESS,
             data: res,
           });
           resolve(res);
         },
-        (err = null) => {
+        (err) => {
           dispatch({
-            type: THE_DATA_PICK_UP_GET_DATA_FAILURE,
+            type: THE_DATA_PICK_UP_GET_PAGE_INFO_FAILURE,
             data: { error: err },
           });
           reject(err);
-        }
+        },
       );
     });
 
@@ -54,44 +54,44 @@ export function getData() {
   };
 }
 
-export function dismissGetDataError() {
+export function dismissGetPageInfoError() {
   return {
-    type: THE_DATA_PICK_UP_GET_DATA_DISMISS_ERROR,
+    type: THE_DATA_PICK_UP_GET_PAGE_INFO_DISMISS_ERROR,
   };
 }
 
 export function reducer(state, action) {
   switch (action.type) {
-    case THE_DATA_PICK_UP_GET_DATA_BEGIN:
+    case THE_DATA_PICK_UP_GET_PAGE_INFO_BEGIN:
       // Just after a request is sent
       return {
         ...state,
-        getDataPending: true,
-        getDataError: null,
+        getPageInfoPending: true,
+        getPageInfoError: null,
       };
 
-    case THE_DATA_PICK_UP_GET_DATA_SUCCESS:
+    case THE_DATA_PICK_UP_GET_PAGE_INFO_SUCCESS:
       // The request is success
       return {
         ...state,
-        startData: JSON.parse(action.data),
-        getDataPending: false,
-        getDataError: null,
+        currentPage: JSON.parse(action.data),
+        getPageInfoPending: false,
+        getPageInfoError: null,
       };
 
-    case THE_DATA_PICK_UP_GET_DATA_FAILURE:
+    case THE_DATA_PICK_UP_GET_PAGE_INFO_FAILURE:
       // The request is failed
       return {
         ...state,
-        getDataPending: false,
-        getDataError: action.data.error,
+        getPageInfoPending: false,
+        getPageInfoError: action.data.error,
       };
 
-    case THE_DATA_PICK_UP_GET_DATA_DISMISS_ERROR:
+    case THE_DATA_PICK_UP_GET_PAGE_INFO_DISMISS_ERROR:
       // Dismiss the request failure error
       return {
         ...state,
-        getDataError: null,
+        getPageInfoError: null,
       };
 
     default:
