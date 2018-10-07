@@ -229,7 +229,29 @@ function startDevServer() {
       ],
       [
         { question: 'Уличная музыка - это Ваше основное занятие или хобби?', fieldName: 'hobbie', dataType: 'pie', textExtra: 'Другое: ', fieldExtraName: 'hobbieOther', dataExtraType: 'list' },
-        { question: 'Как давно?', fieldName: 'howlong', dataType: 'pie' }
+        { question: 'Как давно?', fieldName: 'howlong', dataType: 'pie' },
+        { question: 'Как часто?', fieldName: 'ratherExact', dataType: 'pie' }
+      ],
+      [
+        { question: 'Почему Вы прекратили?', fieldName: 'why', dataType: 'list' }
+      ],
+      [
+        { question: 'Есть ли в Вашем городе сообщество уличных музыкантов?', fieldName: 'communityExact', dataType: 'pie' }
+      ],
+      [
+        { question: 'Официальное?', fieldName: 'official', dataType: 'pie', textExtra: 'Другое: ', fieldExtraName: 'officialOther', dataExtraType: 'list' },
+        { question: 'Может ли уличный музыкант не состоять в сообществе?', fieldName: 'wocom', dataType: 'list' },
+        { question: 'Как в него вступить?', fieldName: 'howjoin', dataType: 'list' },
+        { question: 'Какие выгоды приобретает член сообщества?', fieldName: 'cookies', dataType: 'list' }
+      ],
+      [
+        { question: 'Собираются ли музыканты вместе в свободное от стрита время?', fieldName: 'meetingsExact', dataType: 'pie' }
+      ],
+      [
+        { question: 'По каким поводам?', fieldName: 'reasons', dataType: 'list' },
+        { question: 'Где?', fieldName: 'where', dataType: 'list' },
+        { question: 'Почему именно там?', fieldName: 'whywhere', dataType: 'list' },
+        { question: 'Когда?', fieldName: 'meetingtime', dataType: 'radar', fixedLabels: ['Утром', 'Днем', 'Вечером', 'Ночью', 'По ситуации'] }
       ]
     ];
 
@@ -358,6 +380,16 @@ function startDevServer() {
         case 'howlong':
           for (let i = 0; i < items.length; i += 1) {
             ret.push(items[i].dataValues.howlong);
+          }
+          break;
+        case 'rather':
+          for (let i = 0; i < items.length; i += 1) {
+            ret.push(items[i].dataValues.rather);
+          }
+          break;
+        case 'ratherExact':
+          for (let i = 0; i < items.length; i += 1) {
+            ret.push(items[i].dataValues.ratherExact);
           }
           break;
         default:
