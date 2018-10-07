@@ -113,6 +113,328 @@ function startBuildServer() {
 
   app.use(bodyParser.json());
 
+  app.get('/getpages', (req, res) => {
+    // do smth
+    res.send(JSON.stringify(23));
+  });
+
+  app.get('/getstatbypages/:page', (req, res) => {
+    const pageNumber = parseInt(req.params.page, 10);
+
+    const data = {
+      id: pageNumber,
+      questions: []
+    };
+
+    const sequelize = new Sequelize('StreetnrollDB', 'sergey.chinkov', 'RRica29081BhA5', {
+      host: 'localhost',
+      dialect: 'sqlite',
+
+      pool: {
+        max: 5,
+        min: 0,
+        idle: 10000
+      },
+
+      storage: path.join(__dirname, 'StreetnrollDB.db'),
+
+      operatorsAliases: false
+    });
+
+    const baseData = [
+      [
+        { question: 'Ваш город', fieldName: 'city', dataType: 'pie' },
+        { question: 'Ваш возраст', fieldName: 'age', dataType: 'pie' },
+        { question: 'Ваш пол', fieldName: 'gender', dataType: 'pie' },
+        { question: 'Ваше образование', fieldName: 'edu', dataType: 'pie', textExtra: 'Другое: ', fieldExtraName: 'eduOther', dataExtraType: 'list' },
+        { question: 'Ваш род занятий', fieldName: 'job', dataType: 'list' }
+      ],
+      [
+        { question: 'Играли ли Вы на улице', fieldName: 'everPlayed', dataType: 'pie' }
+      ],
+      [
+        { question: 'Интересует ли вас уличная музыка и ее исполнители?', fieldName: 'interest', dataType: 'radar', fixedLabels: [0, 1, 2, 3, 4, 5, 6] },
+        { question: 'Кто такие, на Ваш взгляд, уличные музыканты?', fieldName: 'who', dataType: 'list' },
+        { question: 'Даете ли Вы деньги музыкантам и почему?', fieldName: 'money', dataType: 'list' }
+      ],
+      [
+        { question: 'Какие песни Вам доводилось слышать в исполнении менестрелей?', fieldName: 'songs', dataType: 'list' }
+      ],
+      [
+        { question: 'Есть ли у Вас приметы и поверья, связанные с уличными музыкантами?', fieldName: 'sign', dataType: 'list' },
+        { question: 'Известны ли Вам обычаи, распространенные среди музыкантов?', fieldName: 'traditions', dataType: 'list' }
+      ],
+      [
+        { question: 'Были ли в Вашей жизни примечательные случаи, связанные с уличными музыкантами?', fieldName: 'experience', dataType: 'list' }
+      ],
+      [
+        { question: 'Уличная музыка - это Ваше основное занятие или хобби?', fieldName: 'hobbie', dataType: 'pie', textExtra: 'Другое: ', fieldExtraName: 'hobbieOther', dataExtraType: 'list' },
+        { question: 'Как давно?', fieldName: 'howlong', dataType: 'pie' },
+        { question: 'Как часто?', fieldName: 'ratherExact', dataType: 'pie' }
+      ],
+      [
+        { question: 'Почему Вы прекратили?', fieldName: 'why', dataType: 'list' }
+      ],
+      [
+        { question: 'Есть ли в Вашем городе сообщество уличных музыкантов?', fieldName: 'communityExact', dataType: 'pie' }
+      ],
+      [
+        { question: 'Официальное?', fieldName: 'official', dataType: 'pie', textExtra: 'Другое: ', fieldExtraName: 'officialOther', dataExtraType: 'list' },
+        { question: 'Может ли уличный музыкант не состоять в сообществе?', fieldName: 'wocom', dataType: 'list' },
+        { question: 'Как в него вступить?', fieldName: 'howjoin', dataType: 'list' },
+        { question: 'Какие выгоды приобретает член сообщества?', fieldName: 'cookies', dataType: 'list' }
+      ],
+      [
+        { question: 'Собираются ли музыканты вместе в свободное от стрита время?', fieldName: 'meetingsExact', dataType: 'pie' }
+      ],
+      [
+        { question: 'По каким поводам?', fieldName: 'reasons', dataType: 'list' },
+        { question: 'Где?', fieldName: 'where', dataType: 'list' },
+        { question: 'Почему именно там?', fieldName: 'whywhere', dataType: 'list' },
+        { question: 'Когда?', fieldName: 'meetingtime', dataType: 'radar', fixedLabels: ['Утром', 'Днем', 'Вечером', 'Ночью', 'По ситуации'] }
+      ]
+    ];
+
+    const countingAllTheAssholes = (array = []) => {
+      const names = [];
+      const count = [];
+      for (let item = 0; item < array.length; item += 1) {
+        let isHere = false;
+        for (let i = 0; i < names.length; i += 1) {
+          if (array[item] === names[i]) {
+            count[i] += 1;
+            isHere = true;
+            break;
+          }
+        }
+        if (!isHere) {
+          names.push(array[item]);
+          count.push(1);
+        }
+      }
+
+      return {
+        values: count,
+        labels: names
+      };
+    };
+
+    const countingFixedAssholes = (array = [], fixedLabels = null) => {
+      const count = [];
+      for (let i = 0; i < fixedLabels.length; i += 1) {
+        count.push(0);
+      }
+      for (let item = 0; item < array.length; item += 1) {
+        for (let i = 0; i < fixedLabels.length; i += 1) {
+          if (array[item] === fixedLabels[i]) {
+            count[i] += 1;
+            break;
+          }
+        }
+      }
+
+      return {
+        values: count,
+        labels: fixedLabels
+      };
+    };
+
+    const getArrayByField = (items = [], field = '') => {
+      const ret = [];
+      switch (field) {
+        case 'city':
+          for (let i = 0; i < items.length; i += 1) {
+            ret.push(items[i].dataValues.city);
+          }
+          break;
+        case 'age':
+          for (let i = 0; i < items.length; i += 1) {
+            ret.push(items[i].dataValues.age);
+          }
+          break;
+        case 'gender':
+          for (let i = 0; i < items.length; i += 1) {
+            ret.push(items[i].dataValues.gender);
+          }
+          break;
+        case 'edu':
+          for (let i = 0; i < items.length; i += 1) {
+            ret.push(items[i].dataValues.edu);
+          }
+          break;
+        case 'eduOther':
+          for (let i = 0; i < items.length; i += 1) {
+            ret.push(items[i].dataValues.eduOther);
+          }
+          break;
+        case 'job':
+          for (let i = 0; i < items.length; i += 1) {
+            ret.push(items[i].dataValues.job);
+          }
+          break;
+        case 'everPlayed':
+          for (let i = 0; i < items.length; i += 1) {
+            ret.push(items[i].dataValues.everPlayed ? 'Да' : 'Нет');
+          }
+          break;
+        case 'interest':
+          for (let i = 0; i < items.length; i += 1) {
+            ret.push(items[i].dataValues.interest);
+          }
+          break;
+        case 'who':
+          for (let i = 0; i < items.length; i += 1) {
+            ret.push(items[i].dataValues.who);
+          }
+          break;
+        case 'money':
+          for (let i = 0; i < items.length; i += 1) {
+            ret.push(items[i].dataValues.money);
+          }
+          break;
+        case 'songs':
+          for (let i = 0; i < items.length; i += 1) {
+            ret.push(items[i].dataValues.songs);
+          }
+          break;
+        case 'sign':
+          for (let i = 0; i < items.length; i += 1) {
+            ret.push(items[i].dataValues.sign);
+          }
+          break;
+        case 'traditions':
+          for (let i = 0; i < items.length; i += 1) {
+            ret.push(items[i].dataValues.traditions);
+          }
+          break;
+        case 'experience':
+          for (let i = 0; i < items.length; i += 1) {
+            ret.push(items[i].dataValues.experience);
+          }
+          break;
+        case 'hobbie':
+          for (let i = 0; i < items.length; i += 1) {
+            ret.push(items[i].dataValues.hobbie);
+          }
+          break;
+        case 'howlong':
+          for (let i = 0; i < items.length; i += 1) {
+            ret.push(items[i].dataValues.howlong);
+          }
+          break;
+        case 'rather':
+          for (let i = 0; i < items.length; i += 1) {
+            ret.push(items[i].dataValues.rather);
+          }
+          break;
+        case 'ratherExact':
+          for (let i = 0; i < items.length; i += 1) {
+            ret.push(items[i].dataValues.ratherExact);
+          }
+          break;
+        default:
+          break;
+      }
+
+      return ret;
+    };
+
+    const getPageQuestionsData = (items = []) => {
+      const pageRes = [];
+
+      for (let i = 0; i < baseData[pageNumber].length; i += 1) {
+        const q = baseData[pageNumber][i];
+        const dt = {
+          qText: q.question,
+          qDataType: q.dataType,
+          qData: null,
+          qExtraText: null,
+          qExtraType: null,
+          qExtraData: null
+        };
+        const arr = getArrayByField(items, q.fieldName);
+        switch (q.dataType) {
+          case 'pie':
+            dt.qData = countingAllTheAssholes(arr);
+            break;
+          case 'radar':
+            dt.qData = countingFixedAssholes(arr, q.fixedLabels);
+            break;
+          case 'list':
+            dt.qData = { list: arr };
+            break;
+          default:
+            break;
+        }
+        if (q.fieldExtraName) {
+          const extraArr = getArrayByField(items, q.fieldExtraName);
+          let cnt = 0;
+          for (let j = 0; j < extraArr.length; j += 1) {
+            const eE = extraArr[j];
+            if (eE !== '' && eE != null) {
+              extraArr[cnt] = eE;
+              cnt += 1;
+            }
+          }
+          extraArr.length = cnt;
+          dt.qExtraText = q.textExtra;
+          dt.qExtraType = q.dataExtraType;
+          dt.qExtraData = { list: extraArr };
+        }
+        pageRes.push(dt);
+      }
+      return pageRes;
+    };
+
+    sequelize.authenticate().then(() => {
+      console.log('Connection to DB established at "getstatbypages"');
+
+      /**
+       * Res data structure (data.questions[i]):
+       * {
+       *    qText: "Question text",
+       *    qDataType: pie/list/bar,
+       *    qData: { chart format },
+       *    qExtraText: "Extra question text",
+       *    qExtraType: pie/list/bar,
+       *    qExtraData: { list }
+       * }
+       */
+      if (pageNumber < 2 && pageNumber > -1) {
+        const answersStart = sequelize.define('answersStart', aS, aSettings);
+        answersStart.sync().then(() => {
+          answersStart.findAll().then((items = []) => {
+            data.questions = getPageQuestionsData(items);
+
+            res.send(JSON.stringify(data));
+          });
+        });
+      } else if (pageNumber > 1 && pageNumber < 6) {
+        const answersListener = sequelize.define('answersListener', aL, aSettings);
+        answersListener.sync().then(() => {
+          answersListener.findAll().then((items = []) => {
+            data.questions = getPageQuestionsData(items);
+
+            res.send(JSON.stringify(data));
+          });
+        });
+      } else if (pageNumber >= 6 && pageNumber < 24) {
+        console.log('pageNumber >= 6 && pageNumber < 24');
+        const answersMusician = sequelize.define('answersMusician', aM, aSettings);
+        answersMusician.sync().then(() => {
+          answersMusician.findAll().then((items = []) => {
+            data.questions = getPageQuestionsData(items);
+
+            res.send(JSON.stringify(data));
+          });
+        });
+      } else {
+        console.log(`The page number (${pageNumber}) is over the limit`);
+        res.sendStatus(418);
+      }
+    });
+  });
+
   // Get stat by question
   app.get('/getstatbyquestion/:id/:field/:type/:extra', (req, res) => {
     const { id, field, type, extra } = req.params;
