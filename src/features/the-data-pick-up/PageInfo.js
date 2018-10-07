@@ -148,7 +148,7 @@ export class PageInfo extends Component {
                   {
                     dataLength: dataCh.length,
                     loader: React.createElement('h4', null, 'Loading...'),
-                    height: 950,
+                    // height: 950,
                     endMessage: React.createElement(
                       'p',
                       {
