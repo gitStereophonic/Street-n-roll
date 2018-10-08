@@ -51,7 +51,7 @@ export class TwentyThirdMusicianPage extends Component {
       React.createElement(
         'div',
         { className: 'qstn' },
-        React.createElement('span', null, React.createElement('h3', null, 'Как вы обычно решаете эту(и) проблему(ы)? ')),
+        React.createElement('span', null, React.createElement('h3', null, 'Как вы обычно решаете эту(и) проблему(ы)?')),
         React.createElement('textarea', {
           id: 'solution',
           onChange: this.handleSolutionValueChanged,
