@@ -252,6 +252,57 @@ function startDevServer() {
         { question: 'Где?', fieldName: 'where', dataType: 'list' },
         { question: 'Почему именно там?', fieldName: 'whywhere', dataType: 'list' },
         { question: 'Когда?', fieldName: 'meetingtime', dataType: 'radar', fixedLabels: ['Утром', 'Днем', 'Вечером', 'Ночью', 'По ситуации'] }
+      ],
+      [
+        { question: 'Как выбирается место для стрита?', fieldName: 'place', dataType: 'list' },
+        { question: 'Каким должно быть это место?', fieldName: 'descplace', dataType: 'list' },
+        { question: 'Когда лучше всего играть и почему?', fieldName: 'time', dataType: 'list' }
+      ],
+      [
+        { question: 'Что вы играете?', fieldName: 'whatplay', dataType: 'list' },
+        { question: 'По какому принципу сформирован Ваш репертуар?', fieldName: 'whythisplay', dataType: 'list' },
+        { question: 'Зависит ли репертуар от места, в котором Вы играете?', fieldName: 'placeplay', dataType: 'list' }
+      ],
+      [
+        { question: 'Как Вы приходите на место?', fieldName: 'howcome', dataType: 'list' },
+        { question: 'А уходите с него?', fieldName: 'howleave', dataType: 'list' },
+        { question: 'Как принимаете первые заработанные деньги?', fieldName: 'firstmoney', dataType: 'list' },
+        { question: 'Как Вы общаетесь с людьми?', fieldName: 'talk', dataType: 'list' },
+        { question: 'Есть ли у Вас талисманы/приметы на удачу?', fieldName: 'mascot', dataType: 'pie' },
+        { question: 'Если да, опишите их?', fieldName: 'mascotdesc', dataType: 'list' }
+      ],
+      [
+        { question: 'Профессиональный жаргон', fieldName: 'jargon', dataType: 'list' },
+        { question: 'Условные знаки', fieldName: 'specsigns', dataType: 'list' },
+        { question: 'Опознавательные знаки', fieldName: 'idmarks', dataType: 'list' },
+        { question: 'Для чего это нужно?', fieldName: 'forwhat', dataType: 'radar' }
+      ],
+      [
+        { question: 'Есть ли у Вас прозвище?', fieldName: 'names', dataType: 'pie' },
+        { question: 'Если да, то какое?', fieldName: 'nameslist', dataType: 'list' }
+      ],
+      [
+        { question: 'Есть ли у уличных музыкантов "свои" праздники?', fieldName: 'celebrations', dataType: 'pie' },
+        { question: 'Если да, то какие?', fieldName: 'whatceleb', dataType: 'list' }
+      ],
+      [
+        { question: 'С какими проблемами сталкиваются уличные музыканты?', fieldName: 'problems', dataType: 'radar' }
+      ],
+      [
+        { question: 'Опишите конкретный случай', fieldName: 'problemdesc', dataType: 'list' },
+        { question: 'Как вы обычно решаете эту(и) проблему(ы)?', fieldName: 'solution', dataType: 'list' }
+      ],
+      [
+        { question: 'Как относятся друг к другу конкуренты?', fieldName: 'relations', dataType: 'list' },
+        { question: 'Как решается, кто лучше?', fieldName: 'whobest', dataType: 'list' }
+      ],
+      [
+        { question: 'На какие события откликаются музыканты?', fieldName: 'events', dataType: 'list' },
+        { question: 'Какой может быть их реакция?', fieldName: 'reactions', dataType: 'list' },
+        { question: 'Опишите конкретный случай', fieldName: 'story', dataType: 'list' }
+      ],
+      [
+        { question: 'Как по Вашему, отличаются ли музыканты Вашего города от всех остальных?', fieldName: 'identity', dataType: 'list' }
       ]
     ];
 
@@ -390,6 +441,206 @@ function startDevServer() {
         case 'ratherExact':
           for (let i = 0; i < items.length; i += 1) {
             ret.push(items[i].dataValues.ratherExact);
+          }
+          break;
+        case 'why':
+          for (let i = 0; i < items.length; i += 1) {
+            ret.push(items[i].dataValues.why);
+          }
+          break;
+        case 'communityExact':
+          for (let i = 0; i < items.length; i += 1) {
+            ret.push(items[i].dataValues.communityExact);
+          }
+          break;
+        case 'official':
+          for (let i = 0; i < items.length; i += 1) {
+            ret.push(items[i].dataValues.official);
+          }
+          break;
+        case 'wocom':
+          for (let i = 0; i < items.length; i += 1) {
+            ret.push(items[i].dataValues.wocom);
+          }
+          break;
+        case 'howjoin':
+          for (let i = 0; i < items.length; i += 1) {
+            ret.push(items[i].dataValues.howjoin);
+          }
+          break;
+        case 'cookies':
+          for (let i = 0; i < items.length; i += 1) {
+            ret.push(items[i].dataValues.cookies);
+          }
+          break;
+        case 'meetingsExact':
+          for (let i = 0; i < items.length; i += 1) {
+            ret.push(items[i].dataValues.meetingsExact);
+          }
+          break;
+        case 'reasons':
+          for (let i = 0; i < items.length; i += 1) {
+            ret.push(items[i].dataValues.reasons);
+          }
+          break;
+        case 'where':
+          for (let i = 0; i < items.length; i += 1) {
+            ret.push(items[i].dataValues.where);
+          }
+          break;
+        case 'whywhere':
+          for (let i = 0; i < items.length; i += 1) {
+            ret.push(items[i].dataValues.whywhere);
+          }
+          break;
+        case 'meetingtime':
+          for (let i = 0; i < items.length; i += 1) {
+            ret.push(items[i].dataValues.meetingtime);
+          }
+          break;
+        case 'place':
+          for (let i = 0; i < items.length; i += 1) {
+            ret.push(items[i].dataValues.place);
+          }
+          break;
+        case 'descplace':
+          for (let i = 0; i < items.length; i += 1) {
+            ret.push(items[i].dataValues.descplace);
+          }
+          break;
+        case 'time':
+          for (let i = 0; i < items.length; i += 1) {
+            ret.push(items[i].dataValues.time);
+          }
+          break;
+        case 'whatplay':
+          for (let i = 0; i < items.length; i += 1) {
+            ret.push(items[i].dataValues.whatplay);
+          }
+          break;
+        case 'whythisplay':
+          for (let i = 0; i < items.length; i += 1) {
+            ret.push(items[i].dataValues.whythisplay);
+          }
+          break;
+        case 'placeplay':
+          for (let i = 0; i < items.length; i += 1) {
+            ret.push(items[i].dataValues.placeplay);
+          }
+          break;
+        case 'howcome':
+          for (let i = 0; i < items.length; i += 1) {
+            ret.push(items[i].dataValues.howcome);
+          }
+          break;
+        case 'howleave':
+          for (let i = 0; i < items.length; i += 1) {
+            ret.push(items[i].dataValues.howleave);
+          }
+          break;
+        case 'firstmoney':
+          for (let i = 0; i < items.length; i += 1) {
+            ret.push(items[i].dataValues.firstmoney);
+          }
+          break;
+        case 'talk':
+          for (let i = 0; i < items.length; i += 1) {
+            ret.push(items[i].dataValues.talk);
+          }
+          break;
+        case 'mascot':
+          for (let i = 0; i < items.length; i += 1) {
+            ret.push(items[i].dataValues.mascot);
+          }
+          break;
+        case 'mascotdesc':
+          for (let i = 0; i < items.length; i += 1) {
+            ret.push(items[i].dataValues.mascotdesc);
+          }
+          break;
+        case 'jargon':
+          for (let i = 0; i < items.length; i += 1) {
+            ret.push(items[i].dataValues.jargon);
+          }
+          break;
+        case 'specsigns':
+          for (let i = 0; i < items.length; i += 1) {
+            ret.push(items[i].dataValues.specsigns);
+          }
+          break;
+        case 'idmarks':
+          for (let i = 0; i < items.length; i += 1) {
+            ret.push(items[i].dataValues.idmarks);
+          }
+          break;
+        case 'forwhat':
+          for (let i = 0; i < items.length; i += 1) {
+            ret.push(items[i].dataValues.forwhat);
+          }
+          break;
+        case 'names':
+          for (let i = 0; i < items.length; i += 1) {
+            ret.push(items[i].dataValues.names);
+          }
+          break;
+        case 'nameslist':
+          for (let i = 0; i < items.length; i += 1) {
+            ret.push(items[i].dataValues.nameslist);
+          }
+          break;
+        case 'celebrations':
+          for (let i = 0; i < items.length; i += 1) {
+            ret.push(items[i].dataValues.celebrations);
+          }
+          break;
+        case 'whatceleb':
+          for (let i = 0; i < items.length; i += 1) {
+            ret.push(items[i].dataValues.whatceleb);
+          }
+          break;
+        case 'problems':
+          for (let i = 0; i < items.length; i += 1) {
+            ret.push(items[i].dataValues.problems);
+          }
+          break;
+        case 'problemdesc':
+          for (let i = 0; i < items.length; i += 1) {
+            ret.push(items[i].dataValues.problemdesc);
+          }
+          break;
+        case 'solution':
+          for (let i = 0; i < items.length; i += 1) {
+            ret.push(items[i].dataValues.solution);
+          }
+          break;
+        case 'relations':
+          for (let i = 0; i < items.length; i += 1) {
+            ret.push(items[i].dataValues.relations);
+          }
+          break;
+        case 'whobest':
+          for (let i = 0; i < items.length; i += 1) {
+            ret.push(items[i].dataValues.whobest);
+          }
+          break;
+        case 'events':
+          for (let i = 0; i < items.length; i += 1) {
+            ret.push(items[i].dataValues.events);
+          }
+          break;
+        case 'reactions':
+          for (let i = 0; i < items.length; i += 1) {
+            ret.push(items[i].dataValues.reactions);
+          }
+          break;
+        case 'story':
+          for (let i = 0; i < items.length; i += 1) {
+            ret.push(items[i].dataValues.story);
+          }
+          break;
+        case 'identity':
+          for (let i = 0; i < items.length; i += 1) {
+            ret.push(items[i].dataValues.identity);
           }
           break;
         default:
