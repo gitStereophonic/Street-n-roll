@@ -1,0 +1,66 @@
+@import '../../styles/mixins';
+
+.the-data-pick-up-data-pick-up {
+  position: relative;
+  top: 300px;
+
+  #mainField {
+    opacity: 0;
+    height: 0;
+  }
+
+  .mainField-start {
+    animation: show 1s ease-in-out both;
+  }
+
+  .chart {
+    width: 70%;
+  }
+
+  @keyframes show {
+    to {
+      opacity: 1;
+      height: 100%;
+      width: 100%;
+    }
+  }
+}
+
+.the-data-pick-up-data-pick-up-start {
+  animation: start 1s ease-in-out both;
+}
+
+.hidden {
+  animation: hid 1s ease-in-out both;
+}
+
+.esc {
+  display: none;
+}
+
+.toLeft {
+  animation: toLeft 1s ease-in-out both;
+}
+
+@keyframes hid {
+  to {
+    left: -500px;
+    opacity: 0;
+  }
+}
+
+@keyframes toLeft {
+  to {
+    padding-left: 20px;
+  }
+}
+
+@keyframes start {
+  from {
+    top: 300px;
+  }
+
+  to {
+    top: 0;
+  }
+}

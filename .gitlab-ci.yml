@@ -2,7 +2,6 @@
   "image": "node:latest",
   "stages": [
     "build",
-    "test",
     "deploy"
   ],
   "cache": {
@@ -22,21 +21,21 @@
         "dev"
     ]
   },
-  "test": {
-    "stage": "test",
-    "script": [
-      "npm install node",
-      "npm install",
-      "npm test"
-    ],
-    "except": [
-      "pages"
-    ],
-    "only": [
-        "master",
-        "dev"
-    ]
-  },
+  # "test": {
+  #   "stage": "test",
+  #   "script": [
+  #     "npm install node",
+  #     "npm install",
+  #     "npm test"
+  #   ],
+  #   "except": [
+  #     "pages"
+  #   ],
+  #   "only": [
+  #       "master",
+  #       "dev"
+  #   ]
+  # },
   "pages": {
     "stage": "deploy",
     "environment": "pages",

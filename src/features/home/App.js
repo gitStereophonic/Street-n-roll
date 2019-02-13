@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import SimpleNav from '../common/SimpleNav';
+import connect from '../common/UserFeedBack';
 import routeConfig from '../../common/routeConfig';
 
 /*
@@ -18,20 +19,37 @@ export default class App extends Component {
   };
 
   render() {
-    return (
-      <div className="home-app">
-        <div className="sidebar">
-          <SimpleNav routes={routeConfig} />
-          <p className="memo">
-            Above is a simple navigation tree for you to navigate between pages,
-            it&apos;s generated from the route config so it will be auto updated
-            when you add/remove features or pages.
-          </p>
-        </div>
-        <div className="page-container">
-          {this.props.children}
-        </div>
-      </div>
+    return React.createElement(
+      'div',
+      {
+        className: 'home-app',
+      },
+      React.createElement(
+        'div',
+        {
+          className: 'sidebar',
+        },
+        React.createElement(SimpleNav, {
+          routes: routeConfig,
+        }),
+        React.createElement(
+          'p',
+          {
+            className: 'memo',
+          },
+          '@CapralPikaChu',
+          React.createElement('br'),
+          '@gitStereophonic'
+        )
+      ),
+      React.createElement(
+        'div',
+        {
+          className: 'page-container',
+        },
+        this.props.children,
+        React.createElement(connect)
+      )
     );
   }
 }

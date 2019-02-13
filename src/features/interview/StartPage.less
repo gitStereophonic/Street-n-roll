@@ -1,0 +1,56 @@
+@import '../../styles/mixins';
+
+.interview-start-page {
+  button {
+    color: grey;
+    font: 24px bold;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    border: 15px black;
+    border-radius: 100px;
+    height: 50px;
+    width: 250px;
+    cursor: pointer;
+    margin-left: 10%;
+    margin-right: 10%;
+    margin-top: 20px;
+  }
+
+  .start-img {
+    max-width: 800px;
+    border-radius: 40px;
+  }
+
+  #start-btn {
+    animation: releasebtn 1s ease-out both;
+  }
+
+  #start-btn:hover {
+    color: grey;
+    background: linear-gradient(90deg, transparent, grey, transparent) no-repeat center;
+    animation: fillbtnlin 1s ease-out both;
+  }
+
+  @keyframes fillbtnlin {
+    from {
+      background-size: 1% 100%;
+      color: grey;
+    }
+    to {
+      background-size: 100% 100%;
+      color: white;
+    }
+  }
+
+  @keyframes releasebtn {
+    from {
+      color: white;
+      background: linear-gradient(90deg, transparent, grey, transparent) no-repeat center;
+      background-size: 100% 100%;
+    }
+    to {
+      color: grey;
+      background: linear-gradient(90deg, transparent, grey, transparent) no-repeat center;
+      background-size: 0% 100%;
+    }
+  }
+}

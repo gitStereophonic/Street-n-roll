@@ -1,0 +1,61 @@
+@import '../../styles/mixins';
+
+.common-user-feed-back {
+  position: fixed;
+  right: -410px;
+  top: 20px;
+  border-radius: 20px;
+  width: 400px;
+  height: 120px;
+  background-color: #e2e4f5;
+  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+
+.successfull-panel {
+  animation: showSS 8s ease-in-out 0s 1;
+  border: #0a0 2px solid;
+}
+
+@keyframes showSS {
+  from, to { right: -410px; opacity: 0; }
+  25%, 90% { right: 10px; opacity: 0.8; }
+}
+
+.error-panel {
+  animation: showRR 120s ease-in-out 0s 1;
+  animation-fill-mode: both;
+  border: #a00 2px solid;
+}
+
+.error-panel-out {
+  animation: showOut 2s ease-in-out 0s 1;
+  animation-fill-mode: both;
+  border: #a00 2px solid;
+}
+
+@keyframes showRR {
+  from { right: -410px; opacity: 0; }
+  1%, 98% { right: 10px; opacity: 0.8; }
+}
+
+@keyframes showOut {
+  from { right: 10px; opacity: 0.8; }
+  to { right: -410px; opacity: 0; }
+}
+
+#feedback-message {
+  margin: 20px;
+}
+
+#repeat-request {
+  margin-bottom: 15px;
+  margin-right: 25px;
+  float: right;
+  border-radius: 10px;
+  font-size: 13px;
+  background: linear-gradient(90deg, #fff, #e2e4f5);
+}
+
+.hide-object {
+  display: none;
+}
